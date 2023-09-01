@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import {SesameModule} from '../../components/sesame/sesame.module';
 
 export const content: Routes = [
   {
@@ -136,5 +137,9 @@ export const content: Routes = [
   {
     path: "search-pages",
     loadChildren: () => import("../../components/others/search-result/search-result.module").then((m) => m.SearchResultModule),
+  },
+  {
+    path: "sesame",
+    loadChildren: () => import("../../components/sesame/sesame.module").then((m) => m.SesameModule),
   },
 ];

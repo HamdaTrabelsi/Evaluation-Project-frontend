@@ -37,7 +37,6 @@ export class AuthService {
      */
     set userData(user: any) {
         localStorage.setItem('user', JSON.stringify(user));
-        //console.log('user before boutique '+localStorage.setItem('userInfo', JSON.stringify(user)));
     }
 
     get userData(): any {
