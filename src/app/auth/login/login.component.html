@@ -1,0 +1,42 @@
+<div class="container-fluid p-0">
+  <div class="row">
+    <div class="col-12">
+      <div class="login-card">
+        <div>
+          <div>
+            <a class="logo" routerLink="/">
+              <img class="img-fluid for-light" src="assets/images/logo/logo.png" alt="looginpage" />
+              <img class="img-fluid for-dark" src="assets/images/logo/logo_dark.png" alt="looginpage" />
+            </a>
+          </div>
+          <div class="login-main">
+            <form class="theme-form" [formGroup]="loginForm">
+              <h4>Connectez vous</h4>
+              <p>Entrez votre adresse mail et mot de passe</p>
+              <div class="form-group">
+                <label class="col-form-label">Adresse mail</label>
+                <input class="form-control" type="email" required="" placeholder="email@mail.com" formControlName="email" />
+                <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required" class="text text-danger mt-1">Email is required</div>
+                <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.email" class="text text-danger mt-1">Invalid Email</div>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Mot de passe</label>
+                <input class="form-control" [type]="show ? 'text' : 'mot de passe'" formControlName="password" required="" placeholder="*********" />
+                <div class="show-hide" (click)="showPassword()" *ngIf="!show"><span class="show"></span></div>
+                <div class="show-hide" (click)="showPassword()" *ngIf="show"><span class="Hide"></span></div>
+                <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required" class="text text-danger mt-1">Le mot de passe est requis</div>
+              </div>
+              <div class="form-group mb-0">
+
+                <div class="text-end mt-3">
+                  <button class="btn btn-primary d-block w-100" [disabled]="!loginForm.valid" (click)="login()" type="button"><span>Connexion</span></button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
