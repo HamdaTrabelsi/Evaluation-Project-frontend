@@ -28,10 +28,10 @@
                         <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                              aria-labelledby="top-home-tab">
                             <div class="row">
-
+                                <ng-container *ngFor="let classe of classes">
                                 <div class="col-xl-4 col-lg-6">
                                     <div class="project-box"><!--<span class="badge badge-primary">Doing</span>-->
-                                        <h6>Ing4C</h6>
+                                        <h6>{{classe.nom}}</h6>
                                         <div class="media"><img class="img-20 me-1 rounded-circle"
                                                                 src="assets/images/user/3.jpg" alt=""
                                                                 data-original-title="" title="">
@@ -39,34 +39,13 @@
                                                 <p>Crée le : 14/08/2023</p>
                                             </div>
                                         </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                            ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                                            eu fugiat nulla pariatur.</p>
-                                        <div class="row details">
+                                            <p>Departement : Informatique</p>
+                                            <p>Année Universitaire : 2022/2023</p>
+                                        <div class="row details mt-2">
                                             <div class="col-6"><span>Etudiants </span></div>
                                             <div class="col-6 font-primary">30</div>
                                             <div class="col-6"><span>Enseignants</span></div>
                                             <div class="col-6 font-primary">6</div>
-                                        </div>
-                                        <div class="customers">
-                                            <ul>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/3.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/5.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/1.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block ms-2">
-                                                    <p class="f-12">+10 More</p>
-                                                </li>
-                                            </ul>
                                         </div>
                                         <!--                                                                                <div class="project-status mt-4">-->
                                         <!--                                                                                    <div class="media mb-0">-->
@@ -79,211 +58,7 @@
                                         <!--                                                                                </div>-->
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-6">
-                                    <div class="project-box"><!--<span class="badge badge-primary">Doing</span>-->
-                                        <h6>Ing5A</h6>
-                                        <div class="media"><img class="img-20 me-1 rounded-circle"
-                                                                src="assets/images/user/3.jpg" alt=""
-                                                                data-original-title="" title="">
-                                            <div class="media-body">
-                                                <p>Crée le : 10/09/2023</p>
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                            ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                                            eu fugiat nulla pariatur.</p>
-                                        <div class="row details">
-                                            <div class="col-6"><span>Etudiants </span></div>
-                                            <div class="col-6 font-primary">25</div>
-                                            <div class="col-6"><span>Enseignants</span></div>
-                                            <div class="col-6 font-primary">4</div>
-                                        </div>
-                                        <div class="customers">
-                                            <ul>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/3.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/5.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/1.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block ms-2">
-                                                    <p class="f-12">+10 de plus</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6">
-                                    <div class="project-box"><!--<span class="badge badge-primary">Doing</span>-->
-                                        <h6>Ing5A</h6>
-                                        <div class="media"><img class="img-20 me-1 rounded-circle"
-                                                                src="assets/images/user/3.jpg" alt=""
-                                                                data-original-title="" title="">
-                                            <div class="media-body">
-                                                <p>Crée le : 10/09/2023</p>
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                            ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                                            eu fugiat nulla pariatur.</p>
-                                        <div class="row details">
-                                            <div class="col-6"><span>Etudiants </span></div>
-                                            <div class="col-6 font-primary">25</div>
-                                            <div class="col-6"><span>Enseignants</span></div>
-                                            <div class="col-6 font-primary">4</div>
-                                        </div>
-                                        <div class="customers">
-                                            <ul>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/3.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/5.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/1.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block ms-2">
-                                                    <p class="f-12">+10 de plus</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6">
-                                    <div class="project-box"><!--<span class="badge badge-primary">Doing</span>-->
-                                        <h6>Ing5A</h6>
-                                        <div class="media"><img class="img-20 me-1 rounded-circle"
-                                                                src="assets/images/user/3.jpg" alt=""
-                                                                data-original-title="" title="">
-                                            <div class="media-body">
-                                                <p>Crée le : 10/09/2023</p>
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                            ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                                            eu fugiat nulla pariatur.</p>
-                                        <div class="row details">
-                                            <div class="col-6"><span>Etudiants </span></div>
-                                            <div class="col-6 font-primary">25</div>
-                                            <div class="col-6"><span>Enseignants</span></div>
-                                            <div class="col-6 font-primary">4</div>
-                                        </div>
-                                        <div class="customers">
-                                            <ul>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/3.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/5.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/1.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block ms-2">
-                                                    <p class="f-12">+10 de plus</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6">
-                                    <div class="project-box"><!--<span class="badge badge-primary">Doing</span>-->
-                                        <h6>Ing5A</h6>
-                                        <div class="media"><img class="img-20 me-1 rounded-circle"
-                                                                src="assets/images/user/3.jpg" alt=""
-                                                                data-original-title="" title="">
-                                            <div class="media-body">
-                                                <p>Crée le : 10/09/2023</p>
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                            ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                                            eu fugiat nulla pariatur.</p>
-                                        <div class="row details">
-                                            <div class="col-6"><span>Etudiants </span></div>
-                                            <div class="col-6 font-primary">25</div>
-                                            <div class="col-6"><span>Enseignants</span></div>
-                                            <div class="col-6 font-primary">4</div>
-                                        </div>
-                                        <div class="customers">
-                                            <ul>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/3.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/5.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/1.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block ms-2">
-                                                    <p class="f-12">+10 de plus</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6">
-                                    <div class="project-box"><!--<span class="badge badge-primary">Doing</span>-->
-                                        <h6>Ing5A</h6>
-                                        <div class="media"><img class="img-20 me-1 rounded-circle"
-                                                                src="assets/images/user/3.jpg" alt=""
-                                                                data-original-title="" title="">
-                                            <div class="media-body">
-                                                <p>Crée le : 10/09/2023</p>
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                            ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                                            eu fugiat nulla pariatur.</p>
-                                        <div class="row details">
-                                            <div class="col-6"><span>Etudiants </span></div>
-                                            <div class="col-6 font-primary">25</div>
-                                            <div class="col-6"><span>Enseignants</span></div>
-                                            <div class="col-6 font-primary">4</div>
-                                        </div>
-                                        <div class="customers">
-                                            <ul>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/3.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/5.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block"><img class="img-30 rounded-circle"
-                                                                                src="assets/images/user/1.jpg" alt=""
-                                                                                data-original-title="" title=""></li>
-                                                <li class="d-inline-block ms-2">
-                                                    <p class="f-12">+10 de plus</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                </ng-container>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">

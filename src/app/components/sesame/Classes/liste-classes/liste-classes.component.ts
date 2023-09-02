@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import {Departement} from '../../../../shared/model/departement.model';
-import {DepartementService} from '../../../../shared/services/departement.service';
 import {MatDialog} from '@angular/material/dialog';
-import {AjouterDepartementComponent} from '../../Departements/ajouter-departement/ajouter-departement.component';
 import {ClasseService} from '../../../../shared/services/classe.service';
 import {Classe} from '../../../../shared/model/classe.model';
+import {AjouterClasseComponent} from '../ajouter-classe/ajouter-classe.component';
 
 @Component({
   selector: 'app-liste-classes',
@@ -25,6 +23,7 @@ export class ListeClassesComponent {
   getAllClasses() {
     this.classeService.getAll().subscribe(
         success => {
+          this.classes =success
           console.log(success)
         }
     )
@@ -32,11 +31,11 @@ export class ListeClassesComponent {
 
   ajouterClasse(): void {
     // Open the dialog
-  //   const dialogRef = this._matDialog.open();
-  //
-  //   dialogRef.afterClosed()
-  //       .subscribe((result) => {
-  //         //this.getListeDemande();
-  //       });
+    const dialogRef = this._matDialog.open(AjouterClasseComponent);
+
+    dialogRef.afterClosed()
+        .subscribe((result) => {
+          this.getAllClasses();
+        });
   }
 }

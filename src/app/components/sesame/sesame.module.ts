@@ -8,6 +8,7 @@ import { AjouterDepartementComponent } from './Departements/ajouter-departement/
 import { ListeClassesComponent } from './Classes/liste-classes/liste-classes.component';
 import { ListeutilisateursComponent } from './utilisateurs/listeutilisateurs/listeutilisateurs.component';
 import { AjouterUtilisateurComponent } from './utilisateurs/ajouter-utilisateur/ajouter-utilisateur.component';
+import { AjouterClasseComponent } from './Classes/ajouter-classe/ajouter-classe.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { AjouterUtilisateurComponent } from './utilisateurs/ajouter-utilisateur/
         ListeClassesComponent,
         ListeutilisateursComponent,
         AjouterUtilisateurComponent,
+        AjouterClasseComponent,
     ],
     imports: [
         CommonModule,

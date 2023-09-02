@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Ajouter une Classe</h1>
+
+<mat-dialog-content class="mat-typography mt-2">
+    <div>
+        <form [formGroup]="classeForm">
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Nom</h6>
+                <input [formControlName]="'nom'" class="form-control" type="text" required>
+
+                <mat-error *ngIf="classeForm.get('nom').hasError('required') && classeForm.get('nom').touched">
+                    Le nom du departement est requis
+                </mat-error>
+            </div>
+
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="ajouterClasse()">Ajouter</button>
+    </div>
+</mat-dialog-content>

@@ -9,7 +9,7 @@ import {Classe} from '../model/classe.model';
 })
 export class ClasseService {
 
-    private url: string = "http://localhost:8080/api/classe";
+    private url: string = "http://localhost:8081/api/classe";
     constructor(private httpClient: HttpClient,
                 private _AuthService: AuthService) { }
 

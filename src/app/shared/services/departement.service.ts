@@ -9,7 +9,7 @@ import {Departement} from '../model/departement.model';
   })
   export class DepartementService {
   
-    private url: string = "http://localhost:8080/api/departement";
+    private url: string = "http://localhost:8081/api/departement";
     constructor(private httpClient: HttpClient,
       private _AuthService: AuthService) { }
   

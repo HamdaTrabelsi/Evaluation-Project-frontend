@@ -24,6 +24,8 @@ export class ListeDepartementsComponent implements OnInit{
   getAllDepartements() {
     this.departementService.getAll().subscribe(
         success => {
+            this.departements = success
+          console.log("new list")
           console.log(success)
         }
     )
@@ -35,7 +37,7 @@ export class ListeDepartementsComponent implements OnInit{
 
     dialogRef.afterClosed()
         .subscribe((result) => {
-          //this.getListeDemande();
+          this.getAllDepartements();
         });
   }
 }

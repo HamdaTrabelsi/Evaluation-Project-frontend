@@ -64,7 +64,7 @@ export class AuthService {
             return throwError('User is already logged in.');
         }
 
-        return this._httpClient.post('http://localhost:8080/api/auth/signin', credentials).pipe(
+        return this._httpClient.post('http://localhost:8081/api/auth/signin', credentials).pipe(
             switchMap((response: any) => {
 
                 //console.log(" response "+response.accessToken)
@@ -92,6 +92,7 @@ export class AuthService {
     signOut(): Observable<any> {
         // Remove the access token from the local storage
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('jwt_token');
         localStorage.removeItem('user');
 
         // Set the authenticated flag to false
