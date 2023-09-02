@@ -29,11 +29,9 @@ export class ListeDepartementsComponent implements OnInit{
     )
   }
 
-  ajouterDepartement(id: string,field:string,fieldname:string): void {
+  ajouterDepartement(): void {
     // Open the dialog
-    const dialogRef = this._matDialog.open(AjouterDepartementComponent, {
-      data: { id: id, field:field,fieldname:fieldname }
-    });
+    const dialogRef = this._matDialog.open(AjouterDepartementComponent);
 
     dialogRef.afterClosed()
         .subscribe((result) => {

@@ -1,1 +1,29 @@
-<p>ajouter-departement works!</p>
+<h1 mat-dialog-title>Ajouter un departement</h1>
+
+<mat-dialog-content class="mat-typography mt-2">
+    <div>
+        <form [formGroup]="departementForm">
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Nom</h6>
+                <input [formControlName]="'nom'" class="form-control" type="text" required>
+
+                <mat-error *ngIf="departementForm.get('nom').hasError('required') && departementForm.get('nom').touched">
+                    Le nom du departement est requis
+                </mat-error>
+            </div>
+
+            <div class="mb-3">
+                <h6 class="form-label">Description</h6>
+                <textarea class="form-control" rows="5" [formControlName]="'description'" required></textarea>
+
+                <mat-error *ngIf="departementForm.get('description').hasError('required') && departementForm.get('description').touched">
+                    La description est requise
+                </mat-error>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="ajouterdepartement()">Ajouter</button>
+    </div>
+</mat-dialog-content>

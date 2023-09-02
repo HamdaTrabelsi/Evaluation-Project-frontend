@@ -5,12 +5,18 @@ import {SesameRoutingModule} from './sesame-routing.module';
 import {SharedModule} from '../../shared/shared.module';
 import {NgxDropzoneModule} from 'ngx-dropzone';
 import { AjouterDepartementComponent } from './Departements/ajouter-departement/ajouter-departement.component';
+import { ListeClassesComponent } from './Classes/liste-classes/liste-classes.component';
+import { ListeutilisateursComponent } from './utilisateurs/listeutilisateurs/listeutilisateurs.component';
+import { AjouterUtilisateurComponent } from './utilisateurs/ajouter-utilisateur/ajouter-utilisateur.component';
 
 
 @NgModule({
     declarations: [
         ListeDepartementsComponent,
         AjouterDepartementComponent,
+        ListeClassesComponent,
+        ListeutilisateursComponent,
+        AjouterUtilisateurComponent,
     ],
     imports: [
         CommonModule,

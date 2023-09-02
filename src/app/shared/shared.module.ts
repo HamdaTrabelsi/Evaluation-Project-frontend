@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DragulaModule } from "ng2-dragula";
 import { TranslateModule } from "@ngx-translate/core";
+import {MatButtonModule} from '@angular/material/button';
+
 // Components
 import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
 import { CustomizerComponent } from "./components/customizer/customizer.component";
@@ -42,6 +44,22 @@ import { CarouselModule } from "ngx-owl-carousel-o";
 import { SwiperModule } from "swiper/angular";
 import { SwiperComponent } from './components/header/elements/swiper/swiper.component';
 import {AuthModule} from './auth/auth.module'
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatRippleModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatCardModule} from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSortModule} from '@angular/material/sort';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTableModule} from '@angular/material/table';
+import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -70,8 +88,46 @@ import {AuthModule} from './auth/auth.module'
     SvgIconComponent,
     SwiperComponent,
   ],
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, DragulaModule.forRoot(), TranslateModule.forRoot(), CarouselModule, SwiperModule, AuthModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, DragulaModule.forRoot(), TranslateModule.forRoot(), CarouselModule, SwiperModule, AuthModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatIconModule,
+    TextFieldModule,
+    MatButtonModule,
+    MatCardModule,
+    MatMenuModule,
+    MatTabsModule,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatSidenavModule,
+    MatProgressBarModule,
+    MatDividerModule,
+    MatButtonToggleModule,
+
+  ],
   providers: [NavService, ChatService, LayoutService, TableService, DecimalPipe],
-  exports: [NgbModule, FormsModule, ReactiveFormsModule, TranslateModule, LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, SwiperModule],
+  exports: [NgbModule, FormsModule, ReactiveFormsModule, TranslateModule, LoaderComponent, BreadcrumbComponent, FeatherIconsComponent, TapToTopComponent, DisableKeyPressDirective, OnlyAlphabetsDirective, OnlyNumbersDirective, NgbdSortableHeader, SvgIconComponent, SwiperModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatIconModule,
+    TextFieldModule,
+    MatButtonModule,
+    MatCardModule,
+    MatMenuModule,
+    MatTabsModule,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatSidenavModule,
+    MatProgressBarModule,
+    MatDividerModule,
+    MatButtonToggleModule,
+
+  ],
 })
 export class SharedModule {}

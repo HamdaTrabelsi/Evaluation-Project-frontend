@@ -1,0 +1,130 @@
+<app-breadcrumb [title]="'Ajouter utilisateur'" ></app-breadcrumb>
+<div class="container-fluid">
+    <div class="edit-profile">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Informations de connexion</h4>
+                        <div class="card-options">
+                            <a class="card-options-collapse" href="javascript:void(0)" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="javascript:void(0)" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="myProfile">
+                            <div class="row mb-2">
+                                <div class="col-auto"><img class="img-70 rounded-circle" alt="" src="assets/images/user/7.jpg" /></div>
+<!--                                <div class="col">-->
+<!--                                    <h3 class="mb-1">MARK JECNO</h3>-->
+<!--                                    <p class="mb-4">DESIGNER</p>-->
+<!--                                </div>-->
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="form-label">Bio</h6>
+                                <textarea class="form-control" rows="5" formControlName="bio"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Adresse Email</label>
+                                <input class="form-control" placeholder="your-email@domain.com" formControlName="email" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Mot de passe</label>
+                                <input class="form-control" type="password" value="password" formControlName="password" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">LinkedIn</label>
+                                <input class="form-control" placeholder="http://Uplor.com" formControlName="website" />
+                            </div>
+                            <div class="form-footer">
+                                <button class="btn btn-primary d-block w-100 me-1">Sauvegarder</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <form class="card" [formGroup]="editProfile">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Informations supplémentaires</h4>
+                        <div class="card-options">
+                            <a class="card-options-collapse" href="javascript:void(0)" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="javascript:void(0)" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="mb-3">
+                                    <label class="form-label">Departement</label>
+                                    <input class="form-control" type="text" placeholder="Company" formControlName="company" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Identifiant</label>
+                                    <input class="form-control" type="text" placeholder="Username" formControlName="userName" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Adresse mail</label>
+                                    <input class="form-control" type="email" placeholder="Email" formControlName="email" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Prénom</label>
+                                    <input class="form-control" type="text" placeholder="First Name" formControlName="firstName" onlyAlphabets />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Nom</label>
+                                    <input class="form-control" type="text" placeholder="Last Name" formControlName="lastName" onlyAlphabets />
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Adresse</label>
+                                    <input class="form-control" type="text" placeholder="Home Address" formControlName="address" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Adresse</label>
+                                    <input class="form-control" type="text" placeholder="City" formControlName="city" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Code Postal</label>
+                                    <input class="form-control" type="text" placeholder="ZIP Code" formControlName="zipCode" onlyNumbers />
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="mb-3">
+                                    <label class="form-label">Pays</label>
+                                    <select class="form-control">
+                                        <option disabled selected>--Select--</option>
+                                        <option value="1">Germany</option>
+                                        <option value="2">Canada</option>
+                                        <option value="3">Usa</option>
+                                        <option value="4">Aus</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="mb-3 mb-0">
+                                    <label class="form-label">A propos</label>
+                                    <textarea class="form-control" rows="5" placeholder="Enter About your description" formControlName="about"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
