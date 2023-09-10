@@ -9,6 +9,7 @@ import { ListeClassesComponent } from './Classes/liste-classes/liste-classes.com
 import { ListeutilisateursComponent } from './utilisateurs/listeutilisateurs/listeutilisateurs.component';
 import { AjouterUtilisateurComponent } from './utilisateurs/ajouter-utilisateur/ajouter-utilisateur.component';
 import { AjouterClasseComponent } from './Classes/ajouter-classe/ajouter-classe.component';
+import { ModifierUtilisateurComponent } from './utilisateurs/modifier-utilisateur/modifier-utilisateur.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { AjouterClasseComponent } from './Classes/ajouter-classe/ajouter-classe.
         ListeutilisateursComponent,
         AjouterUtilisateurComponent,
         AjouterClasseComponent,
+        ModifierUtilisateurComponent,
     ],
     imports: [
         CommonModule,

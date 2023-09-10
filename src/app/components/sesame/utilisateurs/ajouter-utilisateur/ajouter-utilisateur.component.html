@@ -1,4 +1,5 @@
 <app-breadcrumb [title]="'Ajouter utilisateur'" ></app-breadcrumb>
+<ngb-alert *ngIf="errorMessage!=''" type="danger" [dismissible]="true" >Cette Adresse email est deja utilisé</ngb-alert>
 <div class="container-fluid">
     <div class="edit-profile">
         <div class="row">
@@ -11,7 +12,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="myProfile">
+                        <form [formGroup]="creationForm">
                             <div class="row mb-2">
                                 <div class="col-auto"><img class="img-70 rounded-circle" alt="" src="assets/images/user/7.jpg" /></div>
 <!--                                <div class="col">-->
@@ -20,30 +21,29 @@
 <!--                                </div>-->
                             </div>
                             <div class="mb-3">
-                                <h6 class="form-label">Bio</h6>
-                                <textarea class="form-control" rows="5" formControlName="bio"></textarea>
+                                <label class="form-label">Adresse Email *</label>
+                                <input class="form-control" placeholder="your-email@domain.com" formControlName="email" required/>
+                                <div *ngIf="creationForm.controls.email.touched && creationForm.controls.email.errors?.required" class="text text-danger mt-1">Adresse email requise</div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Adresse Email</label>
-                                <input class="form-control" placeholder="your-email@domain.com" formControlName="email" />
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Mot de passe</label>
-                                <input class="form-control" type="password" value="password" formControlName="password" />
+                                <label class="form-label">Mot de passe *</label>
+                                <input class="form-control" type="password" value="password" formControlName="password" required/>
+                                <div *ngIf="creationForm.controls.password.touched && creationForm.controls.password.errors?.required" class="text text-danger mt-1">Le mot de passe est requis</div>
+
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">LinkedIn</label>
-                                <input class="form-control" placeholder="http://Uplor.com" formControlName="website" />
+                                <input class="form-control" placeholder="http://linkedin.com" formControlName="linkedIn" />
                             </div>
-                            <div class="form-footer">
-                                <button class="btn btn-primary d-block w-100 me-1">Sauvegarder</button>
-                            </div>
+<!--                            <div class="form-footer">-->
+<!--                                <button class="btn btn-primary d-block w-100 me-1">Sauvegarder</button>-->
+<!--                            </div>-->
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col-xl-8">
-                <form class="card" [formGroup]="editProfile">
+                <form class="card" [formGroup]="creationForm">
                     <div class="card-header">
                         <h4 class="card-title mb-0">Informations supplémentaires</h4>
                         <div class="card-options">
@@ -52,76 +52,76 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-5">
+
+                            <div class="col-sm-6 col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label">Departement</label>
-                                    <input class="form-control" type="text" placeholder="Company" formControlName="company" />
+                                    <label class="form-label">Role *</label>
+                                    <select class="form-control" formControlName="role" (change)="changeRole($event.target)" required>
+                                        <option value="ROLE_ADMIN">Administrateur</option>
+                                        <option value="ROLE_SUPER_ADMIN">Super Admin</option>
+                                        <option value="ROLE_ENSEIGNANT">Enseignant</option>
+                                        <option value="ROLE_ETUDIANT">Etudiant</option>
+                                    </select>
+                                    <div *ngIf="creationForm.controls.role.touched && creationForm.controls.role.errors?.required" class="text text-danger mt-1">Le role est requis</div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-md-4" *ngIf="!isStudent">
                                 <div class="mb-3">
-                                    <label class="form-label">Identifiant</label>
-                                    <input class="form-control" type="text" placeholder="Username" formControlName="userName" />
+                                    <label class="form-label">Classe</label>
+                                    <input class="form-control" type="text" placeholder="Classe" formControlName="classe"  readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="isStudent">
+                                <div class="mb-3">
+                                    <label class="form-label">Classe *</label>
+                                    <select class="form-control" placeholder="Classe" formControlName="classe" (change)="changeClasse($event.target)" required>
+                                        <option *ngFor="let classe of classesList" [value]="classe.id">{{classe.nom}}</option>
+                                    </select>
+                                    <div *ngIf="creationForm.controls.classe.touched && creationForm.controls.classe.errors?.required" class="text text-danger mt-1">La classe est requise</div>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label">Adresse mail</label>
-                                    <input class="form-control" type="email" placeholder="Email" formControlName="email" />
+                                    <label class="form-label">Identifiant Unique *</label>
+                                    <input class="form-control" type="text" placeholder="ID" formControlName="identifiant" />
+                                    <div *ngIf="creationForm.controls.identifiant.touched && creationForm.controls.identifiant.errors?.required" class="text text-danger mt-1">L'identifiant est requis</div>
                                 </div>
                             </div>
+
                             <div class="col-sm-6 col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Prénom</label>
-                                    <input class="form-control" type="text" placeholder="First Name" formControlName="firstName" onlyAlphabets />
+                                    <input class="form-control" type="text" placeholder="First Name" formControlName="prenom" onlyAlphabets />
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Nom</label>
-                                    <input class="form-control" type="text" placeholder="Last Name" formControlName="lastName" onlyAlphabets />
+                                    <input class="form-control" type="text" placeholder="Last Name" formControlName="nom" onlyAlphabets />
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-sm-6 col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Adresse</label>
-                                    <input class="form-control" type="text" placeholder="Home Address" formControlName="address" />
+                                    <input class="form-control" type="text" placeholder="Adresse" formControlName="address" />
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Adresse</label>
-                                    <input class="form-control" type="text" placeholder="City" formControlName="city" />
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-6 col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Code Postal</label>
-                                    <input class="form-control" type="text" placeholder="ZIP Code" formControlName="zipCode" onlyNumbers />
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="mb-3">
-                                    <label class="form-label">Pays</label>
-                                    <select class="form-control">
-                                        <option disabled selected>--Select--</option>
-                                        <option value="1">Germany</option>
-                                        <option value="2">Canada</option>
-                                        <option value="3">Usa</option>
-                                        <option value="4">Aus</option>
-                                    </select>
+                                    <input class="form-control" type="text" placeholder="Code Postal" formControlName="codePostal" />
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3 mb-0">
                                     <label class="form-label">A propos</label>
-                                    <textarea class="form-control" rows="5" placeholder="Enter About your description" formControlName="about"></textarea>
+                                    <textarea class="form-control" rows="5" placeholder="Une petite description" formControlName="description"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-end">
-                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                        <button class="btn btn-primary" type="submit" [disabled]="creationForm.invalid" (click)="createUser()">Enregistrer</button>
                     </div>
                 </form>
             </div>

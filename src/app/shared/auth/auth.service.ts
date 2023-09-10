@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from './auth.utils';
+import {Utilisateur} from '../model/utilisateur.model';
+import {Classe} from '../model/classe.model';
 
 @Injectable()
 export class AuthService {
 
     private _authenticated: boolean = false;
+    private url: string = "http://localhost:8081/api/auth";
 
     /**
      * Constructor
@@ -84,6 +87,10 @@ export class AuthService {
                 return of(response);
             })
         );
+    }
+
+    addUser(_user: Utilisateur): Observable<any> {
+        return this._httpClient.post(this.url + "/signup", _user)
     }
 
     /**

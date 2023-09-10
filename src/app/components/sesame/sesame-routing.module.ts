@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 import {ListeClassesComponent} from './Classes/liste-classes/liste-classes.component';
 import {ListeutilisateursComponent} from './utilisateurs/listeutilisateurs/listeutilisateurs.component';
 import {AjouterUtilisateurComponent} from './utilisateurs/ajouter-utilisateur/ajouter-utilisateur.component';
+import {ModifierUtilisateurComponent} from './utilisateurs/modifier-utilisateur/modifier-utilisateur.component';
 
 const routes: Routes = [
     {
@@ -34,6 +35,10 @@ const routes: Routes = [
             {
                 path: 'ajout',
                 component: AjouterUtilisateurComponent
+            },
+            {
+                path: 'modifier/:id',
+                component: ModifierUtilisateurComponent
             },
         ]
     }
