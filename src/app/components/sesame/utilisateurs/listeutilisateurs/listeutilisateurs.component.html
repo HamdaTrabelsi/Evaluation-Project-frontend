@@ -31,29 +31,29 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Image</th>
+                                    <th scope="col">Identifiant</th>
                                     <th scope="col">Prénom</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Date de création</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr *ngFor="let user of users; index as i">
                                     <td>
-                                        <img [src]="user.imageUrl" class="me-2 img-fluid" />
+                                       {{user.identifiant}}
                                     </td>
                                     <td>
-                                        <h6>{{ user.firstName }}</h6>
+                                        <h6>{{ user.firstname }}</h6>
                                     </td>
-                                    <td>{{ user.lastName }}</td>
-                                    <td>{{ user.role }}</td>
+                                    <td>{{ user.lastname }}</td>
+                                    <td>{{ user.roles[0]?.name }}</td>
 
-                                    <td>{{ user.createdAt }}</td>
+                                    <td>{{ user.email }}</td>
                                     <td>
                                         <button class="btn btn-danger me-1" type="button" title="">Désactiver</button>
-                                        <button class="btn btn-success" type="button" title="">Modifier</button>
+                                        <button class="btn btn-success" type="button" title="" (click)="editUser(user.id)">Modifier</button>
                                     </td>
                                 </tr>
                                 </tbody>

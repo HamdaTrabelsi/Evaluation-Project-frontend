@@ -1,5 +1,6 @@
 import {Departement} from './departement.model';
 import {Classe} from './classe.model';
+import {Role} from './role.model';
 
 export interface Utilisateur{
     id?:string
@@ -16,5 +17,5 @@ export interface Utilisateur{
     password?:string
     adresse?:string
     actif?:string
-    roles?: string[]
+    roles?: Role []
 }

@@ -74,7 +74,7 @@
                             <div class="col-md-4" *ngIf="isStudent">
                                 <div class="mb-3">
                                     <label class="form-label">Classe *</label>
-                                    <select class="form-control" placeholder="Classe" formControlName="classe" (change)="changeClasse($event.target)" required>
+                                    <select class="form-control" placeholder="Classe" formControlName="classe" required>
                                         <option *ngFor="let classe of classesList" [value]="classe.id">{{classe.nom}}</option>
                                     </select>
                                     <div *ngIf="creationForm.controls.classe.touched && creationForm.controls.classe.errors?.required" class="text text-danger mt-1">La classe est requise</div>

@@ -54,9 +54,6 @@ export class AjouterUtilisateurComponent {
     this.creationForm.get("classe").updateValueAndValidity()
   }
 
-  changeClasse(event : any){
-    console.log(event.value)
-  }
 
   getListClasses(){
     this.classService.getAll().subscribe(
