@@ -28,14 +28,14 @@ export class AjouterUtilisateurComponent {
     this.getListClasses()
     this.creationForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
       linkedIn: [''],
 
       role: ['', [Validators.required]],
       classe: [],
       identifiant: ['', [Validators.required]],
-      prenom: [''],
-      nom: [''],
+      prenom: ['',[Validators.required]],
+      nom: ['', [Validators.required]],
       address: [''],
       codePostal: [''],
       description: [''],
@@ -67,43 +67,44 @@ export class AjouterUtilisateurComponent {
   }
 
   createUser(){
+    console.log(this.creationForm.controls.password.errors)
     if(!this.creationForm.valid){
       console.log("this form is invalid")
       console.log(this.creationForm)
       return
     }
-
-    let classe: Classe = {
-      id : this.creationForm.get("classe").value
-    }
-    let user : Utilisateur = {
-      username :this.creationForm.get("email").value,
-      email : this.creationForm.get("email").value,
-      ...this.creationForm.get("classe").value != "" ? {classe} : {},
-      firstName: this.creationForm.get("prenom").value,
-      lastname:this.creationForm.get("nom").value,
-      identifiant: this.creationForm.get("identifiant").value,
-      codePostal: this.creationForm.get("codePostal").value,
-      description: this.creationForm.get("description").value,
-      linkedInUrl: this.creationForm.get("linkedIn").value,
-      password: this.creationForm.get("password").value,
-      adresse: this.creationForm.get("address").value,
-      roles : [this.creationForm.get("email").value,
-      ]
-    }
-
-    console.log(user)
-
-    this.authService.addUser(user).subscribe(
-        success => {
-          console.log("user created successfully")
-          this.router.navigate(["/sesame/utilisateurs/list"])
-        },
-        error => {
-          console.log(error.error)
-          this.errorMessage = error?.error?.message
-        }
-    )
+    //
+    // let classe: Classe = {
+    //   id : this.creationForm.get("classe").value
+    // }
+    // let user : Utilisateur = {
+    //   username :this.creationForm.get("email").value,
+    //   email : this.creationForm.get("email").value,
+    //   ...this.creationForm.get("classe").value != "" ? {classe} : {},
+    //   firstName: this.creationForm.get("prenom").value,
+    //   lastname:this.creationForm.get("nom").value,
+    //   identifiant: this.creationForm.get("identifiant").value,
+    //   codePostal: this.creationForm.get("codePostal").value,
+    //   description: this.creationForm.get("description").value,
+    //   linkedInUrl: this.creationForm.get("linkedIn").value,
+    //   password: this.creationForm.get("password").value,
+    //   adresse: this.creationForm.get("address").value,
+    //   roles : [this.creationForm.get("email").value,
+    //   ]
+    // }
+    //
+    // console.log(user)
+    //
+    // this.authService.addUser(user).subscribe(
+    //     success => {
+    //       console.log("user created successfully")
+    //       this.router.navigate(["/sesame/utilisateurs/list"])
+    //     },
+    //     error => {
+    //       console.log(error.error)
+    //       this.errorMessage = error?.error?.message
+    //     }
+    // )
   }
 
 }

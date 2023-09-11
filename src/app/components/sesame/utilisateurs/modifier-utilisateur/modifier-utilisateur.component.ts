@@ -21,6 +21,7 @@ export class ModifierUtilisateurComponent {
   errorMessage: String = ""
   currentId: String;
   user: Utilisateur;
+  editPasswordChecked: boolean = false
 
   roles = {
     ROLE_SUPER_ADMIN: 'Super Admin',
@@ -42,7 +43,7 @@ export class ModifierUtilisateurComponent {
 
     this.profileForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
       linkedIn: [''],
     })
 
@@ -51,8 +52,8 @@ export class ModifierUtilisateurComponent {
       role: ['', [Validators.required]],
       classe: [],
       identifiant: ['', [Validators.required]],
-      prenom: [''],
-      nom: [''],
+      prenom: ['', [Validators.required]],
+      nom: ['', [Validators.required]],
       address: [''],
       codePostal: [''],
       description: [''],
@@ -95,6 +96,10 @@ export class ModifierUtilisateurComponent {
     )
   }
 
+  changeCheckValue(event: any){
+    this.editPasswordChecked = event.checked
+  }
+
   populateForm(){
     this.profileForm.get("email").setValue(this?.user.email)
     this.profileForm.get("linkedIn").setValue(this?.user.linkedInUrl)
@@ -116,13 +121,12 @@ export class ModifierUtilisateurComponent {
   editAccountInfo(){
     let userInfo : Utilisateur = {
       email : this.profileForm.get("email").value,
-      password : this.profileForm.get("password").value,
+      ...this.editPasswordChecked && this.profileForm.get("password").value != ""? {password : this.profileForm.get("password").value} : {},
       linkedInUrl : this.profileForm.get("linkedIn").value,
     }
 
     this.userService.editUser(this.currentId, userInfo).subscribe(
         success => {
-          console.log("success")
           this.router.navigate(["/sesame/utilisateurs/list"])
 
         },

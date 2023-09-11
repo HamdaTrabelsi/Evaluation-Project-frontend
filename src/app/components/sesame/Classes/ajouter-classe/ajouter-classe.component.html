@@ -7,15 +7,15 @@
                 <h6 class="form-label">Nom</h6>
                 <input [formControlName]="'nom'" class="form-control" type="text" required>
 
-                <mat-error *ngIf="classeForm.get('nom').hasError('required') && classeForm.get('nom').touched">
-                    Le nom du departement est requis
-                </mat-error>
+                <div class="text text-danger mt-1" *ngIf="classeForm.get('nom').hasError('required') && classeForm.get('nom').touched">
+                    Le nom de la classe est requis
+                </div>
             </div>
 
 
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="ajouterClasse()">Ajouter</button>
+        <button type="button" [disabled]="classeForm.invalid" class="btn btn-outline-secondary" (click)="ajouterClasse()">Ajouter</button>
     </div>
 </mat-dialog-content>

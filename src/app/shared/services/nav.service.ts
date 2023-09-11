@@ -1,7 +1,8 @@
-import { Injectable, OnDestroy } from "@angular/core";
+import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import { Subject, BehaviorSubject, fromEvent } from "rxjs";
 import { takeUntil, debounceTime } from "rxjs/operators";
 import { Router } from "@angular/router";
+import {AuthService} from '../auth/auth.service';
 
 // Menu
 export interface Menu {
@@ -45,7 +46,14 @@ export class NavService implements OnDestroy {
   // Full screen
   public fullScreen: boolean = false;
 
-  constructor(private router: Router) {
+
+  // Array
+  items
+
+  constructor(
+      private router: Router,
+      private authService: AuthService) {
+    this.chooseMenuForRole()
     this.setScreenWidth(window.innerWidth);
     fromEvent(window, "resize")
       .pipe(debounceTime(1000), takeUntil(this.unsubscriber))
@@ -79,7 +87,7 @@ export class NavService implements OnDestroy {
     this.screenWidth.next(width);
   }
 
-  MENUITEMS: Menu[] = [
+  ADMIN_MENU_ITEMS: Menu[] = [
     {
       headTitle1: "General",
     },
@@ -98,16 +106,16 @@ export class NavService implements OnDestroy {
         { path: "/dashboard/social", title: "Social", type: "link" },
       ],
     },
-    {
-      title: "Widgets",
-      icon: "widget",
-      type: "sub",
-      active: false,
-      children: [
-        { path: "/widgets/general", title: "General", type: "link" },
-        { path: "/widgets/chart", title: "Chart", type: "link" },
-      ],
-    },
+    // {
+    //   title: "Widgets",
+    //   icon: "widget",
+    //   type: "sub",
+    //   active: false,
+    //   children: [
+    //     { path: "/widgets/general", title: "General", type: "link" },
+    //     { path: "/widgets/chart", title: "Chart", type: "link" },
+    //   ],
+    // },
     {
       headTitle1: "Applications",
       headTitle2: "Ready To Use Apps.",
@@ -528,6 +536,80 @@ export class NavService implements OnDestroy {
     // { path: "/support-ticket", title: "Support Ticket", icon: "support-tickets", type: "link" },
   ];
 
-  // Array
-  items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+  SUPER_ADMIN_MENU_ITEMS: Menu[] = [
+    {
+      headTitle1: "General",
+    },
+    {
+      path: "/sesame/departement/list",
+      title: "Statistiques",
+      icon: "home",
+      type: "link",
+    },
+    {
+      path: "/sesame/departement/list",
+      title: "Resultats",
+      icon: "home",
+      type: "link",
+    },
+  ];
+
+  ETUDIANT_MENU_ITEMS :Menu[] = [
+    // {
+    //   headTitle1: " ",
+    //   headTitle2: "Ready To Use Apps.",
+    // },
+
+    {
+      path: "/sesame/departement/list",
+      title: "Questionnaires",
+      icon: "file",
+      type: "link",
+    },
+    {
+      path: "/sesame/classes/list",
+      title: "Rapport",
+      icon: "file",
+      type: "link",
+    },
+  ];
+
+  ENSEIGNANT_MENU_ITEMS :Menu[] = [
+    {
+      path: "/sesame/departement/list",
+      title: "Auto-evaluation",
+      icon: "file",
+      type: "link",
+    },
+    {
+      path: "/sesame/classes/list",
+      title: "Rapport",
+      icon: "file",
+      type: "link",
+    },
+  ];
+
+  chooseMenuForRole() {
+    console.log("this.authService.userData")
+    console.log(this.authService.userData)
+    let currentRole = this.authService.userData.roles[0]
+    console.log(currentRole)
+    switch (currentRole) {
+      case "ROLE_SUPER_ADMIN" :
+        this.items = new BehaviorSubject<Menu[]>(this.SUPER_ADMIN_MENU_ITEMS)
+            break;
+      case "ROLE_ADMIN" :
+        this.items = new BehaviorSubject<Menu[]>(this.ADMIN_MENU_ITEMS)
+        break;
+      case "ROLE_ETUDIANT" :
+        this.items = new BehaviorSubject<Menu[]>(this.ETUDIANT_MENU_ITEMS)
+        break;
+      case "ROLE_ENSEIGNANT" :
+        this.items = new BehaviorSubject<Menu[]>(this.ENSEIGNANT_MENU_ITEMS)
+        break;
+    }
+
+
+  }
+
 }
