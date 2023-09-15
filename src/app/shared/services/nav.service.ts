@@ -121,15 +121,15 @@ export class NavService implements OnDestroy {
       headTitle2: "Ready To Use Apps.",
     },
     {
-      title: "Enquetes",
+      title: "Evaluations",
       icon: "project",
       type: "sub",
       badgeType: "light-secondary",
       // badgeValue: "New",
       active: false,
       children: [
-        { path: "/project/list", title: "Project List", type: "link" },
-        { path: "/project/create", title: "Create New", type: "link" },
+        { path: "/sesame/evaluations/list", title: "List Evaluation", type: "link" },
+        { path: "/sesame/evaluations/create", title: "Nouvelle Evaluation", type: "link" },
       ],
     },
     // {

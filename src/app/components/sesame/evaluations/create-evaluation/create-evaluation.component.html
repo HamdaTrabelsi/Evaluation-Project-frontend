@@ -1,0 +1,85 @@
+<app-breadcrumb [title]="'Nouvelle Evaluation'" [items]="['Evaluations', 'Créer']"
+                [active_item]="'Nouvelle Evaluation'"></app-breadcrumb>
+<form [formGroup]="form">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form theme-form">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="className">Class Name:</label>
+                                        <input type="text" id="className" formControlName="Classe" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label for="creationDate">Creation Date:</label>
+                                        <input class="form-control" type="date" id="creationDate"
+                                               formControlName="creationDate">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label for="limitDate">Limit Date:</label>
+                                        <input class="form-control" type="date" id="limitDate"
+                                               formControlName="limitDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="btn btn-success me-3" (click)="addSection()">Add</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div formArrayName="sections">
+                <div *ngFor="let section of sections.controls; let sectionIndex = index"
+                     class="section">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form theme-form">
+                                    <input type="text" [placeholder]="'Section ID ' + (sectionIndex + 1)"
+                                           [formControlName]="sectionIndex + '.sectionName'">
+
+                                    <input type="text" [placeholder]="'Section Name ' + (sectionIndex + 1)"
+                                           [formControlName]="'sectionName'">
+
+                                    <button (click)="addQuestion(sectionIndex)">Add Question</button>
+
+                                    <!-- Edit and Remove Section Buttons -->
+                                    <button (click)="editSection(sectionIndex)">Edit</button>
+                                    <button (click)="removeSection(sectionIndex)">Remove</button>
+
+                                    <div formArrayName="questions">
+                                        <div *ngFor="let question of section.get('questions').controls; let questionIndex = index"
+                                             class="question">
+                                            <input type="text" [placeholder]="'Question ' + (questionIndex + 1)"
+                                                   [formControlName]="sectionIndex + '.questions.' + questionIndex + '.questionText'">
+                                            <!-- Remove Question Button -->
+                                            <button (click)="removeQuestion(sectionIndex, questionIndex)">Remove
+                                                Question
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

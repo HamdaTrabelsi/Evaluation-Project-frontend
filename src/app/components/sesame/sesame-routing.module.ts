@@ -5,6 +5,8 @@ import {ListeClassesComponent} from './Classes/liste-classes/liste-classes.compo
 import {ListeutilisateursComponent} from './utilisateurs/listeutilisateurs/listeutilisateurs.component';
 import {AjouterUtilisateurComponent} from './utilisateurs/ajouter-utilisateur/ajouter-utilisateur.component';
 import {ModifierUtilisateurComponent} from './utilisateurs/modifier-utilisateur/modifier-utilisateur.component';
+import {CreateEvaluationComponent} from './evaluations/create-evaluation/create-evaluation.component';
+import {ListEvaluationsComponent} from './evaluations/list-evaluations/list-evaluations.component';
 
 const routes: Routes = [
     {
@@ -26,19 +28,15 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'utilisateurs',
+        path: 'evaluations',
         children: [
             {
                 path: 'list',
-                component: ListeutilisateursComponent
+                component: ListEvaluationsComponent
             },
             {
-                path: 'ajout',
-                component: AjouterUtilisateurComponent
-            },
-            {
-                path: 'modifier/:id',
-                component: ModifierUtilisateurComponent
+                path: 'create',
+                component: CreateEvaluationComponent
             },
         ]
     }

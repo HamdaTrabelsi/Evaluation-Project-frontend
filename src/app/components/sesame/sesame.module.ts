@@ -10,6 +10,8 @@ import { ListeutilisateursComponent } from './utilisateurs/listeutilisateurs/lis
 import { AjouterUtilisateurComponent } from './utilisateurs/ajouter-utilisateur/ajouter-utilisateur.component';
 import { AjouterClasseComponent } from './Classes/ajouter-classe/ajouter-classe.component';
 import { ModifierUtilisateurComponent } from './utilisateurs/modifier-utilisateur/modifier-utilisateur.component';
+import { CreateEvaluationComponent } from './evaluations/create-evaluation/create-evaluation.component';
+import { ListEvaluationsComponent } from './evaluations/list-evaluations/list-evaluations.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import { ModifierUtilisateurComponent } from './utilisateurs/modifier-utilisateu
         AjouterUtilisateurComponent,
         AjouterClasseComponent,
         ModifierUtilisateurComponent,
+        CreateEvaluationComponent,
+        ListEvaluationsComponent,
     ],
     imports: [
         CommonModule,
