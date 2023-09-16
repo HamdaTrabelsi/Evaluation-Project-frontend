@@ -1,18 +1,20 @@
 <app-breadcrumb [title]="'Nouvelle Evaluation'" [items]="['Evaluations', 'Créer']"
                 [active_item]="'Nouvelle Evaluation'"></app-breadcrumb>
 <form [formGroup]="form">
-
-    <div class="container-fluid">
+    <div class="container-fluid base-inputs">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
+                    <div class="card-header">
+                        Informations généraux
+                    </div>
                     <div class="card-body">
                         <div class="form theme-form">
                             <div class="row">
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="className">Class Name:</label>
-                                        <input type="text" id="className" formControlName="Classe" class="form-control">
+                                        <input type="text" id="className" formControlName="classe" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +36,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a class="btn btn-success me-3" (click)="addSection()">Add</a>
+                            <a class="btn btn-success me-3" (click)="addSection()">Ajouter Section</a>
 
                         </div>
                     </div>
@@ -47,39 +49,66 @@
                      class="section">
                     <div class="col-sm-12">
                         <div class="card">
+                            <div class="card-header">
+                                Section {{sectionIndex + 1}}
+                            </div>
                             <div class="card-body">
                                 <div class="form theme-form">
-                                    <input type="text" [placeholder]="'Section ID ' + (sectionIndex + 1)"
-                                           [formControlName]="sectionIndex + '.sectionName'">
+                                    <ng-container [formGroupName]="sectionIndex">
+                                        <input type="text" [placeholder]="'Section ' + (sectionIndex + 1)"
+                                               [value]="'Section ' + (sectionIndex + 1)"
+                                               class="form-control mb-3"
+                                               [formControlName]="'sectionId'">
 
-                                    <input type="text" [placeholder]="'Section Name ' + (sectionIndex + 1)"
-                                           [formControlName]="'sectionName'">
+                                        <input type="text" [placeholder]="'Section Name ' + (sectionIndex + 1)"
+                                               class="form-control mb-3"
+                                               [formControlName]="'sectionName'">
 
-                                    <button (click)="addQuestion(sectionIndex)">Add Question</button>
 
-                                    <!-- Edit and Remove Section Buttons -->
-                                    <button (click)="editSection(sectionIndex)">Edit</button>
-                                    <button (click)="removeSection(sectionIndex)">Remove</button>
+                                        <div class="section-buttons">
+                                            <a class="btn btn-success me-3" (click)="addQuestion(sectionIndex)">Ajouter Question</a>
 
-                                    <div formArrayName="questions">
-                                        <div *ngFor="let question of section.get('questions').controls; let questionIndex = index"
-                                             class="question">
-                                            <input type="text" [placeholder]="'Question ' + (questionIndex + 1)"
-                                                   [formControlName]="sectionIndex + '.questions.' + questionIndex + '.questionText'">
-                                            <!-- Remove Question Button -->
-                                            <button (click)="removeQuestion(sectionIndex, questionIndex)">Remove
-                                                Question
-                                            </button>
+                                            <!-- Remove Section Button -->
+                                            <a class="btn btn-danger me-3"
+                                               (click)="removeSection(sectionIndex)">Supprimer</a>
 
                                         </div>
-                                    </div>
 
+                                        <div formArrayName="questions">
+                                            <div *ngIf="section.get('questions').controls.length > 0">
+                                                Questions
+                                            </div>
+
+                                            <div *ngFor="let question of section.get('questions').controls; let questionIndex = index">
+                                                <ng-container [formGroupName]="questionIndex">
+                                                    <input type="text" [placeholder]="'Question ' + (questionIndex + 1)"
+                                                           class="form-control mb-3 mt-3"
+                                                           [formControlName]="'questionIndex'">
+
+                                                    <input type="text" [placeholder]="'Tapez la question'"
+                                                           class="form-control mb-3"
+                                                           [formControlName]="'questionText'">
+
+                                                    <!-- Remove Question Button -->
+                                                    <a class="btn btn-danger me-3"
+                                                       (click)="removeQuestion(sectionIndex, questionIndex)">Remove</a>
+                                                </ng-container>
+                                                <hr style="opacity: 0.15">
+
+                                            </div>
+                                        </div>
+                                    </ng-container>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-sm-12">
+                <a class="btn btn-success me-3" (click)="onSubmit()">Valider</a>
+            </div>
         </div>
     </div>
+
 </form>

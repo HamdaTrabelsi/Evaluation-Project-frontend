@@ -1,7 +1,7 @@
 import {Question} from './Question.model';
 
 export interface Section {
-    id: string,
+    sectionIndex: string,
     sectionName: string;
     questions: Question[];
 }

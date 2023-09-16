@@ -17,7 +17,7 @@ export class CreateEvaluationComponent {
   ngOnInit(): void {
     // Initialize an empty form with default values
     this.form = this.formBuilder.group({
-      class: ['', Validators.required],
+      classe: ['', Validators.required],
       creationDate: new Date(),
       limitDate: new Date(),
       sections: this.formBuilder.array([]) // Create an empty array for sections
@@ -29,9 +29,11 @@ export class CreateEvaluationComponent {
   }
 
   addSection() {
+    let currentSection = this.sections.length + 1
+    console.log(length)
     this.sections.push(this.formBuilder.group({
-      sectionId: '',
-      sectionName: '',
+      sectionId: ['Section ' + currentSection],
+      sectionName: ['', Validators.required],
       questions: this.formBuilder.array([])
     }));
   }
@@ -40,19 +42,22 @@ export class CreateEvaluationComponent {
     const section = this.sections.at(sectionIndex);
     const questions = section.get('questions') as FormArray;
     questions.push(this.formBuilder.group({
-      questionId: '',
-      questionText: ''
+      questionIndex: '',
+      questionText: ['', Validators.required]
     }));
   }
 
-  editSection(sectionIndex: number) {
-
-    const section = this.sections.at(sectionIndex);
-    const sectionName = prompt('Edit Section Name:', section.value.sectionName);
-    if (sectionName !== null) {
-      section.patchValue({ sectionName });
+  onSubmit() {
+    if (this.form.valid) {
+      // The form is valid, so you can access its values and perform actions.
+      const formData = this.form.value;
+      console.log(formData); // You can send this data to a server or perform other actions.
+    } else {
+      // Handle form validation errors or display a message to the user.
     }
   }
+
+
 
   removeSection(sectionIndex: number) {
     const confirmation = confirm('Are you sure you want to remove this section?');

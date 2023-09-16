@@ -29,9 +29,8 @@ import { ListEvaluationsComponent } from './evaluations/list-evaluations/list-ev
     imports: [
         CommonModule,
         SesameRoutingModule,
-        CommonModule,
         SharedModule,
-        NgxDropzoneModule
+        NgxDropzoneModule,
     ]
 })
 export class SesameModule {
