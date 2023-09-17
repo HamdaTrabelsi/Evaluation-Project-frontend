@@ -13,8 +13,11 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="mb-3">
-                                        <label for="className">Class Name:</label>
-                                        <input type="text" id="className" formControlName="classe" class="form-control">
+                                        <label for="className">Classe * :</label>
+                                        <ng-select [items]="classesList" bindLabel="nom" bindValue="id"  id="className"  placeholder="Classe" formControlName="classe" required>
+                                        </ng-select>
+                                        <div *ngIf="form.controls.classe.touched && form.controls.classe.errors?.required" class="text text-danger mt-1">La classe est requise</div>
+
                                     </div>
                                 </div>
                             </div>
@@ -22,17 +25,39 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label for="creationDate">Creation Date:</label>
-                                        <input class="form-control" type="date" id="creationDate"
-                                               formControlName="creationDate">
+                                        <label for="anneeUniversitaire">Année Universitaire :</label>
+                                        <input class="form-control" type="text" id="anneeUniversitaire"
+                                               formControlName="anneeUniversitaire">
+                                        <div *ngIf="form.controls.anneeUniversitaire.touched && form.controls.anneeUniversitaire.errors?.required" class="text text-danger mt-1">L'année univesitaire est requise</div>
+
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="mb-3">
-                                        <label for="limitDate">Limit Date:</label>
+                                        <label for="semestre">Semestre :</label>
+                                        <input class="form-control" type="text" id="semestre"
+                                               formControlName="semestre">
+                                        <div *ngIf="form.controls.semestre.touched && form.controls.semestre.errors?.required" class="text text-danger mt-1">La semestre est requise</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label for="creationDate">Date de Creation :</label>
+                                        <input class="form-control" type="date" id="creationDate"
+                                               formControlName="creationDate" [ngModel]="currentDate | date:'yyyy-MM-dd'">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label for="limitDate">Date limite:</label>
                                         <input class="form-control" type="date" id="limitDate"
                                                formControlName="limitDate">
+                                        <div *ngIf="form.controls.limitDate.touched && form.controls.limitDate.errors?.required" class="text text-danger mt-1">La Date limite est requise</div>
                                     </div>
                                 </div>
                             </div>
@@ -58,9 +83,10 @@
                                         <input type="text" [placeholder]="'Section ' + (sectionIndex + 1)"
                                                [value]="'Section ' + (sectionIndex + 1)"
                                                class="form-control mb-3"
-                                               [formControlName]="'sectionId'">
+                                               [formControlName]="'sectionId'" readOnly>
 
-                                        <input type="text" [placeholder]="'Section Name ' + (sectionIndex + 1)"
+                                        <label for="sectionName">Nom de la section :</label>
+                                        <input type="text" id="sectionName" [placeholder]="'Section Name ' + (sectionIndex + 1)"
                                                class="form-control mb-3"
                                                [formControlName]="'sectionName'">
 
@@ -74,8 +100,10 @@
 
                                         </div>
 
+
                                         <div formArrayName="questions">
                                             <div *ngIf="section.get('questions').controls.length > 0">
+                                                <hr style="opacity: 0.15">
                                                 Questions
                                             </div>
 
@@ -91,9 +119,8 @@
 
                                                     <!-- Remove Question Button -->
                                                     <a class="btn btn-danger me-3"
-                                                       (click)="removeQuestion(sectionIndex, questionIndex)">Remove</a>
+                                                       (click)="removeQuestion(sectionIndex, questionIndex)">Retirer</a>
                                                 </ng-container>
-                                                <hr style="opacity: 0.15">
 
                                             </div>
                                         </div>
@@ -106,7 +133,7 @@
             </div>
 
             <div class="col-sm-12">
-                <a class="btn btn-success me-3" (click)="onSubmit()">Valider</a>
+                <button class="btn btn-success mt-3" [disabled]="form.invalid" (click)="onSubmit()" type="submit">Valider</button>
             </div>
         </div>
     </div>

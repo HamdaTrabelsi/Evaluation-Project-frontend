@@ -1,1 +1,52 @@
-<p>list-evaluations works!</p>
+<app-breadcrumb [title]="'Liste Evaluation'" [items]="['Evaluations', 'Liste']"
+                [active_item]="'Liste Evaluation'"></app-breadcrumb><!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Individual column searching (text inputs) Starts-->
+        <div class="col-sm-12">
+            <div class="card">
+<!--                <div class="card-header">-->
+<!--                    <h5>Individual column searching (text inputs)</h5>-->
+<!--                    <span>Search your product from here..</span>-->
+<!--                </div>-->
+                <div class="card-body">
+                    <div class="product-list-custom custom-datatable">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Classe</th>
+                                    <th scope="col">Date Création</th>
+                                    <th scope="col">Nombre de Participants</th>
+                                    <th scope="col">Année Universitaire</th>
+                                    <th scope="col">Semestre</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let evaluation of evaluations; index as i">
+                                    <td>
+                                        <h6>{{ evaluation.Classe }}</h6>
+                                    </td>
+                                    <td>
+                                        {{ evaluation.creationDate | date: 'dd/MM/yyyy' }}
+<!--                                        <span>{{ product.desc }}</span>-->
+                                    </td>
+                                    <td>{{ evaluation.numberOfParticipants }}</td>
+                                    <td>{{ evaluation.AnneeUniversitaire }}</td>
+                                    <td>{{ evaluation.Semestre }}</td>
+                                    <td>
+                                        <button class="btn btn-success" type="button" title="">Statistiques</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Individual column searching (text inputs) Ends-->
+    </div>
+</div>
+<!-- Container-fluid Ends-->

@@ -12,6 +12,7 @@ import { AjouterClasseComponent } from './Classes/ajouter-classe/ajouter-classe.
 import { ModifierUtilisateurComponent } from './utilisateurs/modifier-utilisateur/modifier-utilisateur.component';
 import { CreateEvaluationComponent } from './evaluations/create-evaluation/create-evaluation.component';
 import { ListEvaluationsComponent } from './evaluations/list-evaluations/list-evaluations.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ListEvaluationsComponent } from './evaluations/list-evaluations/list-ev
         SesameRoutingModule,
         SharedModule,
         NgxDropzoneModule,
+        NgSelectModule
     ]
 })
 export class SesameModule {
