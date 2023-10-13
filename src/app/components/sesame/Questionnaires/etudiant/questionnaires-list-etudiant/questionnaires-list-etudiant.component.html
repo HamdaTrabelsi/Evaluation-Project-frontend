@@ -1,0 +1,57 @@
+<app-breadcrumb [title]="'Evaluations'" [items]="['Questionnaires']"
+                [active_item]="'Liste'"></app-breadcrumb>
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Individual column searching (text inputs) Starts-->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Evaluations concernant votre classe</h5>
+                    <span>Veuillez repondre dans les plus brefs delais</span>
+                </div>
+                <div class="card-body">
+                    <div class="product-list-custom custom-datatable">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Date Création</th>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Date Limite</th>
+                                    <th scope="col">Etat</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let eval of data; index as i">
+                                    <td>
+                                        <h6>{{ eval.datePosted  | date: 'dd/MM/yyyy'}}</h6>
+                                    </td>
+                                    <td>
+                                        <span>{{ eval.titre }}</span>
+                                    </td>
+                                    <td>{{ eval.dateLimite  | date: 'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <div [ngClass]="{ 'font-success': eval.submitted === 'true', 'font-danger': eval.submitted === 'false' }">{{ !!eval.submitted ? 'Repondu' : 'En Attente'}}</div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success me-1" type="button" title=""
+                                                *ngIf="eval.submitted == false" (click)="openForm()">Ouvrir
+                                        </button>
+                                        <button class="btn btn-info" type="button" title=""
+                                                *ngIf="eval.submitted == true">Consulter
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Individual column searching (text inputs) Ends-->
+    </div>
+</div>
+<!-- Container-fluid Ends-->

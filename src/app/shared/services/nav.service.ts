@@ -561,17 +561,17 @@ export class NavService implements OnDestroy {
     // },
 
     {
-      path: "/sesame/departement/list",
+      path: "/sesame/questionnaire/etudiant/liste",
       title: "Questionnaires",
       icon: "file",
       type: "link",
     },
-    {
-      path: "/sesame/classes/list",
-      title: "Rapport",
-      icon: "file",
-      type: "link",
-    },
+    // {
+    //   path: "/sesame/questionnaire/",
+    //   title: "Rapport",
+    //   icon: "file",
+    //   type: "link",
+    // },
   ];
 
   ENSEIGNANT_MENU_ITEMS :Menu[] = [

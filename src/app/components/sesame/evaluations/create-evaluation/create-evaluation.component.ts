@@ -30,21 +30,21 @@ export class CreateEvaluationComponent {
       semestre: ['', Validators.required],
       creationDate: [],
       limitDate: [, Validators.required],
-      sections: this.formBuilder.array([]) // Create an empty array for sections
+      formulaire: this.formBuilder.array([]) // Create an empty array for sections
     });
 
     this.currentDate = new Date
     //this.form.get("creationDate").setValue(new Date())
   }
 
-  get sections(): FormArray {
-    return this.form.get('sections') as FormArray;
+  get formulaire(): FormArray {
+    return this.form.get('formulaire') as FormArray;
   }
 
   addSection() {
-    let currentSection = this.sections.length + 1
+    let currentSection = this.formulaire.length + 1
     console.log(length)
-    this.sections.push(this.formBuilder.group({
+    this.formulaire.push(this.formBuilder.group({
       sectionId: ['Section ' + currentSection],
       sectionName: ['', Validators.required],
       questions: this.formBuilder.array([])
@@ -52,7 +52,7 @@ export class CreateEvaluationComponent {
   }
 
   addQuestion(sectionIndex: number) {
-    const section = this.sections.at(sectionIndex);
+    const section = this.formulaire.at(sectionIndex);
     const questions = section.get('questions') as FormArray;
     questions.push(this.formBuilder.group({
       questionIndex: '',
@@ -65,7 +65,7 @@ export class CreateEvaluationComponent {
       // The form is valid, so you can access its values and perform actions.
       const formData = this.form.value;
       console.log(formData);
-      this.router.navigate(["/sesame/evaluations/list"])
+     // this.router.navigate(["/sesame/evaluations/list"])
     } else {
       // Handle form validation errors or display a message to the user.
     }
@@ -76,14 +76,14 @@ export class CreateEvaluationComponent {
   removeSection(sectionIndex: number) {
     const confirmation = confirm('Êtes-vous sûr de vouloir supprimer cette section ?');
     if (confirmation) {
-      this.sections.removeAt(sectionIndex);
+      this.formulaire.removeAt(sectionIndex);
     }
   }
 
   removeQuestion(sectionIndex: number, questionIndex: number) {
     const confirmation = confirm('Êtes-vous sûr de vouloir supprimer cette question ?');
     if (confirmation) {
-      const section = this.sections.at(sectionIndex);
+      const section = this.formulaire.at(sectionIndex);
       const questions = section.get('questions') as FormArray;
       questions.removeAt(questionIndex);
     }

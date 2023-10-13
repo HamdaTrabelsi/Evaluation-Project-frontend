@@ -13,6 +13,9 @@ import { ModifierUtilisateurComponent } from './utilisateurs/modifier-utilisateu
 import { CreateEvaluationComponent } from './evaluations/create-evaluation/create-evaluation.component';
 import { ListEvaluationsComponent } from './evaluations/list-evaluations/list-evaluations.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { QuestionnairesEtudiantComponent } from './Questionnaires/etudiant/questionnaires-etudiant/questionnaires-etudiant.component';
+import { QuestionnairesListEtudiantComponent } from './Questionnaires/etudiant/questionnaires-list-etudiant/questionnaires-list-etudiant.component';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 @NgModule({
@@ -26,13 +29,16 @@ import {NgSelectModule} from '@ng-select/ng-select';
         ModifierUtilisateurComponent,
         CreateEvaluationComponent,
         ListEvaluationsComponent,
+        QuestionnairesEtudiantComponent,
+        QuestionnairesListEtudiantComponent,
     ],
     imports: [
         CommonModule,
         SesameRoutingModule,
         SharedModule,
         NgxDropzoneModule,
-        NgSelectModule
+        NgSelectModule,
+        MatStepperModule
     ]
 })
 export class SesameModule {

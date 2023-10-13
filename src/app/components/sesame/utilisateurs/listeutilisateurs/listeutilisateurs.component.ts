@@ -36,6 +36,6 @@ export class ListeutilisateursComponent {
   }
 
   ajouterUtilisateur(){
-    this._router.navigate(["/sesame/utilisateurs/ajout"])
+    this._router.navigate(["/sesame/utilisateurs/create"])
   }
 }
