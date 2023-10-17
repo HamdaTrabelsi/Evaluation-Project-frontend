@@ -18,4 +18,12 @@ export class EvaluationService {
     add(_evaluation: Evaluation): Observable<any> {
         return this.httpClient.post(this.url + "/save", _evaluation)
     }
+
+    list(): Observable<any> {
+        return this.httpClient.get<Array<Evaluation>>(this.url + "/list")
+    }
+
+    getStudentEvaluations(classeId:String, studentId:String): Observable<any> {
+        return this.httpClient.get(this.url+"/list/classe/"+classeId+"/student/"+studentId)
+    }
 }

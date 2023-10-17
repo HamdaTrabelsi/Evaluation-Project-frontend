@@ -17,7 +17,7 @@
                                 <tr>
                                     <th scope="col">Classe</th>
                                     <th scope="col">Date Création</th>
-                                    <th scope="col">Nombre de Participants</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Année Universitaire</th>
                                     <th scope="col">Semestre</th>
                                     <th scope="col">Action</th>
@@ -26,15 +26,17 @@
                                 <tbody>
                                 <tr *ngFor="let evaluation of evaluations; index as i">
                                     <td>
-                                        <h6>{{ evaluation.Classe }}</h6>
+                                        <h6>{{ evaluation?.classe?.nom }}</h6>
                                     </td>
                                     <td>
                                         {{ evaluation.creationDate | date: 'dd/MM/yyyy' }}
 <!--                                        <span>{{ product.desc }}</span>-->
                                     </td>
-                                    <td>{{ evaluation.numberOfParticipants }}</td>
-                                    <td>{{ evaluation.AnneeUniversitaire }}</td>
-                                    <td>{{ evaluation.Semestre }}</td>
+                                    <td>
+                                        <div [ngClass]="{ 'font-success': evaluation.actif === 'true', 'font-danger': evaluation.actif === 'false' }">{{ !!evaluation.actif ? 'Actif' : 'Fermé'}}</div>
+                                    </td>
+                                    <td>{{ evaluation.anneeUniversitaire }}</td>
+                                    <td>{{ evaluation.semestre }}</td>
                                     <td>
                                         <button class="btn btn-primary" type="button" title="" (click)="showSubmissions()">Soumissions</button>
                                     </td>

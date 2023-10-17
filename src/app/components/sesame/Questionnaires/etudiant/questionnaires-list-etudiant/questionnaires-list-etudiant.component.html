@@ -20,27 +20,32 @@
                                     <th scope="col">Titre</th>
                                     <th scope="col">Date Limite</th>
                                     <th scope="col">Etat</th>
+                                    <th scope="col">Répondu</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr *ngFor="let eval of data; index as i">
+                                <tr *ngFor="let eval of evaluations; index as i">
                                     <td>
-                                        <h6>{{ eval.datePosted  | date: 'dd/MM/yyyy'}}</h6>
+                                        <h6>{{ eval.dateCreation  | date: 'dd/MM/yyyy'}}</h6>
                                     </td>
                                     <td>
                                         <span>{{ eval.titre }}</span>
                                     </td>
                                     <td>{{ eval.dateLimite  | date: 'dd/MM/yyyy'}}</td>
                                     <td>
-                                        <div [ngClass]="{ 'font-success': eval.submitted === 'true', 'font-danger': eval.submitted === 'false' }">{{ !!eval.submitted ? 'Repondu' : 'En Attente'}}</div>
+<!--                                    <div [ngClass]="{ 'font-success': eval.submitted === 'true', 'font-danger': eval.submitted === 'false' }">{{ !!eval.submitted ? 'Repondu' : 'En Attente'}}</div>-->
+                                        <div [ngClass]="{ 'font-success': eval.actif === 'true', 'font-danger': eval.actif === 'false' }">{{ !!eval.actif ? 'Actif' : 'Fermé'}}</div>
+                                    </td>
+                                    <td>
+                                        <div [ngClass]="{ 'font-success': eval.repondu === 'true', 'font-warning': eval.repondu === 'false' }">{{ !!eval.repondu ? 'Repondu' : 'En Attente'}}</div>
                                     </td>
                                     <td>
                                         <button class="btn btn-success me-1" type="button" title=""
-                                                *ngIf="eval.submitted == false" (click)="openForm()">Ouvrir
+                                                *ngIf="eval.actif && eval.repondu == false"  (click)="openForm(eval.evaluationId)">Ouvrir
                                         </button>
                                         <button class="btn btn-info" type="button" title=""
-                                                *ngIf="eval.submitted == true">Consulter
+                                                *ngIf="!eval.actif || eval.repondu != false">Consulter
                                         </button>
                                     </td>
                                 </tr>
