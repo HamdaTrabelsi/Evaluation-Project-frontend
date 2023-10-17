@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {PRODUCT} from '../../../../shared/data/tables/product-list';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-list-evaluations',
@@ -53,4 +54,16 @@ export class ListEvaluationsComponent {
     },
     // Add more Evaluation objects as needed
   ];
+
+  constructor(
+      private router: Router
+  ) {}
+
+  showSubmissions(){
+    this.router.navigate(["/sesame/questionnaire/administrateur/liste/1"])
+  }
+
+  showStats(){
+    this.router.navigate(["/sesame/questionnaire/administrateur/formulaire/statistiques/1"])
+  }
 }

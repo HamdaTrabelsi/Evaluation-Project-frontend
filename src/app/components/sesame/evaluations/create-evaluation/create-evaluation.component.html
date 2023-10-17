@@ -13,10 +13,27 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="mb-3">
+                                        <label for="titre">Titre * :</label>
+                                        <input bindLabel="titre" bindValue="id" id="titre" type="text"
+                                                   placeholder="Titre" formControlName="titre" class="form-control" required >
+                                        <div *ngIf="form.controls.titre.touched && form.controls.titre.errors?.required"
+                                             class="text text-danger mt-1">Le titre est requis
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
                                         <label for="className">Classe * :</label>
-                                        <ng-select [items]="classesList" bindLabel="nom" bindValue="id"  id="className"  placeholder="Classe" formControlName="classe" required>
+                                        <ng-select [items]="classesList" bindLabel="nom" id="className"
+                                                   placeholder="Classe" formControlName="classe" required>
                                         </ng-select>
-                                        <div *ngIf="form.controls.classe.touched && form.controls.classe.errors?.required" class="text text-danger mt-1">La classe est requise</div>
+                                        <div *ngIf="form.controls.classe.touched && form.controls.classe.errors?.required"
+                                             class="text text-danger mt-1">La classe est requise
+                                        </div>
 
                                     </div>
                                 </div>
@@ -28,7 +45,9 @@
                                         <label for="anneeUniversitaire">Année Universitaire :</label>
                                         <input class="form-control" type="text" id="anneeUniversitaire"
                                                formControlName="anneeUniversitaire">
-                                        <div *ngIf="form.controls.anneeUniversitaire.touched && form.controls.anneeUniversitaire.errors?.required" class="text text-danger mt-1">L'année univesitaire est requise</div>
+                                        <div *ngIf="form.controls.anneeUniversitaire.touched && form.controls.anneeUniversitaire.errors?.required"
+                                             class="text text-danger mt-1">L'année univesitaire est requise
+                                        </div>
 
                                     </div>
                                 </div>
@@ -38,7 +57,9 @@
                                         <label for="semestre">Semestre :</label>
                                         <input class="form-control" type="text" id="semestre"
                                                formControlName="semestre">
-                                        <div *ngIf="form.controls.semestre.touched && form.controls.semestre.errors?.required" class="text text-danger mt-1">La semestre est requise</div>
+                                        <div *ngIf="form.controls.semestre.touched && form.controls.semestre.errors?.required"
+                                             class="text text-danger mt-1">La semestre est requise
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +69,8 @@
                                     <div class="mb-3">
                                         <label for="creationDate">Date de Creation :</label>
                                         <input class="form-control" type="date" id="creationDate"
-                                               formControlName="creationDate" [ngModel]="currentDate | date:'yyyy-MM-dd'">
+                                               formControlName="creationDate"
+                                               [ngModel]="currentDate | date:'yyyy-MM-dd'">
                                     </div>
                                 </div>
 
@@ -57,7 +79,9 @@
                                         <label for="limitDate">Date limite:</label>
                                         <input class="form-control" type="date" id="limitDate"
                                                formControlName="limitDate">
-                                        <div *ngIf="form.controls.limitDate.touched && form.controls.limitDate.errors?.required" class="text text-danger mt-1">La Date limite est requise</div>
+                                        <div *ngIf="form.controls.limitDate.touched && form.controls.limitDate.errors?.required"
+                                             class="text text-danger mt-1">La Date limite est requise
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -86,13 +110,15 @@
                                                [formControlName]="'sectionId'" readOnly>
 
                                         <label for="sectionName">Nom de la section :</label>
-                                        <input type="text" id="sectionName" [placeholder]="'Section Name ' + (sectionIndex + 1)"
+                                        <input type="text" id="sectionName"
+                                               [placeholder]="'Section Name ' + (sectionIndex + 1)"
                                                class="form-control mb-3"
                                                [formControlName]="'sectionName'">
 
 
                                         <div class="section-buttons">
-                                            <a class="btn btn-success me-3" (click)="addQuestion(sectionIndex)">Ajouter Question</a>
+                                            <a class="btn btn-success me-3" (click)="addQuestion(sectionIndex)">Ajouter
+                                                Question</a>
 
                                             <!-- Remove Section Button -->
                                             <a class="btn btn-danger me-3"
@@ -117,9 +143,37 @@
                                                            class="form-control mb-3"
                                                            [formControlName]="'questionText'">
 
+                                                    <a class="btn btn-success me-3"
+                                                       (click)="addCritere(sectionIndex, questionIndex)">Ajouter
+                                                        critere</a>
+
                                                     <!-- Remove Question Button -->
                                                     <a class="btn btn-danger me-3"
                                                        (click)="removeQuestion(sectionIndex, questionIndex)">Retirer</a>
+
+                                                    <!-- Criteres -->
+                                                    <div formArrayName="criteres">
+
+                                                        <div *ngFor="let critere of question.get('criteres').controls; let critereIndex = index">
+                                                            <ng-container [formGroupName]="critereIndex">
+                                                                <input type="text"
+                                                                       [placeholder]="'Critere ' + (critereIndex + 1)"
+                                                                       class="form-control mb-3 mt-3"
+                                                                       [formControlName]="'critereIndex'">
+
+                                                                <input type="text" [placeholder]="'Tapez le critère'"
+                                                                       class="form-control mb-3"
+                                                                       [formControlName]="'titre'">
+
+                                                                <!-- Remove Question Button -->
+                                                                <a class="btn btn-danger me-3"
+                                                                   (click)="removeCritere(sectionIndex, questionIndex, critereIndex)">Retirer
+                                                                    Critère</a>
+                                                            </ng-container>
+
+                                                        </div>
+                                                    </div>
+
                                                 </ng-container>
 
                                             </div>
@@ -133,7 +187,9 @@
             </div>
 
             <div class="col-sm-12">
-                <button class="btn btn-success mt-3" [disabled]="form.invalid" (click)="onSubmit()" type="submit">Valider</button>
+                <button class="btn btn-success mt-3" [disabled]="form.invalid" (click)="onSubmit()" type="submit">
+                    Valider
+                </button>
             </div>
         </div>
     </div>

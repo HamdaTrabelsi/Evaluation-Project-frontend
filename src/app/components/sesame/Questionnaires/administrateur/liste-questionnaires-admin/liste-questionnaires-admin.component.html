@@ -1,0 +1,64 @@
+<app-breadcrumb [title]="'Soumissions'" [items]="['Questionnaires']" [active_item]="'Soumissions'"></app-breadcrumb>
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <h5>Soumission de la classe : ING4C</h5>
+                </div>
+                <div class="card-body">
+                    <ngx-tabset type="pills" class="tabbed-card nav-primary">
+                        <ngx-tab tabTitle="Statistiques">
+
+                            <div>
+                                <canvasjs-chart [options]="canvaPieChartOptions"></canvasjs-chart>
+                            </div>
+
+                            <div>
+                                <canvasjs-chart [options]="canvaChartOptions"></canvasjs-chart>
+                            </div>
+
+                            <div>
+                                <canvasjs-chart [options]="canvaChartOptions"></canvasjs-chart>
+                            </div>
+
+                        </ngx-tab>
+                        <ngx-tab tabTitle="Soumissions" class="pull-right nav nav-primary">
+                            <div class="row g-sm-4 g-3">
+                                <div class="col-xl-4 col-md-6" *ngFor="let etudiant of etudiants">
+                                    <div class="prooduct-details-box">
+                                        <div class="media">
+                                            <img class="align-self-center img-fluid img-60"
+                                                 src="assets/images/student.png"
+                                                 alt="#"/>
+                                            <div class="media-body ms-3">
+                                                <div class="product-name">
+                                                    <h6>
+                                                        <a href="/ecommerce/product-details">{{etudiant.studentEmail}}</a>
+                                                    </h6>
+                                                </div>
+                                                <div class="date my-2 d-flex">
+                                                    <div class="text-muted me-2">Date</div>
+                                                    : {{ etudiant.submissionDate | date: 'dd/MM/yyyy'}}
+                                                </div>
+                                                <div class="avaiabilty">
+                                                    <div class="text-success">Classe : {{etudiant.classe}}</div>
+                                                </div>
+                                                <a class="btn btn-primary btn-xs" href="/ecommerce/cart">Voir
+                                                    reponses</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ngx-tab>
+
+                    </ngx-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>

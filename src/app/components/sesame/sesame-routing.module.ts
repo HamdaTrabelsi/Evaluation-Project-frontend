@@ -10,6 +10,15 @@ import {
     QuestionnairesListEtudiantComponent
 } from './Questionnaires/etudiant/questionnaires-list-etudiant/questionnaires-list-etudiant.component';
 import {QuestionnairesEtudiantComponent} from './Questionnaires/etudiant/questionnaires-etudiant/questionnaires-etudiant.component';
+import {
+    ListeQuestionnairesAdminComponent
+} from './Questionnaires/administrateur/liste-questionnaires-admin/liste-questionnaires-admin.component';
+import {
+    DetailsQuestionnairesAdminComponent
+} from './Questionnaires/administrateur/details-questionnaires-admin/details-questionnaires-admin.component';
+import {
+    StatistiquesQuestionnairesAdminComponent
+} from './Questionnaires/administrateur/statistiques-questionnaires-admin/statistiques-questionnaires-admin.component';
 
 const routes: Routes = [
     {
@@ -69,6 +78,23 @@ const routes: Routes = [
                     {
                         path: 'remplir/:id',
                         component: QuestionnairesEtudiantComponent
+                    },
+                ]
+            },
+            {
+                path: 'administrateur',
+                children: [
+                    {
+                        path: 'liste/:id',
+                        component: ListeQuestionnairesAdminComponent
+                    },
+                    {
+                        path: 'formulaire/details/:id',
+                        component: DetailsQuestionnairesAdminComponent
+                    },
+                    {
+                        path: 'formulaire/statistiques/:id',
+                        component: StatistiquesQuestionnairesAdminComponent
                     },
                 ]
             },

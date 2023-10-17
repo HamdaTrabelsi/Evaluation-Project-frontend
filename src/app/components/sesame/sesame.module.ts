@@ -16,6 +16,17 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import { QuestionnairesEtudiantComponent } from './Questionnaires/etudiant/questionnaires-etudiant/questionnaires-etudiant.component';
 import { QuestionnairesListEtudiantComponent } from './Questionnaires/etudiant/questionnaires-list-etudiant/questionnaires-list-etudiant.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import {HttpClientModule} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ArchwizardModule} from 'angular-archwizard';
+import {MatRadioModule} from '@angular/material/radio';
+import { ListeQuestionnairesAdminComponent } from './Questionnaires/administrateur/liste-questionnaires-admin/liste-questionnaires-admin.component';
+import { DetailsQuestionnairesAdminComponent } from './Questionnaires/administrateur/details-questionnaires-admin/details-questionnaires-admin.component';
+import { StatistiquesQuestionnairesAdminComponent } from './Questionnaires/administrateur/statistiques-questionnaires-admin/statistiques-questionnaires-admin.component';
+import {TabsModule} from 'ngx-tabset';
+import {NgApexchartsModule} from 'ng-apexcharts';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 
 @NgModule({
@@ -31,6 +42,9 @@ import {MatStepperModule} from '@angular/material/stepper';
         ListEvaluationsComponent,
         QuestionnairesEtudiantComponent,
         QuestionnairesListEtudiantComponent,
+        ListeQuestionnairesAdminComponent,
+        DetailsQuestionnairesAdminComponent,
+        StatistiquesQuestionnairesAdminComponent,
     ],
     imports: [
         CommonModule,
@@ -38,7 +52,17 @@ import {MatStepperModule} from '@angular/material/stepper';
         SharedModule,
         NgxDropzoneModule,
         NgSelectModule,
-        MatStepperModule
+        MatStepperModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        NgbModule,
+        ArchwizardModule,
+        SharedModule,
+        NgSelectModule,
+        MatRadioModule,
+        TabsModule,
+        NgApexchartsModule,
+        CanvasJSAngularChartsModule
     ]
 })
 export class SesameModule {
