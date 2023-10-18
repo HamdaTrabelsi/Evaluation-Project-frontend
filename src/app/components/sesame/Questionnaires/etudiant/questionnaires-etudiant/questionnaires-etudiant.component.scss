@@ -1,0 +1,16 @@
+form {
+  width: 90%
+}
+
+aw-wizard .wizard-steps {
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep th {
+  text-align: center;
+}
+
+::ng-deep td {
+  text-align: center;
+}

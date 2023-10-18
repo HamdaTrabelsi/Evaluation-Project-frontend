@@ -3,291 +3,105 @@
 <div class="container-fluid wizard4">
     <div class="row">
         <div class="col-sm-12">
-
             <div class="wizard-4" id="wizard">
                 <aw-wizard #wizard>
-                    <aw-wizard-step [stepTitle]="'1'">
-                        <div class="centered-content">
+
+                    <form [formGroup]="form" (ngSubmit)="submitForm()">
+                        <aw-wizard-step stepTitle="0">
                             <div class="card mt-4">
                                 <div class="card-header bg-primary">
-                                    <h5 class="text-white">I. Baromètre de satisfaction
-                                    </h5>
+                                    <h5 class="text-white">{{evaluationJson?.titre}}</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p class="mb-0">1- Êtes-vous satisfait des services fournis par SESAME ?
-                                    </p>
-                                    <hr/>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col"></th>
-                                            <th scope="col">Oui</th>
-                                            <th scope="col">Plutot Oui</th>
-                                            <th scope="col">Plutot Non</th>
-                                            <th scope="col">Non</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>Scolarité</td>
-                                            <td><label class="d-block" for="edo-ani1">
-                                                <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani2">
-                                                <input class="radio_animated" id="edo-ani2" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani3">
-                                                <input class="radio_animated" id="edo-ani3" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani4">
-                                                <input class="radio_animated" id="edo-ani4" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hygiène</td>
-                                            <td><label class="d-block" for="edo-ani21">
-                                                <input class="radio_animated" id="edo-ani21" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani22">
-                                                <input class="radio_animated" id="edo-ani22" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani23">
-                                                <input class="radio_animated" id="edo-ani23" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani24">
-                                                <input class="radio_animated" id="edo-ani24" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    <p>{{evaluationJson?.introduction}}</p>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary" awNextStep>Commencer</button>
+                                </div>
+                            </div>
+                        </aw-wizard-step>
+                        <div *ngFor="let section of formData.sections;  let sectionIndex = index"
+                             formGroupName="{{ section.sectionId }}">
+                            <aw-wizard-step stepTitle="{{ sectionIndex + 1}}">
+                                <div class="centered-content">
+                                    <div class="card mt-4">
+
+                                        <div class="card-header bg-primary">
+                                            <h5 class="text-white">{{ section.sectionName }}</h5>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div class="mt-3"
+                                                 *ngFor="let question of section.questions; let qindex = index"
+                                                 formGroupName="{{ question.questionIndex }}">
+                                                <p class="mb-0">{{qindex + 1}}-{{ question.questionText }}</p>
+                                                <hr/>
+
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col"></th>
+                                                        <th scope="col">Oui</th>
+                                                        <th scope="col">Plutot Oui</th>
+                                                        <th scope="col">Plutot Non</th>
+                                                        <th scope="col">Non</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr *ngFor="let critere of question.criteres">
+                                                        <td style="text-align: start; width:30%">{{ critere.titre }}</td>
+                                                        <td><label class="d-block" for="{{critere.titre+'-oui'}}">
+                                                            <input class="radio_animated" type="radio"
+                                                                   formControlName="{{ critere.critereIndex }}"
+                                                                   name="{{critere.titre+'-oui'}}" value="Oui"/>
+                                                        </label></td>
+
+                                                        <td><label class="d-block"
+                                                                   for="{{critere.titre+'-plutot-oui'}}">
+                                                            <input class="radio_animated" type="radio"
+                                                                   formControlName="{{ critere.critereIndex }}"
+                                                                   name="{{critere.titre+'-plutot-oui'}}"
+                                                                   value="Plutot Oui"/>
+                                                        </label></td>
+
+                                                        <td><label class="d-block"
+                                                                   for="{{critere.titre+'-plutot-non'}}">
+                                                            <input class="radio_animated" type="radio"
+                                                                   formControlName="{{ critere.critereIndex }}"
+                                                                   name="{{critere.titre+'-plutot-non'}}"
+                                                                   value="Plutot Non"/>
+                                                        </label></td>
+
+                                                        <td><label class="d-block" for="{{critere.titre+'-non'}}">
+                                                            <input class="radio_animated" type="radio"
+                                                                   formControlName="{{ critere.critereIndex }}"
+                                                                   name="{{critere.titre+'-non'}}" value="Non"/>
+                                                        </label></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
 
-                            </div>
-                            <div class="card mt-4">
-                                <div class="card-body">
-                                    <p class="mb-0">2-	Êtes-vous satisfait des espaces mis à votre disposition par SESAME ?
-                                    </p>
-                                    <hr/>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col"></th>
-                                            <th scope="col">Oui</th>
-                                            <th scope="col">Plutot Oui</th>
-                                            <th scope="col">Plutot Non</th>
-                                            <th scope="col">Non</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>Espace Bibliothèque
-                                            </td>
-                                            <td><label class="d-block" for="edo-ani31">
-                                                <input class="radio_animated" id="edo-ani31" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani32">
-                                                <input class="radio_animated" id="edo-ani32" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani33">
-                                                <input class="radio_animated" id="edo-ani33" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani34">
-                                                <input class="radio_animated" id="edo-ani34" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cyber Café
-                                            </td>
-                                            <td><label class="d-block" for="edo-ani41">
-                                                <input class="radio_animated" id="edo-ani41" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani42">
-                                                <input class="radio_animated" id="edo-ani42" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani43">
-                                                <input class="radio_animated" id="edo-ani43" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani44">
-                                                <input class="radio_animated" id="edo-ani44" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="card mt-4">
-                                <div class="card-body">
-                                    <p class="mb-0">3-	Est-ce que vous participez à l’un de nos clubs ?
-                                    </p>
-                                    <hr/>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col"></th>
-                                            <th scope="col">Oui</th>
-                                            <th scope="col">Plutot Oui</th>
-                                            <th scope="col">Plutot Non</th>
-                                            <th scope="col">Non</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>Enactus SESAME</td>
-                                            <td><label class="d-block" for="edo-ani1">
-                                                <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani2">
-                                                <input class="radio_animated" id="edo-ani2" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani3">
-                                                <input class="radio_animated" id="edo-ani3" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani4">
-                                                <input class="radio_animated" id="edo-ani4" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>IEEE Sesame Student Branch</td>
-                                            <td><label class="d-block" for="edo-ani21">
-                                                <input class="radio_animated" id="edo-ani21" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani22">
-                                                <input class="radio_animated" id="edo-ani22" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani23">
-                                                <input class="radio_animated" id="edo-ani23" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani24">
-                                                <input class="radio_animated" id="edo-ani24" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sesame Future Trend  SFT
-                                            </td>
-                                            <td><label class="d-block" for="edo-ani21">
-                                                <input class="radio_animated" id="edo-ani21" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani22">
-                                                <input class="radio_animated" id="edo-ani22" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani23">
-                                                <input class="radio_animated" id="edo-ani23" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani24">
-                                                <input class="radio_animated" id="edo-ani24" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sesame Tunivision
-                                            </td>
-                                            <td><label class="d-block" for="edo-ani21">
-                                                <input class="radio_animated" id="edo-ani21" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani22">
-                                                <input class="radio_animated" id="edo-ani22" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani23">
-                                                <input class="radio_animated" id="edo-ani23" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani24">
-                                                <input class="radio_animated" id="edo-ani24" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-<!--                                <div class="card-footer">   -->
-<!--                                    <h6 class="mb-0">Card Footer</h6>-->
-<!--                                </div>-->
-                            </div>
-
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-secondary" awNextStep>Suivant</button>
-                            </div>
+                                <button *ngIf="sectionIndex > 0" type="button" class="ml-5 btn btn-secondary"
+                                        awPreviousStep>Retour
+                                </button>
+                                <button *ngIf="sectionIndex < formData.sections.length-1" type="button"
+                                        class="btn btn-secondary" awNextStep>Suivant
+                                </button>
+                                <button *ngIf="sectionIndex == formData.sections.length-1" type="button"
+                                        class="btn btn-secondary" type="submit">Valider
+                                </button>
+                            </aw-wizard-step>
                         </div>
-                    </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="'2'">
-                        <div class="centered-content">
-                            <div class="card mt-4">
-                                <div class="card-header bg-primary">
-                                    <h5 class="text-white">II. Statistiques et Probabilités
+                    </form>
 
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">1- Les objectifs du cours ont été présentés de façon claire
-                                    </p>
-                                    <hr/>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col"></th>
-                                            <th scope="col">Oui</th>
-                                            <th scope="col">Plutot Oui</th>
-                                            <th scope="col">Plutot Non</th>
-                                            <th scope="col">Non</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>2- Les modalités d’évaluation ont été clairement présentées (type d’épreuve, durée, notation …) :</td>
-                                            <td><label class="d-block" for="edo-ani1">
-                                                <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani2">
-                                                <input class="radio_animated" id="edo-ani2" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani3">
-                                                <input class="radio_animated" id="edo-ani3" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani4">
-                                                <input class="radio_animated" id="edo-ani4" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3- Les travaux demandés (Applications, TD, TP, exposés, projets…) sont suffisants.
-                                            </td>
-                                            <td><label class="d-block" for="edo-ani21">
-                                                <input class="radio_animated" id="edo-ani21" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani22">
-                                                <input class="radio_animated" id="edo-ani22" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani23">
-                                                <input class="radio_animated" id="edo-ani23" type="radio" name="rdo-ani">
-                                            </label></td>
-                                            <td><label class="d-block" for="edo-ani24">
-                                                <input class="radio_animated" id="edo-ani24" type="radio" name="rdo-ani">
-                                            </label></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-secondary" awPreviousStep>Retour</button>
-                                <button type="button" class="btn btn-secondary" awNextStep>Suivant</button>
-                            </div>
-                        </div>
-                    </aw-wizard-step>
-                    <aw-wizard-step [stepTitle]="'3'">
-                        <div class="centered-content">
-                            <div>
-                                Content: Step 3
-                            </div>
-
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-secondary mr-15" awPreviousStep>Retour</button>
-<!--                                <button type="button" class="btn btn-secondary" awResetWizard>Reset</button>-->
-                                <button type="button" class="btn btn-secondary mr-15" >Valider</button>
-                            </div>
-                        </div>
-                    </aw-wizard-step>
                 </aw-wizard>
-
             </div>
-            <!-- Smart Wizard Ends-->
         </div>
     </div>
 </div>

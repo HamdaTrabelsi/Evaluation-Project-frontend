@@ -26,4 +26,8 @@ export class EvaluationService {
     getStudentEvaluations(classeId:String, studentId:String): Observable<any> {
         return this.httpClient.get(this.url+"/list/classe/"+classeId+"/student/"+studentId)
     }
+
+    getEvaluationById(evaluationId:String, studentId:String): Observable<any> {
+        return this.httpClient.get(this.url+"/find/"+evaluationId+"/"+studentId)
+    }
 }
