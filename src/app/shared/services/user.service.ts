@@ -18,6 +18,12 @@ export class UtilisateurService {
         return this.httpClient.get<Array<Utilisateur>>(this.url + "/list")
     }
 
+    getAllByRole(roleName : String): Observable<Utilisateur[]> {
+        const params = { roleName };
+        // @ts-ignore
+        return this.httpClient.get<Utilisateur[]>(this.url + "/getByRole", {params})
+    }
+
     getById(_id: any): Observable<Utilisateur> {
         return this.httpClient.get<Utilisateur>(this.url + "/getById/"+_id)
     }

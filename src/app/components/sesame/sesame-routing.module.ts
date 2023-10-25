@@ -19,6 +19,7 @@ import {
 import {
     StatistiquesQuestionnairesAdminComponent
 } from './Questionnaires/administrateur/statistiques-questionnaires-admin/statistiques-questionnaires-admin.component';
+import {ListMatieresComponent} from './Matieres/list-matieres/list-matieres.component';
 
 const routes: Routes = [
     {
@@ -36,6 +37,15 @@ const routes: Routes = [
             {
                 path: 'list',
                 component: ListeClassesComponent
+            },
+        ]
+    },
+    {
+        path: 'matieres',
+        children: [
+            {
+                path: 'list',
+                component: ListMatieresComponent
             },
         ]
     },

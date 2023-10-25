@@ -27,6 +27,8 @@ import { StatistiquesQuestionnairesAdminComponent } from './Questionnaires/admin
 import {TabsModule} from 'ngx-tabset';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { ListMatieresComponent } from './Matieres/list-matieres/list-matieres.component';
+import { AjouterMatiereComponent } from './Matieres/ajouter-matiere/ajouter-matiere.component';
 
 
 @NgModule({
@@ -45,6 +47,8 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
         ListeQuestionnairesAdminComponent,
         DetailsQuestionnairesAdminComponent,
         StatistiquesQuestionnairesAdminComponent,
+        ListMatieresComponent,
+        AjouterMatiereComponent,
     ],
     imports: [
         CommonModule,

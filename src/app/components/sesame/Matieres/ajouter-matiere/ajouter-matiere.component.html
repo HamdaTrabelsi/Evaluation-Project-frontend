@@ -1,0 +1,68 @@
+<h1 mat-dialog-title>Ajouter une Matière</h1>
+
+<hr/>
+
+<mat-dialog-content class="mat-typography">
+    <div>
+        <form [formGroup]="matiereForm">
+            <div class="mb-3">
+                <h6 class="form-label">Titre *</h6>
+                <input [formControlName]="'nom'" class="form-control" type="text" required>
+
+                <div class="text text-danger mt-1" *ngIf="matiereForm.get('nom').hasError('required') && matiereForm.get('nom').touched">
+                    Le nom de la classe est requis
+                </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Classe *</h6>
+                <ng-select [items]="classes" bindLabel="anneeUniversitaire" id="classe"
+                           placeholder="Classe" formControlName="classe"  [searchFn]="customSearchFn"  required>
+                    <ng-template ng-label-tmp let-item="item">
+                        {{item.nom}} {{item.anneeUniversitaire}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                        {{item.nom}} {{item.anneeUniversitaire}}
+                    </ng-template>
+                </ng-select>
+                <div class="text text-danger mt-1" *ngIf="matiereForm.get('classe').hasError('required') && matiereForm.get('classe').touched">
+                    La classe est requise
+                </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Enseignant *</h6>
+                <ng-select [items]="enseignants" bindLabel="firstname" id="enseignant"
+                           placeholder="Enseignant" formControlName="enseignant"  [searchFn]="customSearchFnEnseignant"  required>
+                    <ng-template ng-label-tmp let-item="item">
+                        {{item.firstname}} {{item.lastname}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                        {{item.firstname}} {{item.lastname}}
+                    </ng-template>
+                </ng-select>
+                <div class="text text-danger mt-1" *ngIf="matiereForm.get('classe').hasError('required') && matiereForm.get('classe').touched">
+                    L'enseignant est requis
+                </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Semestre *</h6>
+                <ng-select [items]="semestres"  id="semestre"
+                           placeholder="Semestre" formControlName="semestre" required>
+                </ng-select>
+                <div class="text text-danger mt-1" *ngIf="matiereForm.get('semestre').hasError('required') && matiereForm.get('semestre').touched">
+                    La semestre est requiss
+                </div>
+            </div>
+
+            <div class="text text-danger mt-1" *ngIf="existsError == true">
+                Cette Matière existe deja
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" [disabled]="matiereForm.invalid" class="btn btn-primary" (click)="saveMatiere()">Ajouter</button>
+    </div>
+</mat-dialog-content>

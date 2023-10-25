@@ -12,6 +12,16 @@
                 </div>
             </div>
 
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Année Universitaire</h6>
+                <ng-select [items]="yearRanges" bindLabel="nom" id="anneeUniversitaire"
+                           placeholder="Année Universitaire" formControlName="anneeUniversitaire" required>
+                </ng-select>
+                <div class="text text-danger mt-1" *ngIf="classeForm.get('anneeUniversitaire').hasError('required') && classeForm.get('anneeUniversitaire').touched">
+                    L'année universitaire est requise
+                </div>
+            </div>
+
 
         </form>
     </div>
