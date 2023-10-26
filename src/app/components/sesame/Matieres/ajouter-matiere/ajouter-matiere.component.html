@@ -10,7 +10,7 @@
                 <input [formControlName]="'nom'" class="form-control" type="text" required>
 
                 <div class="text text-danger mt-1" *ngIf="matiereForm.get('nom').hasError('required') && matiereForm.get('nom').touched">
-                    Le nom de la classe est requis
+                    Le nom de la matière est requis
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                         {{item.firstname}} {{item.lastname}}
                     </ng-template>
                 </ng-select>
-                <div class="text text-danger mt-1" *ngIf="matiereForm.get('classe').hasError('required') && matiereForm.get('classe').touched">
+                <div class="text text-danger mt-1" *ngIf="matiereForm.get('enseignant').hasError('required') && matiereForm.get('enseignant').touched">
                     L'enseignant est requis
                 </div>
             </div>

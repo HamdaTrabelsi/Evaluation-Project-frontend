@@ -151,5 +151,8 @@ export class CreateEvaluationComponent {
         return evaluation;
     }
 
-
+    customSearchFn(term: string, item: any) {
+        term = term.toLocaleLowerCase();
+        return item?.nom?.toLocaleLowerCase().indexOf(term) > -1 || item?.anneeUniversitaire?.toLocaleLowerCase().indexOf(term) > -1;
+    }
 }

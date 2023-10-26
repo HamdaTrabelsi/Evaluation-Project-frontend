@@ -29,7 +29,13 @@
                                     <div class="mb-3">
                                         <label for="className">Classe * :</label>
                                         <ng-select [items]="classesList" bindLabel="nom" id="className"
-                                                   placeholder="Classe" formControlName="classe" required>
+                                                   placeholder="Classe" formControlName="classe" [searchFn]="customSearchFn" required>
+                                            <ng-template ng-label-tmp let-item="item">
+                                                {{item.nom}} {{item.anneeUniversitaire}}
+                                            </ng-template>
+                                            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                                                {{item.nom}} {{item.anneeUniversitaire}}
+                                            </ng-template>
                                         </ng-select>
                                         <div *ngIf="form.controls.classe.touched && form.controls.classe.errors?.required"
                                              class="text text-danger mt-1">La classe est requise
