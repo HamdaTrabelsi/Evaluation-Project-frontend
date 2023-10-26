@@ -15,7 +15,7 @@ export class AjouterClasseComponent {
 
   yearRanges: string[] = [];
 
-  minYear = 2018
+  minYear = (new Date().getFullYear())-3
   maxYear = (new Date().getFullYear())+2
 
   constructor(

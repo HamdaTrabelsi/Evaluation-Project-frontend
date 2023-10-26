@@ -2,13 +2,14 @@ import {Classe} from './classe.model';
 import {Formulaire} from './formulaire.model';
 
 export interface Evaluation {
-    id?: String,
-    titre?: String,
-    anneeUniversitaire?: String,
-    semestre?: String,
-    creationDate?: String,
-    limitDate?: String,
+    id?: string,
+    titre?: string,
+    anneeUniversitaire?: string,
+    semestre?: string,
+    creationDate?: string,
+    limitDate?: string,
     classe?: Classe,
     actif?:Boolean,
-    formulaire?: Formulaire
+    formulaire?: Formulaire,
+    description?:string
 }

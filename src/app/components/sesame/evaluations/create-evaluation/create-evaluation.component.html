@@ -21,6 +21,11 @@
                                         </div>
 
                                     </div>
+
+                                    <div class="mb-3 mb-0">
+                                        <label for="exampleFormControlTextarea4">Description *</label>
+                                        <textarea class="form-control" formControlName="description"  id="exampleFormControlTextarea4" rows="3" required></textarea>
+                                    </div>
                                 </div>
                             </div>
 
@@ -28,7 +33,7 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="className">Classe * :</label>
-                                        <ng-select [items]="classesList" bindLabel="nom" id="className"
+                                        <ng-select [items]="classesList" bindLabel="nom" id="className" (change)="changeClasse($event)"
                                                    placeholder="Classe" formControlName="classe" [searchFn]="customSearchFn" required>
                                             <ng-template ng-label-tmp let-item="item">
                                                 {{item.nom}} {{item.anneeUniversitaire}}
@@ -49,8 +54,9 @@
                                 <div class="col-sm-6">
                                     <div class="mb-3">
                                         <label for="anneeUniversitaire">Année Universitaire :</label>
-                                        <input class="form-control" type="text" id="anneeUniversitaire"
-                                               formControlName="anneeUniversitaire">
+                                        <ng-select [items]="yearRanges" bindLabel="nom" id="anneeUniversitaire"
+                                                   placeholder="Année Universitaire" formControlName="anneeUniversitaire" required>
+                                        </ng-select>
                                         <div *ngIf="form.controls.anneeUniversitaire.touched && form.controls.anneeUniversitaire.errors?.required"
                                              class="text text-danger mt-1">L'année univesitaire est requise
                                         </div>
@@ -61,8 +67,9 @@
                                 <div class="col-sm-6">
                                     <div class="mb-3">
                                         <label for="semestre">Semestre :</label>
-                                        <input class="form-control" type="text" id="semestre"
-                                               formControlName="semestre">
+                                        <ng-select [items]="semestres"  id="semestre"
+                                                   placeholder="Semestre" formControlName="semestre" required>
+                                        </ng-select>
                                         <div *ngIf="form.controls.semestre.touched && form.controls.semestre.errors?.required"
                                              class="text text-danger mt-1">La semestre est requise
                                         </div>
@@ -104,7 +111,7 @@
                      class="section">
                     <div class="col-sm-12">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header  bg-primary">
                                 Section {{sectionIndex + 1}}
                             </div>
                             <div class="card-body">

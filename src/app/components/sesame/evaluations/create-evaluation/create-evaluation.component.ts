@@ -5,6 +5,8 @@ import {ClasseService} from '../../../../shared/services/classe.service';
 import {Router} from '@angular/router';
 import {Evaluation} from '../../../../shared/model/evaluation.model';
 import {EvaluationService} from '../../../../shared/services/evaluation.service';
+import {MatiereService} from '../../../../shared/services/matiere.service';
+import {Matiere} from '../../../../shared/model/matiere.model';
 
 @Component({
     selector: 'app-create-evaluation',
@@ -17,12 +19,23 @@ export class CreateEvaluationComponent {
     classesList: Array<Classe> = [];
     currentDate: Date;
 
+    matieres: Matiere[] = [];
+
+    semestres = ['Semestre 1', 'Semestre 2'];
+
+    yearRanges: string[] = [];
+
+    minYear = (new Date().getFullYear()) - 3;
+    maxYear = (new Date().getFullYear()) + 2;
+
     constructor(
         private formBuilder: FormBuilder,
         private classService: ClasseService,
         private router: Router,
-        private evaluationService: EvaluationService
+        private evaluationService: EvaluationService,
+        private matiereService: MatiereService
     ) {
+        this.generateYearRanges();
     }
 
     get formulaire(): FormArray {
@@ -34,6 +47,7 @@ export class CreateEvaluationComponent {
         // Initialize an empty form with default values
         this.form = this.formBuilder.group({
             titre: ['', Validators.required],
+            description: ['', Validators.required],
             classe: ['', Validators.required],
             anneeUniversitaire: ['', Validators.required],
             semestre: ['', Validators.required],
@@ -105,6 +119,9 @@ export class CreateEvaluationComponent {
         }
     }
 
+    changeClasse(event: any) {
+        this.getListMatieres(event?.id);
+    }
 
     getListClasses() {
         this.classService.getAll().subscribe(
@@ -117,18 +134,30 @@ export class CreateEvaluationComponent {
         );
     }
 
+    getListMatieres(classeId: any) {
+        this.matiereService.getAllByClasse(classeId).subscribe(
+            success => {
+                this.matieres = success;
+                console.log(this.matieres);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
     onSubmit() {
         if (this.form.valid) {
-            let evaluation: Evaluation = this.createEvaluation()
+            let evaluation: Evaluation = this.createEvaluation();
             this.evaluationService.add(evaluation).subscribe(
                 success => {
-                    console.log("success")
-                    this.router.navigate(["/sesame/evaluations/list"])
+                    console.log('success');
+                    this.router.navigate(['/sesame/evaluations/list']);
                 },
                 error => {
-                    console.log(error)
+                    console.log(error);
                 }
-            )
+            );
         } else {
             // Handle form validation errors or display a message to the user.
         }
@@ -138,13 +167,14 @@ export class CreateEvaluationComponent {
     createEvaluation() {
         let evaluation: Evaluation = {
             titre: this.form.get('titre').value,
+            description: this.form.get('description').value,
             classe: this.form.get('classe').value,
             anneeUniversitaire: this.form.get('anneeUniversitaire').value,
             semestre: this.form.get('semestre').value,
             creationDate: this.form.get('creationDate').value,
             limitDate: this.form.get('limitDate').value,
             formulaire: {
-                sections : this.form.get('formulaire').value,
+                sections: this.form.get('formulaire').value,
             }
         };
 
@@ -154,5 +184,14 @@ export class CreateEvaluationComponent {
     customSearchFn(term: string, item: any) {
         term = term.toLocaleLowerCase();
         return item?.nom?.toLocaleLowerCase().indexOf(term) > -1 || item?.anneeUniversitaire?.toLocaleLowerCase().indexOf(term) > -1;
+    }
+
+    generateYearRanges() {
+        for (let year = this.minYear; year < this.maxYear; year++) {
+            const nextYear = year + 1;
+            const yearRange = `${year}/${nextYear}`;
+            this.yearRanges.push(yearRange);
+            console.log(this.yearRanges);
+        }
     }
 }
