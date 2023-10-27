@@ -48,19 +48,19 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr *ngFor="let critere of question.criteres">
+                                                    <tr *ngFor="let critere of question.criteres; let critereIndex = index">
                                                         <td style="text-align: start; width:30%">{{ critere.titre }}</td>
                                                         <td><label class="d-block" for="{{critere.titre+'-oui'}}">
                                                             <input class="radio_animated" type="radio"
                                                                    formControlName="{{ critere.critereIndex }}"
-                                                                   name="{{critere.titre+'-oui'}}" value="Oui"/>
+                                                                   name="{{sectionIndex-qindex-critereIndex}}" value="Oui"/>
                                                         </label></td>
 
                                                         <td><label class="d-block"
                                                                    for="{{critere.titre+'-plutot-oui'}}">
                                                             <input class="radio_animated" type="radio"
                                                                    formControlName="{{ critere.critereIndex }}"
-                                                                   name="{{critere.titre+'-plutot-oui'}}"
+                                                                   name="{{sectionIndex-qindex-critereIndex}}"
                                                                    value="Plutot Oui"/>
                                                         </label></td>
 
@@ -68,14 +68,15 @@
                                                                    for="{{critere.titre+'-plutot-non'}}">
                                                             <input class="radio_animated" type="radio"
                                                                    formControlName="{{ critere.critereIndex }}"
-                                                                   name="{{critere.titre+'-plutot-non'}}"
+                                                                   name="{{sectionIndex-qindex-critereIndex}}"
                                                                    value="Plutot Non"/>
                                                         </label></td>
 
                                                         <td><label class="d-block" for="{{critere.titre+'-non'}}">
                                                             <input class="radio_animated" type="radio"
                                                                    formControlName="{{ critere.critereIndex }}"
-                                                                   name="{{critere.titre+'-non'}}" value="Non"/>
+                                                                   name="{{sectionIndex-qindex-critereIndex}}"
+                                                                   value="Non"/>
                                                         </label></td>
                                                     </tr>
                                                     </tbody>
