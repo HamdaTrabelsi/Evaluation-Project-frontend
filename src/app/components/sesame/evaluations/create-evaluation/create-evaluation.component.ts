@@ -20,6 +20,7 @@ export class CreateEvaluationComponent {
     currentDate: Date;
 
     matieres: Matiere[] = [];
+    defaultMatiere: Matiere = { nom: 'Baromètre de satisfaction'}
 
     semestres = ['Semestre 1', 'Semestre 2'];
 
@@ -66,8 +67,20 @@ export class CreateEvaluationComponent {
         this.formulaire.push(this.formBuilder.group({
             sectionId: ['Section ' + currentSection],
             sectionName: ['', Validators.required],
+            enseignantId : [''],
+            matiereId : [''],
             questions: this.formBuilder.array([])
         }));
+    }
+
+    setSectionInfo(event,sectionIndex){
+        const section = this.formulaire.at(sectionIndex);
+        console.log("event")
+        console.log(event)
+        console.log("sectionIndex")
+        console.log(sectionIndex)
+        section.get("enseignantId").setValue(event?.enseignant?.id)
+        section.get("matiereId").setValue(event?.id)
     }
 
     addQuestion(sectionIndex: number) {
@@ -138,6 +151,7 @@ export class CreateEvaluationComponent {
         this.matiereService.getAllByClasse(classeId).subscribe(
             success => {
                 this.matieres = success;
+                this.matieres.push(this.defaultMatiere)
                 console.log(this.matieres);
             },
             error => {

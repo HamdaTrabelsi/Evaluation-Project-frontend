@@ -15,7 +15,8 @@
                                     <div class="mb-3">
                                         <label for="titre">Titre * :</label>
                                         <input bindLabel="titre" bindValue="id" id="titre" type="text"
-                                                   placeholder="Titre" formControlName="titre" class="form-control" required >
+                                               placeholder="Titre" formControlName="titre" class="form-control"
+                                               required>
                                         <div *ngIf="form.controls.titre.touched && form.controls.titre.errors?.required"
                                              class="text text-danger mt-1">Le titre est requis
                                         </div>
@@ -24,7 +25,12 @@
 
                                     <div class="mb-3 mb-0">
                                         <label for="exampleFormControlTextarea4">Description *</label>
-                                        <textarea class="form-control" formControlName="description"  id="exampleFormControlTextarea4" rows="3" required></textarea>
+                                        <textarea class="form-control" formControlName="description"
+                                                  id="exampleFormControlTextarea4" rows="3" required>
+                                        </textarea>
+                                        <div *ngIf="form.controls.description.touched && form.controls.description.errors?.required"
+                                             class="text text-danger mt-1">La description est requise
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -33,8 +39,10 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="className">Classe * :</label>
-                                        <ng-select [items]="classesList" bindLabel="nom" id="className" (change)="changeClasse($event)"
-                                                   placeholder="Classe" formControlName="classe" [searchFn]="customSearchFn" required>
+                                        <ng-select [items]="classesList" bindLabel="nom" id="className"
+                                                   (change)="changeClasse($event)"
+                                                   placeholder="Classe" formControlName="classe"
+                                                   [searchFn]="customSearchFn" required>
                                             <ng-template ng-label-tmp let-item="item">
                                                 {{item.nom}} {{item.anneeUniversitaire}}
                                             </ng-template>
@@ -55,7 +63,8 @@
                                     <div class="mb-3">
                                         <label for="anneeUniversitaire">Année Universitaire :</label>
                                         <ng-select [items]="yearRanges" bindLabel="nom" id="anneeUniversitaire"
-                                                   placeholder="Année Universitaire" formControlName="anneeUniversitaire" required>
+                                                   placeholder="Année Universitaire"
+                                                   formControlName="anneeUniversitaire" required>
                                         </ng-select>
                                         <div *ngIf="form.controls.anneeUniversitaire.touched && form.controls.anneeUniversitaire.errors?.required"
                                              class="text text-danger mt-1">L'année univesitaire est requise
@@ -67,7 +76,7 @@
                                 <div class="col-sm-6">
                                     <div class="mb-3">
                                         <label for="semestre">Semestre :</label>
-                                        <ng-select [items]="semestres"  id="semestre"
+                                        <ng-select [items]="semestres" id="semestre"
                                                    placeholder="Semestre" formControlName="semestre" required>
                                         </ng-select>
                                         <div *ngIf="form.controls.semestre.touched && form.controls.semestre.errors?.required"
@@ -114,7 +123,7 @@
                             <div class="card-header  bg-primary">
                                 Section {{sectionIndex + 1}}
                             </div>
-                            <div class="card-body">
+                            <div class="card-body"  >
                                 <div class="form theme-form">
                                     <ng-container [formGroupName]="sectionIndex">
                                         <input type="text" [placeholder]="'Section ' + (sectionIndex + 1)"
@@ -122,23 +131,27 @@
                                                class="form-control mb-3"
                                                [formControlName]="'sectionId'" readOnly>
 
+
                                         <label for="sectionName">Nom de la section :</label>
-                                        <input type="text" id="sectionName"
-                                               [placeholder]="'Section Name ' + (sectionIndex + 1)"
-                                               class="form-control mb-3"
-                                               [formControlName]="'sectionName'">
+                                        <ng-select [items]="matieres" bindLabel="nom" bindValue="nom" id="sectionName"
+                                                   [placeholder]="'Section Name ' + (sectionIndex + 1)"
+                                                   (change)="setSectionInfo($event,sectionIndex)"
+                                                   placeholder="Titre de la section" formControlName="sectionName"
+                                                   required>
+                                        </ng-select>
+                                        <!--                                        <input type="text" id="sectionName"-->
+                                        <!--                                               [placeholder]="'Section Name ' + (sectionIndex + 1)"-->
+                                        <!--                                               class="form-control mb-3"-->
+                                        <!--                                               [formControlName]="'sectionName'">-->
 
-
-                                        <div class="section-buttons">
+                                        <div class="card-footer section-buttons">
                                             <a class="btn btn-success me-3" (click)="addQuestion(sectionIndex)">Ajouter
                                                 Question</a>
 
                                             <!-- Remove Section Button -->
                                             <a class="btn btn-danger me-3"
                                                (click)="removeSection(sectionIndex)">Supprimer</a>
-
                                         </div>
-
 
                                         <div formArrayName="questions">
                                             <div *ngIf="section.get('questions').controls.length > 0">
@@ -147,7 +160,7 @@
                                             </div>
 
                                             <div *ngFor="let question of section.get('questions').controls; let questionIndex = index">
-                                                <ng-container [formGroupName]="questionIndex">
+                                                <ng-container class="question-group" [formGroupName]="questionIndex">
                                                     <input type="text" [placeholder]="'Question ' + (questionIndex + 1)"
                                                            class="form-control mb-3 mt-3"
                                                            [formControlName]="'questionIndex'">
@@ -162,10 +175,11 @@
 
                                                     <!-- Remove Question Button -->
                                                     <a class="btn btn-danger me-3"
-                                                       (click)="removeQuestion(sectionIndex, questionIndex)">Retirer</a>
+                                                       (click)="removeQuestion(sectionIndex, questionIndex)">Retirer Question</a>
 
+                                                    <hr class="my-3">
                                                     <!-- Criteres -->
-                                                    <div formArrayName="criteres">
+                                                    <div class="criteres-group"  formArrayName="criteres">
 
                                                         <div *ngFor="let critere of question.get('criteres').controls; let critereIndex = index">
                                                             <ng-container [formGroupName]="critereIndex">
