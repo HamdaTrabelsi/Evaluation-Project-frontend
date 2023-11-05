@@ -89,7 +89,7 @@ export class AjouterUtilisateurComponent {
       linkedInUrl: this.creationForm.get("linkedIn").value,
       password: this.creationForm.get("password").value,
       adresse: this.creationForm.get("address").value,
-      roles : [this.creationForm.get("email").value,
+      roles : [this.creationForm.get("role").value,
       ]
     }
 

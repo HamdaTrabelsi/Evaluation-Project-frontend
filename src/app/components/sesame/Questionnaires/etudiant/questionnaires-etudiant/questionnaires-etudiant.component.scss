@@ -2,7 +2,7 @@ form {
   width: 90%
 }
 
-aw-wizard .wizard-steps {
+::ng-deep .wizard-steps.horizontal {
   display: flex;
   justify-content: center;
 }
