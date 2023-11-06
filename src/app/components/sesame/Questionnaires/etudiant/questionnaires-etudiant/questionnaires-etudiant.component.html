@@ -53,7 +53,7 @@
                                                         <td><label class="d-block" for="{{critere.titre+'-oui'}}">
                                                             <input class="radio_animated" type="radio"
                                                                    formControlName="{{ critere.critereIndex }}"
-                                                                   name="{{sectionIndex-qindex-critereIndex}}" value="Oui"/>
+                                                                   name="{{sectionIndex-qindex-critereIndex}}" value="Oui" required/>
                                                         </label></td>
 
                                                         <td><label class="d-block"
@@ -95,7 +95,7 @@
                                         class="btn btn-secondary" awNextStep>Suivant
                                 </button>
                                 <button *ngIf="sectionIndex == formData.sections.length-1" type="button"
-                                        class="btn btn-secondary" type="submit">Valider
+                                        class="btn btn-secondary" type="submit" [disabled]="form.invalid">Valider
                                 </button>
                             </aw-wizard-step>
                         </div>

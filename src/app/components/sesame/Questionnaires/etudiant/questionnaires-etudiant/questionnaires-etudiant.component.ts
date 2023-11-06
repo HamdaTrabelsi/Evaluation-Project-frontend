@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {MustMatch} from '../../../../../shared/validators/passwordMatch';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../../../shared/auth/auth.service';
 import {EvaluationService} from '../../../../../shared/services/evaluation.service';
 import {Critere} from '../../../../../shared/model/critere.model';
@@ -38,7 +38,8 @@ export class QuestionnairesEtudiantComponent {
       private activatedRoute: ActivatedRoute,
       private authService:AuthService,
       private evaluationService: EvaluationService,
-      private soumissionService: SoumissionService
+      private soumissionService: SoumissionService,
+      private router: Router
   ) {
     this.maxDate = new Date();
     this.form = this._formBuilder.group({});
@@ -107,11 +108,15 @@ export class QuestionnairesEtudiantComponent {
     console.log(soumission)
 
     console.log("form")
-    console.log(this.formData)
+    console.log(this.form)
+
+
     this.soumissionService.add(soumission).subscribe(
         success => {
           console.log("success")
           console.log(success)
+          this.router.navigate(["/sesame/questionnaire/etudiant/liste"])
+
         },
         error => {
 
