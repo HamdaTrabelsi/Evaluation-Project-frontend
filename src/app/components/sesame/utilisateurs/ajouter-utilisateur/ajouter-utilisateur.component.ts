@@ -28,7 +28,7 @@ export class AjouterUtilisateurComponent {
     this.getListClasses()
     this.creationForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       linkedIn: [''],
 
       role: ['', [Validators.required]],

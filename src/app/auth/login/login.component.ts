@@ -12,7 +12,8 @@ export class LoginComponent implements OnInit {
   public newUser = false;
   public loginForm: FormGroup;
   public show: boolean = false
-  public errorMessage: any;
+  errorMessage: any = false;
+
 
   constructor(private fb: FormBuilder, public router: Router, private authService: AuthService) {
     this.loginForm = this.fb.group({
@@ -24,16 +25,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login() {
-    //if (this.loginForm.value["email"] == "Test@gmail.com" && this.loginForm.value["password"] == "test123") {
       if(!this.loginForm.valid) {
         console.log("----")
         return
       }
-      /*let user = {
-        email: "Test@gmail.com",
-        password: "test123",
-        name: "test user",
-      };*/
+
 
 
       let user = {
@@ -49,6 +45,7 @@ export class LoginComponent implements OnInit {
 
         },
         error => {
+            this.errorMessage = true
           console.log("error")
           console.log(error)
         }

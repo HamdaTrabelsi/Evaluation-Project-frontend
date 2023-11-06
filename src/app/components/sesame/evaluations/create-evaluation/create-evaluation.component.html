@@ -126,8 +126,7 @@
                             <div class="card-body"  >
                                 <div class="form theme-form">
                                     <ng-container [formGroupName]="sectionIndex">
-                                        <input type="text" [placeholder]="'Section ' + (sectionIndex + 1)"
-                                               [value]="'Section ' + (sectionIndex + 1)"
+                                        <input type="text"
                                                class="form-control mb-3"
                                                [formControlName]="'sectionId'" readOnly>
 
@@ -161,9 +160,9 @@
 
                                             <div *ngFor="let question of section.get('questions').controls; let questionIndex = index">
                                                 <ng-container class="question-group" [formGroupName]="questionIndex">
-                                                    <input type="text" [placeholder]="'Question ' + (questionIndex + 1)"
+                                                    <input type="text" [value]="'Question ' + (questionIndex + 1)"
                                                            class="form-control mb-3 mt-3"
-                                                           [formControlName]="'questionIndex'">
+                                                           [formControlName]="'questionIndex'" readOnly>
 
                                                     <input type="text" [placeholder]="'Tapez la question'"
                                                            class="form-control mb-3"
@@ -184,9 +183,9 @@
                                                         <div *ngFor="let critere of question.get('criteres').controls; let critereIndex = index">
                                                             <ng-container [formGroupName]="critereIndex">
                                                                 <input type="text"
-                                                                       [placeholder]="'Critere ' + (critereIndex + 1)"
+                                                                       [value]="'Critere ' + (critereIndex + 1)"
                                                                        class="form-control mb-3 mt-3"
-                                                                       [formControlName]="'critereIndex'">
+                                                                       [formControlName]="'critereIndex'" readOnly>
 
                                                                 <input type="text" [placeholder]="'Tapez le critère'"
                                                                        class="form-control mb-3"

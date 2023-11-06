@@ -63,7 +63,6 @@ export class CreateEvaluationComponent {
 
     addSection() {
         let currentSection = this.formulaire.length + 1;
-        console.log(length);
         this.formulaire.push(this.formBuilder.group({
             sectionId: ['Section ' + currentSection],
             sectionName: ['', Validators.required],
@@ -75,10 +74,6 @@ export class CreateEvaluationComponent {
 
     setSectionInfo(event,sectionIndex){
         const section = this.formulaire.at(sectionIndex);
-        console.log("event")
-        console.log(event)
-        console.log("sectionIndex")
-        console.log(sectionIndex)
         section.get("enseignantId").setValue(event?.enseignant?.id)
         section.get("matiereId").setValue(event?.id)
     }
@@ -86,8 +81,9 @@ export class CreateEvaluationComponent {
     addQuestion(sectionIndex: number) {
         const section = this.formulaire.at(sectionIndex);
         const questions = section.get('questions') as FormArray;
+        const questionIndex = questions.length+1
         questions.push(this.formBuilder.group({
-            questionIndex: '',
+            questionIndex: 'Question ' + questionIndex,
             questionText: ['', Validators.required],
             criteres: this.formBuilder.array([])
         }));
@@ -98,8 +94,9 @@ export class CreateEvaluationComponent {
         const questions = section.get('questions') as FormArray;
         const questionsAt = questions.at(questionIndex);
         const criteres = questionsAt.get('criteres') as FormArray;
+        let critereIndex = criteres.length + 1
         criteres.push(this.formBuilder.group({
-            critereIndex: '',
+            critereIndex: 'Critere '+ critereIndex,
             titre: '',
         }));
     }

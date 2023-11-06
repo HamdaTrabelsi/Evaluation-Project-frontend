@@ -26,7 +26,7 @@
                                 <div *ngIf="creationForm.controls.email.touched && creationForm.controls.email.errors?.required" class="text text-danger mt-1">Adresse email requise</div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Mot de passe *</label>
+                                <label class="form-label">Mot de passe * (6 caratères minimum)</label>
                                 <input class="form-control" type="password" value="password" formControlName="password" required/>
                                 <div *ngIf="creationForm.controls.password.touched && creationForm.controls.password.errors?.required" class="text text-danger mt-1">Le mot de passe est requis</div>
                                 <div *ngIf="creationForm.controls.password.touched && creationForm.controls.password.errors?.minlength"

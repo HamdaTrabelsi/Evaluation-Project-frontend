@@ -11,6 +11,7 @@
           </div>
           <div class="login-main">
             <form class="theme-form" [formGroup]="loginForm">
+
               <h4>Connectez vous</h4>
               <p>Entrez votre adresse mail et mot de passe</p>
               <div class="form-group">
@@ -26,8 +27,10 @@
                 <div class="show-hide" (click)="showPassword()" *ngIf="show"><span class="Hide"></span></div>
                 <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required" class="text text-danger mt-1">Le mot de passe est requis</div>
               </div>
-              <div class="form-group mb-0">
 
+              <mat-error class="wrong-credentials-error" *ngIf="errorMessage">Email / Mot de passe invalid</mat-error>
+
+              <div class="form-group mb-0">
                 <div class="text-end mt-3">
                   <button class="btn btn-primary d-block w-100" [disabled]="!loginForm.valid" (click)="login()" type="button"><span>Connexion</span></button>
                 </div>
