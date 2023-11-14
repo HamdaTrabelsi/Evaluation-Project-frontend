@@ -20,6 +20,7 @@ import {
     StatistiquesQuestionnairesAdminComponent
 } from './Questionnaires/administrateur/statistiques-questionnaires-admin/statistiques-questionnaires-admin.component';
 import {ListMatieresComponent} from './Matieres/list-matieres/list-matieres.component';
+import {ModifierUtilisateurComponent} from './utilisateurs/modifier-utilisateur/modifier-utilisateur.component';
 
 const routes: Routes = [
     {
@@ -72,6 +73,10 @@ const routes: Routes = [
             {
                 path: 'create',
                 component: AjouterUtilisateurComponent
+            },
+            {
+                path: 'modifier/:id',
+                component: ModifierUtilisateurComponent
             },
         ]
     },

@@ -119,7 +119,7 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Prénom *</label>
-                                    <input class="form-control" type="text" placeholder="First Name"
+                                    <input class="form-control" type="text" placeholder="Prénom"
                                            formControlName="prenom" onlyAlphabets/>
                                     <div *ngIf="editForm.controls.prenom.touched && editForm.controls.prenom.errors?.required"
                                          class="text text-danger mt-1">Le prénom est requis
@@ -129,7 +129,7 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Nom *</label>
-                                    <input class="form-control" type="text" placeholder="Last Name"
+                                    <input class="form-control" type="text" placeholder="Nom"
                                            formControlName="nom" onlyAlphabets/>
                                     <div *ngIf="editForm.controls.nom.touched && editForm.controls.nom.errors?.required"
                                          class="text text-danger mt-1">Le nom est requis

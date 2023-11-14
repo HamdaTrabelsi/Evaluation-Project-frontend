@@ -33,8 +33,8 @@ export class ListEvaluationsComponent {
     )
   }
 
-  showSubmissions(){
-    this.router.navigate(["/sesame/questionnaire/administrateur/liste/1"])
+  showSubmissions(id:string){
+    this.router.navigate(["/sesame/questionnaire/administrateur/liste/"+id])
   }
 
   showStats(){

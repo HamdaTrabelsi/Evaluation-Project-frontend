@@ -21,4 +21,8 @@ export class SoumissionService {
         return this.httpClient.post(this.url + "/save", _soumission)
     }
 
+    getStatByEvaluation(_id: any): Observable<any> {
+        return this.httpClient.get(this.url + "/getSoumissionByEvaluation/"+ _id)
+    }
+
 }

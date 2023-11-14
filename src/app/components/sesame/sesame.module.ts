@@ -29,6 +29,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { ListMatieresComponent } from './Matieres/list-matieres/list-matieres.component';
 import { AjouterMatiereComponent } from './Matieres/ajouter-matiere/ajouter-matiere.component';
+import {WordDocumentService} from '../../shared/services/wordDocumentService.service';
+import {Ng2GoogleChartsModule} from 'ng2-google-charts';
 
 
 @NgModule({
@@ -66,8 +68,12 @@ import { AjouterMatiereComponent } from './Matieres/ajouter-matiere/ajouter-mati
         MatRadioModule,
         TabsModule,
         NgApexchartsModule,
-        CanvasJSAngularChartsModule
-    ]
+        CanvasJSAngularChartsModule,
+        Ng2GoogleChartsModule
+    ],
+    providers: [
+        WordDocumentService, // Add your service here
+    ],
 })
 export class SesameModule {
 }

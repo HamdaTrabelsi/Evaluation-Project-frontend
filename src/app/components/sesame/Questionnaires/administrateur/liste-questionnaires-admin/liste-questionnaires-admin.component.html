@@ -12,19 +12,38 @@
                     <ngx-tabset type="pills" class="tabbed-card nav-primary">
                         <ngx-tab tabTitle="Statistiques">
 
-                            <div>
-                                <canvasjs-chart [options]="canvaPieChartOptions"></canvasjs-chart>
-                            </div>
+                            <div class="statistique-content">
 
-                            <div>
-                                <canvasjs-chart [options]="canvaChartOptions"></canvasjs-chart>
-                            </div>
+                                <div class="download-button">
+                                <button  (click)="downloadChart()" class="btn btn-pill btn-primary" type="button" placement="top"
+                                        ngbTooltip="Telecharger le fichier Word"><i class="fa fa-file-word-o"></i></button>
+                                </div>
 
-                            <div>
-                                <canvasjs-chart [options]="canvaChartOptions"></canvasjs-chart>
-                            </div>
+                                <div class="pie-charts">
+                                    <div class="outer">
 
+                                        <div class="chart-overflow" id="chartContainer">
+                                            <google-chart  [data]="pieChart3"></google-chart>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bar-chart-list">
+                                    <div *ngFor="let data of evaluationChartsData; index as i;">
+                                        <hr>
+                                        <h1 class="section-title">{{data.sectionName}}</h1>
+                                        <ng-container *ngFor="let chart of data.questions; index as dataIndex">
+                                            <hr>
+<!--                                            <h2 class="question-title">{{chart?.title?.text}}</h2>-->
+                                            <canvasjs-chart  [attr.id]="'canvaChart' +i+ dataIndex" [options]="chart"></canvasjs-chart>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+                            </div>
                         </ngx-tab>
+
+
                         <ngx-tab tabTitle="Soumissions" class="pull-right nav nav-primary">
                             <div class="row g-sm-4 g-3">
                                 <div class="col-xl-4 col-md-6" *ngFor="let etudiant of etudiants">

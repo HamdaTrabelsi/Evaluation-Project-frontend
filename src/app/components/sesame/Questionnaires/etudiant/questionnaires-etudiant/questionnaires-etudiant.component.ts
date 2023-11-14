@@ -122,7 +122,6 @@ export class QuestionnairesEtudiantComponent {
 
         }
     )
-    //console.log('Updated formData:', this.formData); // Log the updated JSON data
   }
 
 

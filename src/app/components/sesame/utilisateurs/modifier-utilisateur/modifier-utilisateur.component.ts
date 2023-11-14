@@ -140,9 +140,9 @@ export class ModifierUtilisateurComponent {
   editPersonalInfo(){
 
     let personalInfo : Utilisateur = {
-      email : this.editForm.get("identifiant").value,
-      password : this.editForm.get("prenom").value,
-      linkedInUrl : this.editForm.get("nom").value,
+      identifiant : this.editForm.get("identifiant").value,
+      firstName : this.editForm.get("prenom").value,
+      lastname : this.editForm.get("nom").value,
       adresse : this.editForm.get("address").value,
       codePostal : this.editForm.get("codePostal").value,
       description : this.editForm.get("description").value,

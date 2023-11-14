@@ -1,3 +1,33 @@
 .img-fluid {
   margin-left: 15px;
 }
+
+.pie-chart {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+.outer {
+  max-width: 600px;
+}
+
+
+.pie-charts {
+  display: flex;
+  justify-content: center;
+}
+
+
+.download-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section-title{
+  font-size: 30px;
+}
+
+.question-title {
+  font-size: 25px;
+}
