@@ -91,6 +91,10 @@ const routes: Routes = [
                         component: QuestionnairesListEtudiantComponent
                     },
                     {
+                        path: 'details/:soumissionId',
+                        component: DetailsQuestionnairesAdminComponent
+                    },
+                    {
                         path: 'remplir/:id',
                         component: QuestionnairesEtudiantComponent
                     },
@@ -104,7 +108,7 @@ const routes: Routes = [
                         component: ListeQuestionnairesAdminComponent
                     },
                     {
-                        path: 'formulaire/details/:id',
+                        path: 'evaluation/:evaluationId/formulaire/details/:soumissionId',
                         component: DetailsQuestionnairesAdminComponent
                     },
                     {

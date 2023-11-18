@@ -1,1 +1,103 @@
-<p>details-questionnaires-admin works!</p>
+<app-breadcrumb [title]="'Réponse Evaluation'" [items]="['Questionnaires']"
+                [active_item]="'Evaluation'"></app-breadcrumb>
+<div class="container-fluid wizard4">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wizard-4" id="wizard">
+                <aw-wizard #wizard>
+
+                    <form>
+                        <aw-wizard-step stepTitle="0">
+                            <div class="card mt-4">
+                                <div class="card-header bg-primary">
+                                    <h5 class="text-white">{{soumission?.evaluation?.titre}}</h5>
+                                </div>
+                                <div class="card-body" style=" white-space: pre-wrap;">
+                                    <p>{{soumission?.evaluation?.description}}</p>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary" awNextStep>Commencer</button>
+                                </div>
+                            </div>
+                        </aw-wizard-step>
+                        <div *ngFor="let section of soumission?.formulaire?.sections;  let sectionIndex = index">
+                            <aw-wizard-step stepTitle="{{ sectionIndex + 1}}">
+                                <div class="centered-content">
+                                    <div class="card mt-4">
+
+                                        <div class="card-header bg-primary">
+                                            <h5 class="text-white">{{ section.sectionName }}</h5>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div class="mt-3"
+                                                 *ngFor="let question of section.questions; let qindex = index">
+                                                <p class="mb-0">{{qindex + 1}}-{{ question.questionText }}</p>
+                                                <hr/>
+
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col"></th>
+                                                        <th scope="col">Oui</th>
+                                                        <th scope="col">Plutot Oui</th>
+                                                        <th scope="col">Plutot Non</th>
+                                                        <th scope="col">Non</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr *ngFor="let critere of question.criteres; let critereIndex = index">
+                                                        <td style="text-align: start; width:30%">{{ critere.titre }}</td>
+                                                        <td><label class="d-block" for="{{critere.titre+'-oui'}}">
+                                                            <input class="radio_animated" type="radio"
+                                                                   [checked]="critere.reponse=='Oui'"
+                                                                   name="{{sectionIndex}}-{{qindex}}-{{critereIndex}}" disabled required/>
+                                                        </label></td>
+
+                                                        <td><label class="d-block"
+                                                                   for="{{critere.titre+'-plutot-oui'}}">
+                                                            <input class="radio_animated" type="radio"
+                                                                   [checked]="critere.reponse=='Plutot Oui'"
+                                                                   name="{{sectionIndex}}-{{qindex}}-{{critereIndex}}" disabled/>
+                                                        </label></td>
+
+                                                        <td><label class="d-block"
+                                                                   for="{{critere.titre+'-plutot-non'}}">
+                                                            <input class="radio_animated" type="radio"
+                                                                   [checked]="critere.reponse=='Plutot Non'"
+                                                                   name="{{sectionIndex}}-{{qindex}}-{{critereIndex}}" disabled/>
+                                                        </label></td>
+
+                                                        <td><label class="d-block" for="{{critere.titre+'-non'}}">
+                                                            <input class="radio_animated" type="radio"
+                                                                   [checked]="critere.reponse=='Non'"
+                                                                   name="{{sectionIndex}}-{{qindex}}-{{critereIndex}}" disabled/>
+                                                        </label></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <button *ngIf="sectionIndex > 0" type="button" class="ml-5 btn btn-secondary"
+                                        awPreviousStep>Retour
+                                </button>
+                                <button *ngIf="sectionIndex < soumission?.formulaire?.sections.length-1" type="button"
+                                        class="btn btn-secondary" awNextStep>Suivant
+                                </button>
+                                <button *ngIf="sectionIndex == soumission?.formulaire?.sections.length-1" type="button"
+                                        class="btn btn-secondary" type="submit" (click)="ouvrirListe()">List
+                                </button>
+                            </aw-wizard-step>
+                        </div>
+                    </form>
+
+                </aw-wizard>
+            </div>
+        </div>
+    </div>
+</div>

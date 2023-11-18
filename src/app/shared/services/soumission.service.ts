@@ -4,6 +4,7 @@ import {AuthService} from '../auth/auth.service';
 import {Evaluation} from '../model/evaluation.model';
 import {Observable} from 'rxjs';
 import {Soumission} from '../model/soumission.model';
+import {EtudiantDTO} from '../model/etudiantDTO.model';
 
 @Injectable({
     providedIn: 'root'
@@ -25,4 +26,15 @@ export class SoumissionService {
         return this.httpClient.get(this.url + "/getSoumissionByEvaluation/"+ _id)
     }
 
+    getSoumissionById(_id: any): Observable<any> {
+        return this.httpClient.get(this.url + "/getById/"+ _id)
+    }
+
+    getStudentByEvaluation(_id: any): Observable<EtudiantDTO[]> {
+        return this.httpClient.get<EtudiantDTO[]>(this.url + "/getStudentByEvaluation/"+ _id)
+    }
+
+    getNumberOfSoumissionForClasse(_evaluationId:any): Observable<any> {
+        return this.httpClient.get(this.url +"/getNumberOfSoumissionForClasse/"+_evaluationId);
+    }
 }

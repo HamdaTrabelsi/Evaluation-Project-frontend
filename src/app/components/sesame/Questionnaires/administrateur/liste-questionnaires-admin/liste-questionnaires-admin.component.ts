@@ -8,6 +8,7 @@ import {WordDocumentService} from '../../../../../shared/services/wordDocumentSe
 import {saveAs} from 'file-saver';
 import {Document, ImageRun, Packer, Paragraph, TextRun} from 'docx';
 import html2canvas from 'html2canvas';
+import {EtudiantDTO} from '../../../../../shared/model/etudiantDTO.model';
 
 @Component({
     selector: 'app-liste-questionnaires-admin',
@@ -105,11 +106,7 @@ export class ListeQuestionnairesAdminComponent {
     // Pie Chart 3
     pieChart3: any = {
         chartType: 'PieChart',
-        dataTable: [
-            ['Etudiants', 'Participation'],
-            ['Répondu', 23],
-            ['En Attente', 7],
-        ],
+        dataTable: [],
         options: {
             title: 'My Daily Activities',
             pieHole: 0.4,
@@ -120,88 +117,7 @@ export class ListeQuestionnairesAdminComponent {
         },
     };
 
-    canvaPieChartOptions = {
-        width: 500,
-        animationEnabled: true,
-        title: {
-            text: 'Taux de participation par classe',
-            fontSize: 20,
-            margin: 15
-        },
-        data: [{
-            type: 'pie',
-            startAngle: 240,
-            yValueFormatString: '##0.00"%"',
-            indexLabel: '{label} {y}',
-            dataPoints: [
-                {y: 25, label: 'Repondu'},
-                {y: 5, label: 'Ignoré'},
-            ]
-        }]
-    };
-
-    etudiants = [
-        {
-            studentEmail: 'ahmed@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'fatima@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'mohammed@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'layla@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'youssef@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'nadia@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'karim@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'ranya@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'amir@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'leila@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'sara@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-        {
-            studentEmail: 'khalid@sesame.com',
-            submissionDate: new Date(), // You can set this to a recent date.
-            classe: 'ING4C',
-        },
-    ];
+    etudiants: EtudiantDTO[] = [];
 
     evaluationStats: any;
 
@@ -220,7 +136,7 @@ export class ListeQuestionnairesAdminComponent {
         private soumissionService: SoumissionService,
         private activatedRoute: ActivatedRoute,
         private dataTransformationService: DataTransformationService,
-        private wordDocumentService: WordDocumentService
+        private wordDocumentService: WordDocumentService,
     ) {
     }
 
@@ -228,6 +144,29 @@ export class ListeQuestionnairesAdminComponent {
         this.evaluationId = this.activatedRoute.snapshot.paramMap.get('id');
 
         this.getStatistics();
+        this.getStudents();
+        this.getPieChartStats();
+    }
+
+    getPieChartStats() {
+        this.soumissionService.getNumberOfSoumissionForClasse(this.evaluationId).subscribe(
+            success => {
+                let datapoints =
+                    [
+                        ['Etudiants', 'Participation'],
+                        ['Répondu', success.reponses],
+                        ['En Attente', success?.nonRepondus],
+                    ];
+
+                console.log("stats")
+                console.log(success)
+
+                this.pieChart3.dataTable = datapoints;
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
 
     getStatistics() {
@@ -255,23 +194,6 @@ export class ListeQuestionnairesAdminComponent {
         this.router.navigate(['/sesame/questionnaire/etudiant/remplir/1']);
     }
 
-
-    generateDocxFile() {
-        // Get the HTML template from the Angular component
-        const htmlTemplate = this.getHtmlTemplate();
-
-        // Generate the docx file
-        this.wordDocumentService.generateDocument(this.transformedData);
-    }
-
-    // Get the HTML template from the Angular component
-    getHtmlTemplate(): string {
-        return `
-      <h1>This is the title of the document</h1>
-      <p>This is the body of the document</p>
-      <img src="https://example.com/image.png" alt="Image">
-    `;
-    }
 
     transformData(providedData: any) {
         for (const sectionName in providedData) {
@@ -338,59 +260,6 @@ export class ListeQuestionnairesAdminComponent {
         }
     }
 
-    // @ts-ignore
-    public async downloadDoxc() {
-
-        const imageUrl = 'https://raw.githubusercontent.com/dolanmiu/docx/master/demo/images/cat.jpg';
-        const response = await fetch(imageUrl);
-        const arrayBuffer = await response.arrayBuffer();
-        const uint8Array = new Uint8Array(arrayBuffer);
-
-
-        let doc = new Document({
-            sections: [
-                {
-                    properties: {},
-                    children: [
-                        new Paragraph({
-                            children: [
-                                new TextRun('Hello World'),
-                                new TextRun({
-                                    text: 'Foo Bar',
-                                    bold: true,
-                                }),
-                                new TextRun({
-                                    text: '\tGithub is the best',
-                                    bold: true,
-                                }),
-                            ],
-                        }),
-                        new Paragraph({
-                            children: [
-                                new ImageRun({
-                                    data: uint8Array,
-                                    transformation: {
-                                        width: 1690,
-                                        height: 400,
-                                    },
-                                }),]
-                        })
-                    ],
-
-                },
-
-
-            ],
-        });
-
-
-        Packer.toBlob(doc).then((blob) => {
-            console.log(blob);
-            saveAs(blob, 'example.docx');
-            console.log('Document created successfully');
-        });
-    }
-
     getResponseCountByCritere(questionData, r) {
         let datapoints = [];
 
@@ -437,14 +306,14 @@ export class ListeQuestionnairesAdminComponent {
                                 },
                             }),
                         ],
-                    }))
-                let chartsImages = await this.getAllQeuestionCharts();
+                    }));
+                let chartsImages = await this.getAllQuestionCharts();
 
                 chartsImages.forEach(c => {
-                    barCharts.push(c)
-                })
+                    barCharts.push(c);
+                });
 
-                console.log(chartsImages)
+                console.log(chartsImages);
 
                 let doc = new Document({
                     sections: [
@@ -467,9 +336,9 @@ export class ListeQuestionnairesAdminComponent {
         }
     }
 
-    async getAllQeuestionCharts(): Promise<Paragraph[]> {
+    async getAllQuestionCharts(): Promise<Paragraph[]> {
         let chartList: Array<any> = [];
-        for (let i=0;i<this.evaluationChartsData.length;i++) {
+        for (let i = 0; i < this.evaluationChartsData.length; i++) {
 
             let paragraph: Paragraph = new Paragraph({});
             let sectionName: TextRun = new TextRun(this.evaluationChartsData[i].sectionName);
@@ -477,12 +346,12 @@ export class ListeQuestionnairesAdminComponent {
 
             //let barChartsParagraph: Array<any> = [];
 
-            for (let j=0;j<this.evaluationChartsData[i].questions.length;j++) {
-                let chartParagraph: Paragraph= new Paragraph({});
+            for (let j = 0; j < this.evaluationChartsData[i].questions.length; j++) {
+                let chartParagraph: Paragraph = new Paragraph({});
 
                 let chartTitle = new TextRun(this.evaluationChartsData[i].questions[j]?.title?.text);
 
-                const chartContainer = document.getElementById('canvaChart'+i+j);
+                const chartContainer = document.getElementById('canvaChart' + i + j);
                 const canvas = await html2canvas(chartContainer);
                 const dataUrl = canvas.toDataURL('image/png');
                 const arrayBuffer = this.dataURLToUint8Array(dataUrl);
@@ -491,7 +360,7 @@ export class ListeQuestionnairesAdminComponent {
                 paragraph.addChildElement(new ImageRun({
                     data: arrayBuffer,
                     transformation: {
-                        width: 500,
+                        width: 700,
                         height: 350,
                     },
                 }));
@@ -499,10 +368,26 @@ export class ListeQuestionnairesAdminComponent {
                 //barChartsParagraph.addChildElement(chartParagraph);
             }
 
-           // paragraph.addChildElement(barChartsParagraph)
-            chartList.push(paragraph)
+            // paragraph.addChildElement(barChartsParagraph)
+            chartList.push(paragraph);
         }
         return chartList;
+    }
+
+    getStudents() {
+        this.soumissionService.getStudentByEvaluation(this.evaluationId).subscribe(
+            success => {
+                this.etudiants = success;
+                console.log(this.etudiants);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
+    voirReponses(id) {
+        this.router.navigate(['/sesame/questionnaire/administrateur/evaluation/' + this.evaluationId + '/formulaire/details/' + id]);
     }
 
     private dataURLToUint8Array(dataUrl: string): Uint8Array {
@@ -515,5 +400,4 @@ export class ListeQuestionnairesAdminComponent {
 
         return array;
     }
-
 }

@@ -18,11 +18,6 @@ import {Formulaire} from '../../../../../shared/model/formulaire.model';
 })
 export class QuestionnairesEtudiantComponent {
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
-  fourthFormGroup: FormGroup;
-
   maxDate: Date;
 
   form: FormGroup;

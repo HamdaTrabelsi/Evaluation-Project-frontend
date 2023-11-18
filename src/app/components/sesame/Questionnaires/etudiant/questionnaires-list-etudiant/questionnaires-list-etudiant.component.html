@@ -45,7 +45,7 @@
                                                 *ngIf="eval.actif && eval.repondu == false"  (click)="openForm(eval.evaluationId)">Ouvrir
                                         </button>
                                         <button class="btn btn-info" type="button" title=""
-                                                *ngIf="!eval.actif || eval.repondu != false">Consulter
+                                                *ngIf="!eval.actif || eval.repondu != false" (click)="openDetails(eval.reponseId)">Consulter
                                         </button>
                                     </td>
                                 </tr>
