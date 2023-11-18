@@ -22,7 +22,7 @@
                                 <div class="pie-charts">
                                     <div class="outer">
 
-                                        <div class="chart-overflow" id="chartContainer">
+                                        <div class="chart-overflow" id="chartContainer" *ngIf="pieChart3.dataTable.length>0">
                                             <google-chart  [data]="pieChart3"></google-chart>
                                         </div>
                                     </div>

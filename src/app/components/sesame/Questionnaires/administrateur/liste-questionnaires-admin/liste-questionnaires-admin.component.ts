@@ -158,9 +158,6 @@ export class ListeQuestionnairesAdminComponent {
                         ['En Attente', success?.nonRepondus],
                     ];
 
-                console.log("stats")
-                console.log(success)
-
                 this.pieChart3.dataTable = datapoints;
             },
             error => {

@@ -151,6 +151,12 @@ export class NavService implements OnDestroy {
       type: "link",
     },
     {
+      path: "/sesame/matieres/list",
+      title: "Matières",
+      icon: "file",
+      type: "link",
+    },
+    {
       path: "/sesame/utilisateurs/list",
       title: "Utilisateurs",
       icon: "file",
