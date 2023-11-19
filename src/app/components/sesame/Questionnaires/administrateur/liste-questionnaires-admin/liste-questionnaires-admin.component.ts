@@ -170,13 +170,8 @@ export class ListeQuestionnairesAdminComponent {
         this.soumissionService.getStatByEvaluation(this.evaluationId).subscribe(
             success => {
                 this.evaluationStats = success;
-                console.log(success);
-                // console.log(this.canvaChartOptions)
-                // this.evaluationChartsData = this.convertDataForCharts(this.evaluationStats)
-                // console.log(this.evaluationChartsData)
-
                 this.transformData(success);
-                this.evaluationChartsData = this.transformedData;
+                this.evaluationChartsData =  this.transformedData.sort((a, b) => a.sectionIndex.localeCompare(b.sectionIndex));
 
                 // Log the transformed data to the console for demonstration
                 console.log('Transformed Data:', this.evaluationChartsData);
@@ -193,17 +188,20 @@ export class ListeQuestionnairesAdminComponent {
 
 
     transformData(providedData: any) {
-        for (const sectionName in providedData) {
-            if (providedData.hasOwnProperty(sectionName)) {
-                const sectionData = providedData[sectionName];
+        for (const sectionIndex in providedData) {
+            if (providedData.hasOwnProperty(sectionIndex)) {
+                const sectionData = providedData[sectionIndex];
+
                 const sectionEntry = {
                     sectionName: sectionData.sectionName,
+                    sectionIndex: sectionData.sectionIndex,
+                    enseignantName: sectionData.enseignantName,
                     questions: []
                 };
 
-                for (const questionName in sectionData.questions) {
-                    if (sectionData.questions.hasOwnProperty(questionName)) {
-                        const questionData = sectionData.questions[questionName];
+                for (const questionIndex in sectionData.questions) {
+                    if (sectionData.questions.hasOwnProperty(questionIndex)) {
+                        const questionData = sectionData.questions[questionIndex];
                         const questionEntry = {
                             animationEnabled: true,
                             theme: 'light2',
@@ -214,9 +212,9 @@ export class ListeQuestionnairesAdminComponent {
                             data: []
                         };
 
-                        for (const critereName in questionData.criteres) {
-                            if (questionData.criteres.hasOwnProperty(critereName)) {
-                                const critereData = questionData.criteres[critereName];
+                        for (const critereIndex in questionData.criteres) {
+                            if (questionData.criteres.hasOwnProperty(critereIndex)) {
+                                const critereData = questionData.criteres[critereIndex];
                                 // for (const response in critereData.responses) {
                                 //     if (critereData.responses.hasOwnProperty(response)) {
                                 //         const count = critereData.responses[response];
@@ -235,13 +233,16 @@ export class ListeQuestionnairesAdminComponent {
 
                         this.responses.forEach(r => {
                                 let datapoints = this.getResponseCountByCritere(questionData, r);
-                                const dataPoint = {
+
+                            const sortedData = datapoints.sort((a, b) => a.label.localeCompare(b.label));
+
+                            const dataPoint = {
                                     type: 'stackedBar100',
                                     toolTipContent: `{label}<br><b>{name}:</b> {y} (#percent%)`,
                                     showInLegend: true,
                                     name: r,
                                     dataPoints:
-                                    datapoints
+                                    sortedData
                                 };
                                 questionEntry.data.push(dataPoint);
                             }
@@ -266,7 +267,9 @@ export class ListeQuestionnairesAdminComponent {
             datapoints.push({y: count, label: critereName});
         }
 
-        return datapoints;
+        const sortedData = datapoints.sort((a, b) => a.label.localeCompare(b.label));
+
+        return sortedData;
     }
 
     public async downloadChart() {
@@ -310,7 +313,6 @@ export class ListeQuestionnairesAdminComponent {
                     barCharts.push(c);
                 });
 
-                console.log(chartsImages);
 
                 let doc = new Document({
                     sections: [
@@ -337,10 +339,16 @@ export class ListeQuestionnairesAdminComponent {
         let chartList: Array<any> = [];
         for (let i = 0; i < this.evaluationChartsData.length; i++) {
 
+            console.log("dataaaaaaa")
+            console.log(this.evaluationChartsData[i])
             let paragraph: Paragraph = new Paragraph({});
             let sectionName: TextRun = new TextRun(this.evaluationChartsData[i].sectionName);
             paragraph.addChildElement(sectionName);
 
+            if(this.evaluationChartsData[i].enseignantName!=null) {
+                let enseignantName: TextRun = new TextRun("Professeur : "+ this.evaluationChartsData[i].enseignantName);
+                paragraph.addChildElement(enseignantName);
+            }
             //let barChartsParagraph: Array<any> = [];
 
             for (let j = 0; j < this.evaluationChartsData[i].questions.length; j++) {
@@ -375,7 +383,6 @@ export class ListeQuestionnairesAdminComponent {
         this.soumissionService.getStudentByEvaluation(this.evaluationId).subscribe(
             success => {
                 this.etudiants = success;
-                console.log(this.etudiants);
             },
             error => {
                 console.log(error);

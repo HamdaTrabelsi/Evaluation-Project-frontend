@@ -14,7 +14,7 @@ export class DetailsQuestionnairesAdminComponent {
     soumissionId;
     evaluationId;
     soumission: Soumission;
-
+    loading = true;
     userRole: string;
 
     constructor(
@@ -37,7 +37,12 @@ export class DetailsQuestionnairesAdminComponent {
         this.soumissionService.getSoumissionById(this.soumissionId).subscribe(
             success => {
                 this.soumission = success;
-                console.log(this.soumission);
+                console.log(this.soumission.formulaire);
+
+                // Sorting functions
+                this.sortSections()
+                this.sortQuestions();
+                this.sortCriteres();
             },
             error => {
                 console.log(error);
@@ -50,6 +55,39 @@ export class DetailsQuestionnairesAdminComponent {
             this.router.navigate(['/sesame/questionnaire/administrateur/liste/' + this.evaluationId]);
         }else if(this.userRole == 'ROLE_ETUDIANT') {
             this.router.navigate(['sesame/questionnaire/etudiant/liste']);
+        }
+    }
+
+    // Generic sorting function
+    sortArrayByProperty(array: any[], property: string) {
+        return array.sort((a, b) => a[property].localeCompare(b[property]));
+    }
+
+    sortSections() {
+        this.sortArrayByProperty(this.soumission?.formulaire?.sections, 'sectionId');
+    }
+
+    sortQuestions() {
+        if (this.soumission && this.soumission?.formulaire?.sections) {
+            this.soumission.formulaire.sections.forEach((section) => {
+                if (section.questions) {
+                    section.questions = this.sortArrayByProperty(section.questions, 'questionIndex');
+                }
+            });
+        }
+    }
+
+    sortCriteres() {
+        if (this.soumission && this.soumission?.formulaire?.sections) {
+            this.soumission?.formulaire?.sections.forEach((section) => {
+                if (section?.questions) {
+                    section?.questions.forEach((question) => {
+                        if (question.criteres) {
+                            question.criteres = this.sortArrayByProperty(question.criteres, 'critereIndex');
+                        }
+                    });
+                }
+            });
         }
     }
 }

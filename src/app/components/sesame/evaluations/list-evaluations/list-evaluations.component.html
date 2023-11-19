@@ -16,6 +16,7 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">Classe</th>
+                                    <th scope="col">Titre</th>
                                     <th scope="col">Date Création</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Année Universitaire</th>
@@ -27,6 +28,9 @@
                                 <tr *ngFor="let evaluation of evaluations; index as i">
                                     <td>
                                         <h6>{{ evaluation?.classe?.nom }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6>{{ evaluation?.titre }}</h6>
                                     </td>
                                     <td>
                                         {{ evaluation.creationDate | date: 'dd/MM/yyyy' }}

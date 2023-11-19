@@ -5,5 +5,6 @@ export interface Section {
     sectionName?: String,
     questions?: Array<Question>,
     enseignantId?: String,
+    enseignantName?: String,
     matiereId?:String
 }

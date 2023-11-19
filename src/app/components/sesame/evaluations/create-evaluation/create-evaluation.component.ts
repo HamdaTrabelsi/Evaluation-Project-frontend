@@ -68,6 +68,7 @@ export class CreateEvaluationComponent {
             sectionName: ['', Validators.required],
             enseignantId : [''],
             matiereId : [''],
+            enseignantName : [''],
             questions: this.formBuilder.array([])
         }));
     }
@@ -76,6 +77,7 @@ export class CreateEvaluationComponent {
         const section = this.formulaire.at(sectionIndex);
         section.get("enseignantId").setValue(event?.enseignant?.id)
         section.get("matiereId").setValue(event?.id)
+        section.get("enseignantName").setValue(event?.enseignant?.lastname + ' ' + event?.enseignant?.firstName)
     }
 
     addQuestion(sectionIndex: number) {
