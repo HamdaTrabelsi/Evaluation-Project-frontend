@@ -62,10 +62,9 @@
                                 <div class="col-sm-6">
                                     <div class="mb-3">
                                         <label for="anneeUniversitaire">Année Universitaire :</label>
-                                        <ng-select [items]="yearRanges" bindLabel="nom" id="anneeUniversitaire"
-                                                   placeholder="Année Universitaire"
-                                                   formControlName="anneeUniversitaire" required>
-                                        </ng-select>
+                                        <input bindLabel="nom" id="anneeUniversitaire" type="text"
+                                               placeholder="Année Universitaire" formControlName="anneeUniversitaire" class="form-control"
+                                               readonly required>
                                         <div *ngIf="form.controls.anneeUniversitaire.touched && form.controls.anneeUniversitaire.errors?.required"
                                              class="text text-danger mt-1">L'année univesitaire est requise
                                         </div>

@@ -5,17 +5,35 @@ import {ChartComponent} from 'ng-apexcharts';
 import {SoumissionService} from '../../../../../shared/services/soumission.service';
 import {DataTransformationService} from '../../../../../shared/services/dataTransformationService.service';
 import {WordDocumentService} from '../../../../../shared/services/wordDocumentService.service';
-import {saveAs} from 'file-saver';
-import {Document, ImageRun, Packer, Paragraph, TextRun} from 'docx';
+import {DatePipe} from '@angular/common';
+
+import {
+    Document,
+    HeightRule,
+    ImageRun,
+    Packer,
+    Paragraph,
+    patchDocument,
+    PatchType,
+    Table,
+    TableCell,
+    TableRow,
+    TextRun,
+    VerticalAlign
+} from 'docx';
 import html2canvas from 'html2canvas';
 import {EtudiantDTO} from '../../../../../shared/model/etudiantDTO.model';
+import {MoyenneEval} from '../../../../../shared/model/moyenneEval.model';
+import {Evaluation} from '../../../../../shared/model/evaluation.model';
+import {EvaluationService} from '../../../../../shared/services/evaluation.service';
+
 
 @Component({
     selector: 'app-liste-questionnaires-admin',
     templateUrl: './liste-questionnaires-admin.component.html',
     styleUrls: ['./liste-questionnaires-admin.component.scss']
 })
-// @ts-ignore
+
 export class ListeQuestionnairesAdminComponent {
 
     @ViewChild('chart') chart: ChartComponent;
@@ -103,6 +121,8 @@ export class ListeQuestionnairesAdminComponent {
         ]
     };
 
+    documentLoading = false
+
     // Pie Chart 3
     pieChart3: any = {
         chartType: 'PieChart',
@@ -131,26 +151,43 @@ export class ListeQuestionnairesAdminComponent {
 
     responses: String[] = ['Non', 'Plutot Non', 'Plutot Oui', 'Oui'];
 
+    moyenneEval: MoyenneEval;
+
+    currentEvaluation: Evaluation;
+
+    documentTemplate = '/assets/docTemplates/evaluation_classe_template.docx'
+
+    etudiantsRepondus
+    etudiantsEnAttente
+    nombreEtudiants
+
     constructor(
         private router: Router,
         private soumissionService: SoumissionService,
         private activatedRoute: ActivatedRoute,
         private dataTransformationService: DataTransformationService,
         private wordDocumentService: WordDocumentService,
+        private evaluationService: EvaluationService,
+        private datePipe: DatePipe
     ) {
     }
 
     ngOnInit(): void {
         this.evaluationId = this.activatedRoute.snapshot.paramMap.get('id');
 
+        this.getCurrentEvaluation();
         this.getStatistics();
         this.getStudents();
         this.getPieChartStats();
+        this.getMoyennesEvaluation();
     }
 
     getPieChartStats() {
         this.soumissionService.getNumberOfSoumissionForClasse(this.evaluationId).subscribe(
             success => {
+                this.etudiantsRepondus = success?.reponses
+                this.etudiantsEnAttente = success?.nonRepondus
+                this.nombreEtudiants = success?.nonRepondus+ success?.reponses
                 let datapoints =
                     [
                         ['Etudiants', 'Participation'],
@@ -171,10 +208,36 @@ export class ListeQuestionnairesAdminComponent {
             success => {
                 this.evaluationStats = success;
                 this.transformData(success);
-                this.evaluationChartsData =  this.transformedData.sort((a, b) => a.sectionIndex.localeCompare(b.sectionIndex));
+                this.evaluationChartsData = this.transformedData.sort((a, b) => a.sectionIndex.localeCompare(b.sectionIndex));
 
                 // Log the transformed data to the console for demonstration
                 console.log('Transformed Data:', this.evaluationChartsData);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
+    getMoyennesEvaluation() {
+        this.soumissionService.getMoyennesEvaluation(this.evaluationId).subscribe(
+            success => {
+                this.moyenneEval = success;
+                console.log('moyenne eval');
+                console.log(this.moyenneEval);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+
+    getCurrentEvaluation() {
+        this.evaluationService.findEvaluatiob(this.evaluationId).subscribe(
+            success => {
+                this.currentEvaluation = success;
+                console.log('current Evaluation');
+                console.log(this.currentEvaluation);
             },
             error => {
                 console.log(error);
@@ -234,9 +297,9 @@ export class ListeQuestionnairesAdminComponent {
                         this.responses.forEach(r => {
                                 let datapoints = this.getResponseCountByCritere(questionData, r);
 
-                            const sortedData = datapoints.sort((a, b) => a.label.localeCompare(b.label));
+                                const sortedData = datapoints.sort((a, b) => a.label.localeCompare(b.label));
 
-                            const dataPoint = {
+                                const dataPoint = {
                                     type: 'stackedBar100',
                                     toolTipContent: `{label}<br><b>{name}:</b> {y} (#percent%)`,
                                     showInLegend: true,
@@ -274,6 +337,7 @@ export class ListeQuestionnairesAdminComponent {
 
     public async downloadChart() {
         try {
+            this.documentLoading = true
             const chartContainer = document.getElementById('chartContainer');
 
             if (chartContainer) {
@@ -281,51 +345,42 @@ export class ListeQuestionnairesAdminComponent {
                 const dataUrl = canvas.toDataURL('image/png');
                 const arrayBuffer = this.dataURLToUint8Array(dataUrl);
 
-                let barCharts: Array<Paragraph> = [];
+                let docElements: Array<any> = [];
 
-                barCharts.push(new Paragraph({
-                        children: [
-                            new TextRun('Hello World'),
-                            new TextRun({
-                                text: 'Foo Bar',
-                                bold: true,
-                            }),
-                            new TextRun({
-                                text: '\tGithub is the best',
-                                bold: true,
-                            }),
-                        ],
-                    }),
-                    new Paragraph({
-                        children: [
-                            new ImageRun({
-                                data: arrayBuffer,
-                                transformation: {
-                                    width: 500,
-                                    height: 350,
-                                },
-                            }),
-                        ],
-                    }));
+                //Pie Chart
+                // docElements.push(
+                //     new Paragraph({
+                //         children: [
+                //             new ImageRun({
+                //                 data: arrayBuffer,
+                //                 transformation: {
+                //                     width: 500,
+                //                     height: 350,
+                //                 },
+                //             }),
+                //         ],
+                //     }));
+
+
                 let chartsImages = await this.getAllQuestionCharts();
 
-                chartsImages.forEach(c => {
-                    barCharts.push(c);
-                });
+                let docum = await this.prepareDocument(docElements, chartsImages);
+
+                this.downloadBuffer(docum)
 
 
                 let doc = new Document({
                     sections: [
                         {
                             properties: {},
-                            children: barCharts
+                            children: docElements
                         },
                     ],
                 });
 
 
                 const docBlob = await Packer.toBlob(doc);
-                saveAs(docBlob, 'example.docx');
+                //saveAs(docBlob, 'example.docx');
                 console.log('Document created successfully');
             } else {
                 console.error('Element with ID "chartContainer" not found.');
@@ -335,26 +390,121 @@ export class ListeQuestionnairesAdminComponent {
         }
     }
 
+
+    private async prepareDocument(docElements: Array<any>, chartsImages: Paragraph[]) {
+
+        if (this.moyenneEval.moyenneBarometre != null && this.moyenneEval.moyenneBarometre.nom != null) {
+            let barometreTable = this.createMoyenneBarometreTable();
+            let barometreText = new Paragraph({ children : [new TextRun({text: 'Baromètre de satisfaction', bold:true,size:28})]});
+            docElements.push(barometreText);
+            docElements.push(new Paragraph({text: ''}));
+            docElements.push(barometreTable);
+        }
+
+        let courseTable = this.createMoyenneFormationTable();
+        let barometreText = new Paragraph({children : [new TextRun({text: 'Retour d’expérience: formation', bold:true,size:28})], spacing: {before:500}});
+        docElements.push(barometreText);
+        docElements.push(courseTable);
+
+        chartsImages.forEach(c => {
+            docElements.push(c);
+        });
+
+
+        let file;
+        file = await (await fetch(this.documentTemplate)).arrayBuffer();
+
+
+        let docum = await patchDocument(file, {
+            patches: {
+                classe: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.currentEvaluation?.classe?.nom, size: 70,color:"1f497d",bold:true})],
+                },
+                classe_text: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.currentEvaluation?.classe?.nom})],
+                },
+                classe_bold: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.currentEvaluation?.classe?.nom, size:32, bold : true})],
+                },
+                semestre: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.currentEvaluation?.semestre, size: 38, color:'4f81bd', bold:true})],
+                },
+                semestre_text: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.currentEvaluation?.semestre})],
+                },
+                annee_universitaire: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.currentEvaluation?.anneeUniversitaire, size: 60, bold:true})],
+                },
+                annee_universitaire_text: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.currentEvaluation?.anneeUniversitaire})],
+                },
+                date_creation: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.datePipe.transform(this.currentEvaluation?.creationDate,'dd/MM/yyyy')})],
+                },
+                date_cloture: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.datePipe.transform(this.currentEvaluation?.limitDate,'dd/MM/yyyy')})],
+                },
+                nombre_etudiants: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.nombreEtudiants.toString()})],
+                },
+                nombre_participation: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: this.etudiantsRepondus.toString()})],
+                },
+                taux_participation: {
+                    type: PatchType.PARAGRAPH,
+                    children: [new TextRun({text: (this.etudiantsRepondus*100)/this.nombreEtudiants + "%"})],
+                },
+                charts: {
+                    type: PatchType.DOCUMENT,
+                    children: docElements,
+                },
+            },
+        });
+        return docum;
+    }
+
     async getAllQuestionCharts(): Promise<Paragraph[]> {
         let chartList: Array<any> = [];
+        console.log("this.evaluationChartsData")
+        console.log(this.evaluationChartsData)
         for (let i = 0; i < this.evaluationChartsData.length; i++) {
 
-            console.log("dataaaaaaa")
-            console.log(this.evaluationChartsData[i])
-            let paragraph: Paragraph = new Paragraph({});
-            let sectionName: TextRun = new TextRun(this.evaluationChartsData[i].sectionName);
-            paragraph.addChildElement(sectionName);
+            let paragraph: Paragraph = new Paragraph({spacing: {before:15,}});
+            let sectionName = new TextRun({text: this.evaluationChartsData[i].sectionName.toString(), size:35, bold: true});
+            let sectionNameSpacing =  new TextRun({
+                text: '',
+                break: 1
+            });
 
-            if(this.evaluationChartsData[i].enseignantName!=null) {
-                let enseignantName: TextRun = new TextRun("Professeur : "+ this.evaluationChartsData[i].enseignantName);
+            paragraph.addChildElement(sectionName);
+            paragraph.addChildElement(sectionNameSpacing);
+
+            if (this.evaluationChartsData[i].enseignantName != null && this.evaluationChartsData[i].enseignantName != "undefined undefined") {
+                let enseignantName: TextRun = new TextRun({text: 'Professeur : ' + this.evaluationChartsData[i].enseignantName, size:30, bold: true});
+                let enseignantNameSpacing =  new TextRun({
+                    text: '',
+                    break: 1
+                });
                 paragraph.addChildElement(enseignantName);
+                paragraph.addChildElement(enseignantNameSpacing);
+
             }
             //let barChartsParagraph: Array<any> = [];
 
             for (let j = 0; j < this.evaluationChartsData[i].questions.length; j++) {
-                let chartParagraph: Paragraph = new Paragraph({});
 
-                let chartTitle = new TextRun(this.evaluationChartsData[i].questions[j]?.title?.text);
+                let chartTitle = new TextRun({text: this.evaluationChartsData[i].questions[j]?.title?.text, bold:true, size:30});
 
                 const chartContainer = document.getElementById('canvaChart' + i + j);
                 const canvas = await html2canvas(chartContainer);
@@ -365,8 +515,8 @@ export class ListeQuestionnairesAdminComponent {
                 paragraph.addChildElement(new ImageRun({
                     data: arrayBuffer,
                     transformation: {
-                        width: 700,
-                        height: 350,
+                        width: 650,
+                        height: 250,
                     },
                 }));
 
@@ -377,6 +527,166 @@ export class ListeQuestionnairesAdminComponent {
             chartList.push(paragraph);
         }
         return chartList;
+    }
+
+    createMoyenneBarometreTable() {
+
+        let tableRowsList: TableRow[] = [
+            new TableRow({
+                height:{ value: 600, rule: HeightRule.AUTO },
+                children: [
+                    new TableCell({
+                        verticalAlign: VerticalAlign.CENTER,
+                        children: [
+                            new Paragraph({children: [new TextRun({text: 'Question', bold: true})]})
+                        ]
+                    }),
+                    new TableCell({
+                        verticalAlign: VerticalAlign.CENTER,
+                        children: [
+                            new Paragraph({children: [new TextRun({text: 'Score', bold: true})]})
+                        ]
+                    }),
+                ]
+            })
+        ];
+        if (this.moyenneEval?.moyenneBarometre != null) {
+            for (let key in this.moyenneEval.moyenneBarometre.scores) {
+                let tableRow = new TableRow({
+                    height:{ value: 600, rule: HeightRule.AUTO },
+                    children: [
+                        new TableCell({
+                            verticalAlign: VerticalAlign.CENTER,
+                            children: [
+                                new Paragraph(key)
+                            ]
+                        }),
+                        new TableCell({
+                            verticalAlign: VerticalAlign.CENTER,
+                            children: [
+                                new Paragraph(this.moyenneEval.moyenneBarometre.scores[key].toString())
+                            ]
+                        })
+                    ]
+                });
+                tableRowsList.push(tableRow);
+            }
+        }
+
+        let tableFooter: TableRow = new TableRow({
+            height:{ value: 600, rule: HeightRule.AUTO },
+            children: [
+                new TableCell({
+                    verticalAlign: VerticalAlign.CENTER,
+                    children: [
+                        new Paragraph({
+                            children: [new TextRun({text:"Moyenne des scores", bold: true})],
+
+                        })
+                    ]
+                }),
+                new TableCell({
+                    verticalAlign: VerticalAlign.CENTER,
+                    children: [
+                        new Paragraph({children:[new TextRun({text:this.moyenneEval?.moyenneBarometre?.moyenne.toString(),bold:true})]})
+                    ]
+                })
+            ]
+        });
+
+        tableRowsList.push(tableFooter);
+
+        let table = new Table({
+            columnWidths: [7200, 1800],
+            rows: tableRowsList,
+        });
+        return table;
+    }
+
+    createMoyenneFormationTable() {
+
+        let tableRowsList: TableRow[] = [
+            new TableRow({
+                height:{ value: 600, rule: HeightRule.AUTO },
+                children: [
+                    new TableCell({
+                        verticalAlign: VerticalAlign.CENTER,
+                        children: [
+                            new Paragraph({children: [new TextRun({text: 'Cours', bold: true})]})
+                        ]
+                    }),
+                    new TableCell({
+                        verticalAlign: VerticalAlign.CENTER,
+                        children: [
+                            new Paragraph({children: [new TextRun({text: 'Enseignant', bold: true})]})
+                        ]
+                    }),
+                    new TableCell({
+                        verticalAlign: VerticalAlign.CENTER,
+                        children: [
+                            new Paragraph({children: [new TextRun({text: 'Score', bold: true})]})
+                        ]
+                    }),
+                ]
+            })
+        ];
+        if (this.moyenneEval?.moyenneFormation != null) {
+            for (let cours of this.moyenneEval.moyenneFormation.moyennesCours) {
+                let tableRow = new TableRow({
+                    height:{ value: 600, rule: HeightRule.AUTO },
+                    children: [
+                        new TableCell({
+                            verticalAlign: VerticalAlign.CENTER,
+                            children: [
+                                new Paragraph(cours.courseName)
+                            ]
+                        }),
+                        new TableCell({
+                            verticalAlign: VerticalAlign.CENTER,
+                            children: [
+                                new Paragraph(cours.enseignant)
+                            ]
+                        }),
+                        new TableCell({
+                            verticalAlign: VerticalAlign.CENTER,
+                            children: [
+                                new Paragraph(cours.score.toString())
+                            ]
+                        })
+                    ]
+                });
+                tableRowsList.push(tableRow);
+            }
+        }
+
+        let tableFooter: TableRow = new TableRow({
+            height:{ value: 600, rule: HeightRule.AUTO },
+            children: [
+                new TableCell({
+                    children: [
+                        new Paragraph({
+                            children: [new TextRun({text:"Indice retour d’expérience formation", bold: true})],
+                        })
+                    ],
+                    columnSpan: 2
+                }),
+                new TableCell({
+                    children: [
+                        new Paragraph({
+                            children: [new TextRun({text:this.moyenneEval?.moyenneFormation?.indiceRetour.toString(), bold: true})],
+                        })
+                    ]
+                })
+            ]
+        });
+
+        tableRowsList.push(tableFooter);
+
+        let table = new Table({
+            columnWidths: [4000, 3000, 2000],
+            rows: tableRowsList,
+        });
+        return table;
     }
 
     getStudents() {
@@ -403,5 +713,16 @@ export class ListeQuestionnairesAdminComponent {
         }
 
         return array;
+    }
+
+    downloadBuffer(arrayBuffer) {
+        const a = document.createElement('a')
+        a.href = URL.createObjectURL(new Blob(
+            [ arrayBuffer ],
+            { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }
+        ))
+        a.download = 'my-file.docx'
+        a.click()
+        this.documentLoading = false
     }
 }

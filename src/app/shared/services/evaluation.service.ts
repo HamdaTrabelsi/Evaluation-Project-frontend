@@ -30,4 +30,8 @@ export class EvaluationService {
     getEvaluationById(evaluationId:String, studentId:String): Observable<any> {
         return this.httpClient.get(this.url+"/find/"+evaluationId+"/"+studentId)
     }
+
+    findEvaluatiob(evaluationId:String): Observable<any> {
+        return this.httpClient.get(this.url+"/getEvaluationById/"+evaluationId)
+    }
 }

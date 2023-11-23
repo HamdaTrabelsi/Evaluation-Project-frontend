@@ -37,4 +37,8 @@ export class SoumissionService {
     getNumberOfSoumissionForClasse(_evaluationId:any): Observable<any> {
         return this.httpClient.get(this.url +"/getNumberOfSoumissionForClasse/"+_evaluationId);
     }
+
+    getMoyennesEvaluation(_evaluationId:any): Observable<any> {
+        return this.httpClient.get(this.url +"/getMoyennesEvaluation/"+_evaluationId);
+    }
 }

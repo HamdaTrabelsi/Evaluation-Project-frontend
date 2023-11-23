@@ -15,16 +15,84 @@
                             <div class="statistique-content">
 
                                 <div class="download-button">
-                                <button  (click)="downloadChart()" class="btn btn-pill btn-primary" type="button" placement="top"
-                                        ngbTooltip="Telecharger le fichier Word"><i class="fa fa-file-word-o"></i></button>
+                                    <button (click)="downloadChart()" [disabled]="documentLoading" class="btn btn-pill btn-primary" type="button"
+                                            placement="top"
+                                            ngbTooltip="Telecharger le fichier Word"><i class="fa fa-file-word-o"></i>
+                                    </button>
                                 </div>
 
                                 <div class="pie-charts">
                                     <div class="outer">
 
-                                        <div class="chart-overflow" id="chartContainer" *ngIf="pieChart3.dataTable.length>0">
-                                            <google-chart  [data]="pieChart3"></google-chart>
+                                        <div class="chart-overflow" id="chartContainer"
+                                             *ngIf="pieChart3.dataTable.length>0">
+                                            <google-chart [data]="pieChart3"></google-chart>
                                         </div>
+                                    </div>
+                                </div>
+
+
+                                <h1 class="section-title">Synthèse Classe {{currentEvaluation?.classe?.nom}}</h1>
+
+                                <ng-container *ngIf="moyenneEval?.moyenneBarometre!=null">
+                                    <h3 class="table-title">Baromètre</h3>
+
+                                    <div class="col-sm-12 col-lg-12 col-xl-12 my-5">
+                                        <div class="table-responsive">
+                                            <table class="table table-light">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Question</th>
+                                                    <th scope="col">Score</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let score of moyenneEval?.moyenneBarometre?.scores | keyvalue">
+                                                    <td>{{score.key}}</td>
+                                                    <td>{{score.value}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <b>Moyenne des scores</b>
+                                                    </td>
+                                                    <td>
+                                                        <b>{{moyenneEval?.moyenneBarometre?.moyenne}}</b>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+                                <h3 class="table-title">Retour d’expérience : formation</h3>
+
+                                <div class="col-sm-12 col-lg-12 col-xl-12 my-5">
+                                    <div class="table-responsive">
+                                        <table class="table table-light">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Cours</th>
+                                                <th scope="col">Enseignant</th>
+                                                <th scope="col">Score</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let cours of moyenneEval?.moyenneFormation?.moyennesCours">
+                                                <td>{{cours.courseName}}</td>
+                                                <td>{{cours.enseignant}}</td>
+                                                <td>{{cours.score}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <b>Indice retour d’expérience formation</b>
+                                                </td>
+                                                <td>
+                                                    <b>{{moyenneEval?.moyenneFormation?.indiceRetour}}</b>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
 
@@ -32,11 +100,13 @@
                                     <div *ngFor="let data of evaluationChartsData; index as i;">
                                         <hr>
                                         <h1 class="section-title">{{data.sectionName}}</h1>
-                                       <h3 class="section-enseignant" *ngIf="data?.enseignantName !== null">Enseignant(e) : {{data.enseignantName}}</h3>
+                                        <h3 class="section-enseignant"
+                                            *ngIf="data?.enseignantName !== null && data?.enseignantName !== 'undefined undefined'">
+                                            Enseignant(e) : {{data.enseignantName}}</h3>
                                         <ng-container *ngFor="let chart of data.questions; index as dataIndex">
                                             <hr>
-<!--                                            <h2 class="question-title">{{chart?.title?.text}}</h2>-->
-                                            <canvasjs-chart  [attr.id]="'canvaChart' +i+ dataIndex" [options]="chart"></canvasjs-chart>
+                                            <canvasjs-chart [attr.id]="'canvaChart' +i+ dataIndex"
+                                                            [options]="chart"></canvasjs-chart>
                                         </ng-container>
                                     </div>
                                 </div>
@@ -58,14 +128,17 @@
                                                     <h6>
                                                         <a href="/ecommerce/product-details">{{etudiant.email}}</a>
                                                     </h6>
-                                                </div>3<div class="date my-2 d-flex">
+                                                </div>
+                                                3
+                                                <div class="date my-2 d-flex">
                                                     <div class="text-muted me-2">Date</div>
                                                     : {{ etudiant.dateSoumission | date: 'dd/MM/yyyy'}}
                                                 </div>
                                                 <div class="avaiabilty">
                                                     <div class="text-success">Classe : {{etudiant.classe.nom}}</div>
                                                 </div>
-                                                <a class="btn btn-primary btn-xs" (click)="voirReponses(etudiant.idSoumission)">Voir
+                                                <a class="btn btn-primary btn-xs"
+                                                   (click)="voirReponses(etudiant.idSoumission)">Voir
                                                     reponses</a>
                                             </div>
                                         </div>

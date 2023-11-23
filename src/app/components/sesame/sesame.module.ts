@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {ListeDepartementsComponent} from './Departements/liste-departements/liste-departements.component';
 import {SesameRoutingModule} from './sesame-routing.module';
 import {SharedModule} from '../../shared/shared.module';
@@ -72,7 +72,8 @@ import {Ng2GoogleChartsModule} from 'ng2-google-charts';
         Ng2GoogleChartsModule
     ],
     providers: [
-        WordDocumentService, // Add your service here
+        WordDocumentService,
+        DatePipe// Add your service here
     ],
 })
 export class SesameModule {

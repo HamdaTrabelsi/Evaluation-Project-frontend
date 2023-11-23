@@ -69,14 +69,19 @@ export class CreateEvaluationComponent {
             enseignantId : [''],
             matiereId : [''],
             enseignantName : [''],
+            classeName : [''],
+            classeId : [''],
             questions: this.formBuilder.array([])
         }));
     }
 
     setSectionInfo(event,sectionIndex){
+        let classe:Classe = this.form.get("classe").value
         const section = this.formulaire.at(sectionIndex);
         section.get("enseignantId").setValue(event?.enseignant?.id)
         section.get("matiereId").setValue(event?.id)
+        section.get("classeName").setValue(classe.nom)
+        section.get("classeId").setValue(classe.id)
         section.get("enseignantName").setValue(event?.enseignant?.lastname + ' ' + event?.enseignant?.firstName)
     }
 
@@ -132,6 +137,8 @@ export class CreateEvaluationComponent {
     }
 
     changeClasse(event: any) {
+        this.form.get("anneeUniversitaire").setValue(event?.anneeUniversitaire)
+        console.log(this.form.get("anneeUniversitaire").value)
         this.getListMatieres(event?.id);
     }
 
