@@ -88,24 +88,24 @@ export class NavService implements OnDestroy {
   }
 
   ADMIN_MENU_ITEMS: Menu[] = [
-    {
-      headTitle1: "General",
-    },
-    {
-      title: "Dashboards",
-      icon: "home",
-      type: "sub",
-      badgeType: "light-primary",
-      badgeValue: "5",
-      active: true,
-      children: [
-        // { path: "/dashboard/default", title: "Default", type: "link" },
-        { path: "/dashboard/ecommerce", title: "Ecommerce", type: "link" },
-        { path: "/dashboard/online-course", title: "Online course", type: "link" },
-        { path: "/dashboard/crypto", title: "Crypto", type: "link" },
-        { path: "/dashboard/social", title: "Social", type: "link" },
-      ],
-    },
+    // {
+    //   headTitle1: "General",
+    // },
+    // {
+    //   title: "Dashboards",
+    //   icon: "home",
+    //   type: "sub",
+    //   badgeType: "light-primary",
+    //   badgeValue: "5",
+    //   active: true,
+    //   children: [
+    //     // { path: "/dashboard/default", title: "Default", type: "link" },
+    //     { path: "/dashboard/ecommerce", title: "Ecommerce", type: "link" },
+    //     { path: "/dashboard/online-course", title: "Online course", type: "link" },
+    //     { path: "/dashboard/crypto", title: "Crypto", type: "link" },
+    //     { path: "/dashboard/social", title: "Social", type: "link" },
+    //   ],
+    // },
     // {
     //   title: "Widgets",
     //   icon: "widget",
@@ -582,17 +582,17 @@ export class NavService implements OnDestroy {
 
   ENSEIGNANT_MENU_ITEMS :Menu[] = [
     {
-      path: "/sesame/departement/list",
-      title: "Auto-evaluation",
+      path: "/sesame/questionnaire/enseignant/liste",
+      title: "Evaluations",
       icon: "file",
       type: "link",
     },
-    {
-      path: "/sesame/classes/list",
-      title: "Rapport",
-      icon: "file",
-      type: "link",
-    },
+    // {
+    //   path: "/sesame/classes/list",
+    //   title: "Rapport",
+    //   icon: "file",
+    //   type: "link",
+    // },
   ];
 
   chooseMenuForRole() {

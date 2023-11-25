@@ -41,4 +41,20 @@ export class SoumissionService {
     getMoyennesEvaluation(_evaluationId:any): Observable<any> {
         return this.httpClient.get(this.url +"/getMoyennesEvaluation/"+_evaluationId);
     }
+
+    getAnneesUniversitaireEnseignant(enseignantId): Observable<any> {
+        return this.httpClient.get(this.url+"/getEnseignantAnneesUniversitaires/"+enseignantId)
+    }
+
+    getMoyennesEnseignantByAnnee(enseignantId,anneeUniversitaire):Observable<any> {
+        return this.httpClient.get(this.url+"/getMoyennesEnseignantByIdAndAnnee/"+enseignantId, {params:{anneeUniversitaire}})
+    }
+
+    getStatistiquesEnseignantByIdAndAnnee(enseignantId,anneeUniversitaire):Observable<any> {
+        return this.httpClient.get(this.url+"/getStatistiquesEnseignantByIdAndAnnee/"+enseignantId, {params:{anneeUniversitaire}})
+    }
+
+    getEnseignantSoumissions(enseignantId,anneeUniversitaire):Observable<any> {
+        return this.httpClient.get(this.url+"/getEnseignantSoumissions/"+enseignantId, {params:{anneeUniversitaire}})
+    }
 }

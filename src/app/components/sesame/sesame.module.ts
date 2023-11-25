@@ -31,6 +31,8 @@ import { ListMatieresComponent } from './Matieres/list-matieres/list-matieres.co
 import { AjouterMatiereComponent } from './Matieres/ajouter-matiere/ajouter-matiere.component';
 import {WordDocumentService} from '../../shared/services/wordDocumentService.service';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
+import { ListeAnneeUniversitairesComponent } from './Questionnaires/Enseignantl/liste-annee-universitaires/liste-annee-universitaires.component';
+import { EvaluationEnseignantComponent } from './Questionnaires/Enseignantl/evaluation-enseignant/evaluation-enseignant.component';
 
 
 @NgModule({
@@ -51,6 +53,8 @@ import {Ng2GoogleChartsModule} from 'ng2-google-charts';
         StatistiquesQuestionnairesAdminComponent,
         ListMatieresComponent,
         AjouterMatiereComponent,
+        ListeAnneeUniversitairesComponent,
+        EvaluationEnseignantComponent,
     ],
     imports: [
         CommonModule,

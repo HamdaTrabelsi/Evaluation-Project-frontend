@@ -1,0 +1,45 @@
+<app-breadcrumb [title]="'Années Universitaires'" [items]="['Enseignant']"
+                [active_item]="'Années Universitaires'"></app-breadcrumb><!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Individual column searching (text inputs) Starts-->
+        <div class="col-sm-12">
+            <div class="card">
+                <!--                <div class="card-header">-->
+                <!--                    <h5>Individual column searching (text inputs)</h5>-->
+                <!--                    <span>Search your product from here..</span>-->
+                <!--                </div>-->
+                <div class="card-body">
+                    <div class="product-list-custom custom-datatable">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Année Universitaire</th>
+                                    <th scope="col">Classes</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let annee of anneesUniversitaires; index as i">
+                                    <td>
+                                        <h6>{{ annee?.anneeUniversitaire }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6>{{ annee?.classeSet?.length }}</h6>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" type="button" title="" (click)="showEvaluation(annee?.anneeUniversitaire)">Statistiques</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Individual column searching (text inputs) Ends-->
+    </div>
+</div>
+<!-- Container-fluid Ends-->

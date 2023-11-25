@@ -1,0 +1,47 @@
+td {
+  vertical-align: middle;
+}
+
+.download-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section-title{
+  font-size: 30px;
+}
+
+.question-title {
+  font-size: 25px;
+}
+
+.section-enseignant {
+  font-size: 20px;
+}
+
+.table-title {
+  font-size: 20px;
+}
+
+.empty-stats {
+  min-height: 450px;
+}
+
+.no-stats-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.no-stats-text {
+  margin-top: 20px;
+  font-size: 25px;
+  opacity: 0.7;
+}
+
+.no-stats-image {
+  height: 350px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}

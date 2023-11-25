@@ -139,8 +139,6 @@ export class ListeQuestionnairesAdminComponent {
 
     etudiants: EtudiantDTO[] = [];
 
-    evaluationStats: any;
-
     evaluationId: String;
 
     loading: boolean = true;
@@ -206,12 +204,12 @@ export class ListeQuestionnairesAdminComponent {
     getStatistics() {
         this.soumissionService.getStatByEvaluation(this.evaluationId).subscribe(
             success => {
-                this.evaluationStats = success;
-                this.transformData(success);
+                this.
+                transformData(success);
                 this.evaluationChartsData = this.transformedData.sort((a, b) => a.sectionIndex.localeCompare(b.sectionIndex));
 
                 // Log the transformed data to the console for demonstration
-                console.log('Transformed Data:', this.evaluationChartsData);
+                // console.log('Transformed Data:', this.evaluationChartsData);
             },
             error => {
                 console.log(error);
@@ -476,8 +474,6 @@ export class ListeQuestionnairesAdminComponent {
 
     async getAllQuestionCharts(): Promise<Paragraph[]> {
         let chartList: Array<any> = [];
-        console.log("this.evaluationChartsData")
-        console.log(this.evaluationChartsData)
         for (let i = 0; i < this.evaluationChartsData.length; i++) {
 
             let paragraph: Paragraph = new Paragraph({spacing: {before:15,}});
@@ -721,7 +717,7 @@ export class ListeQuestionnairesAdminComponent {
             [ arrayBuffer ],
             { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }
         ))
-        a.download = 'my-file.docx'
+        a.download = this.currentEvaluation.titre+'-statistiques.docx'
         a.click()
         this.documentLoading = false
     }

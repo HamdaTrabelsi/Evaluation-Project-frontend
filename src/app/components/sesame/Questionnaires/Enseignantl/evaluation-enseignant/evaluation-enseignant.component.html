@@ -1,0 +1,80 @@
+<app-breadcrumb [title]="'Soumissions'" [items]="['Questionnaires']" [active_item]="'Soumissions'"></app-breadcrumb>
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <h5>Evaluations de l'année universitaire : {{annee}}</h5>
+                </div>
+                <div class="card-body" *ngIf="hasStats">
+
+                    <div class="statistique-content">
+
+                        <div class="download-button">
+                            <button (click)="downloadChart()" [disabled]="documentLoading"
+                                    class="btn btn-pill btn-primary" type="button"
+                                    placement="top"
+                                    ngbTooltip="Telecharger le fichier Word"><i class="fa fa-file-word-o"></i>
+                            </button>
+                        </div>
+
+
+                        <!--                                <h1 class="section-title">Synthèse Classe {{currentEvaluation?.classe?.nom}}</h1>-->
+
+                        <!--                                <h3 class="table-title">Retour d’expérience : formation</h3>-->
+
+                        <div class="col-sm-12 col-lg-12 col-xl-12 my-5">
+                            <div class="table-responsive">
+                                <table class="table table-light">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Enseignant</th>
+                                        <th scope="col">Module</th>
+                                        <th scope="col">Classe</th>
+                                        <th scope="col">Note</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container *ngFor="let classe of moyennesCours; let i = index">
+                                        <tr *ngFor="let cours of classe.moyennesCours; let j = index">
+                                            <td *ngIf="i==0 && j==0" [rowSpan]="nbRows">{{enseignantInfo.firstname}} {{enseignantInfo.lastname}}</td>
+                                            <td>{{cours.courseName}}</td>
+                                            <td>{{classe.name}}</td>
+                                            <td>{{cours.score}}</td>
+                                        </tr>
+                                    </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bar-chart-list">
+                            <div *ngFor="let data of evaluationChartsData; index as i;">
+                                <hr>
+                                <h1 class="section-title">{{data.sectionName}}</h1>
+                                <h3 class="section-enseignant"
+                                    *ngIf="data?.enseignantName !== null && data?.enseignantName !== 'undefined undefined'">
+                                    Enseignant(e) : {{data.enseignantName}}</h3>
+                                <ng-container *ngFor="let chart of data.questions; index as dataIndex">
+                                    <hr>
+                                    <canvasjs-chart [attr.id]="'canvaChart' +i+ dataIndex"
+                                                    [options]="chart"></canvasjs-chart>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body empty-stats" *ngIf="!hasStats">
+                    <div class="no-stats-message">
+                        <img class="no-stats-image" src="assets/images/document.png">
+                        <h2 class="no-stats-text">Vous n'avez pas encors reçu des evaluations</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>

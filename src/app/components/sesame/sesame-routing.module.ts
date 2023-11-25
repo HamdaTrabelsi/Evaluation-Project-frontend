@@ -21,6 +21,10 @@ import {
 } from './Questionnaires/administrateur/statistiques-questionnaires-admin/statistiques-questionnaires-admin.component';
 import {ListMatieresComponent} from './Matieres/list-matieres/list-matieres.component';
 import {ModifierUtilisateurComponent} from './utilisateurs/modifier-utilisateur/modifier-utilisateur.component';
+import {
+    ListeAnneeUniversitairesComponent
+} from './Questionnaires/Enseignantl/liste-annee-universitaires/liste-annee-universitaires.component';
+import {EvaluationEnseignantComponent} from './Questionnaires/Enseignantl/evaluation-enseignant/evaluation-enseignant.component';
 
 const routes: Routes = [
     {
@@ -117,6 +121,19 @@ const routes: Routes = [
                     },
                 ]
             },
+            {
+                path: 'enseignant',
+                children: [
+                    {
+                        path: 'liste',
+                        component: ListeAnneeUniversitairesComponent
+                    },
+                    {
+                        path: 'evaluation',
+                        component: EvaluationEnseignantComponent
+                    },
+                ]
+            }
         ]
     }
 ];
