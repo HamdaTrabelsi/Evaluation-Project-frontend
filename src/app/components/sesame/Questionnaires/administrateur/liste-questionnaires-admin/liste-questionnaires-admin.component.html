@@ -6,7 +6,7 @@
             <div class="card">
 
                 <div class="card-header">
-                    <h5>Soumission de la classe : ING4C</h5>
+                    <h5>Soumission de la classe :  {{currentEvaluation?.classe?.nom}}</h5>
                 </div>
                 <div class="card-body">
                     <ngx-tabset type="pills" class="tabbed-card nav-primary">
@@ -34,7 +34,7 @@
 
                                 <h1 class="section-title">Synthèse Classe {{currentEvaluation?.classe?.nom}}</h1>
 
-                                <ng-container *ngIf="moyenneEval?.moyenneBarometre!=null">
+                                <ng-container *ngIf="moyenneEval?.moyenneBarometre?.scores?.size!=null && moyenneEval?.moyenneBarometre?.scores?.size>0">
                                     <h3 class="table-title">Baromètre</h3>
 
                                     <div class="col-sm-12 col-lg-12 col-xl-12 my-5">

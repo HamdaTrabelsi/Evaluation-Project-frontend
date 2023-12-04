@@ -273,24 +273,7 @@ export class ListeQuestionnairesAdminComponent {
                             data: []
                         };
 
-                        for (const critereIndex in questionData.criteres) {
-                            if (questionData.criteres.hasOwnProperty(critereIndex)) {
-                                const critereData = questionData.criteres[critereIndex];
-                                // for (const response in critereData.responses) {
-                                //     if (critereData.responses.hasOwnProperty(response)) {
-                                //         const count = critereData.responses[response];
-                                //         const dataPoint = {
-                                //             type: 'stackedBar100',
-                                //             toolTipContent: `{label}<br><b>{name}:</b> {y} (#percent%)`,
-                                //             showInLegend: true,
-                                //             name: response,
-                                //             dataPoints: [{ y: count, label: critereName }]
-                                //         };
-                                //         questionEntry.data.push(dataPoint);
-                                //     }
-                                // }
-                            }
-                        }
+
 
                         this.responses.forEach(r => {
                                 let datapoints = this.getResponseCountByCritere(questionData, r);
@@ -320,12 +303,16 @@ export class ListeQuestionnairesAdminComponent {
     }
 
     getResponseCountByCritere(questionData, r) {
+        console.log("question Data")
+        console.log(questionData)
         let datapoints = [];
 
         for (const critereName in questionData.criteres) {
+            console.log("critere name")
+            console.log(critereName)
             // @ts-ignore
             let count = questionData.criteres[critereName].responses[r] == undefined ? 0 : questionData.criteres[critereName].responses[r];
-            datapoints.push({y: count, label: critereName});
+            datapoints.push({y: count, label:  questionData.criteres[critereName]?.title});
         }
 
         const sortedData = datapoints.sort((a, b) => a.label.localeCompare(b.label));
