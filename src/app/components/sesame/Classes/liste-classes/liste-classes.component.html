@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Classes'" [active_item]="''"></app-breadcrumb>
+<app-breadcrumb [title]="departementId!= null ? 'Classes du Departement' : 'Classes'" [active_item]="''"></app-breadcrumb>
 <!-- Container-fluid starts-->
 <div class="container-fluid">
     <div class="row">
@@ -46,6 +46,11 @@
                                             <div class="col-6 font-primary">30</div>
                                             <div class="col-6"><span>Enseignants</span></div>
                                             <div class="col-6 font-primary">6</div>
+                                        </div>
+
+                                        <div class="matieres-button">
+                                            <a class="btn btn-primary mt-5" type="button" title="" (click)="showMatieres(classe.id)"><i
+                                                    class="fa fa-list me-1"></i>Matières</a>
                                         </div>
                                         <!--                                                                                <div class="project-status mt-4">-->
                                         <!--                                                                                    <div class="media mb-0">-->

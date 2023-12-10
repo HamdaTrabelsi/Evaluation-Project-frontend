@@ -16,6 +16,10 @@ export class ClasseService {
         return this.httpClient.get<Array<Classe>>(this.url + "/all")
     }
 
+    getbyDepartement(_departementid): Observable<Array<Classe>> {
+        return this.httpClient.get<Array<Classe>>(this.url + "/all/"+_departementid)
+    }
+
     add(_classe: Classe): Observable<any> {
         return this.httpClient.post(this.url + "/save", _classe)
     }

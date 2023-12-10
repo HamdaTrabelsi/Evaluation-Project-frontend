@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ClasseService} from '../../../../shared/services/classe.service';
 import {Classe} from '../../../../shared/model/classe.model';
 import {AjouterClasseComponent} from '../ajouter-classe/ajouter-classe.component';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-liste-classes',
@@ -13,11 +14,21 @@ export class ListeClassesComponent {
   public active = 1;
   classes : Array<Classe> = [];
 
+  departementId;
   constructor(private classeService: ClasseService,
-              private _matDialog: MatDialog) {
+              private _matDialog: MatDialog,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+  ) {
   }
   ngOnInit() {
-    this.getAllClasses()
+      this.departementId = this.activatedRoute.snapshot.paramMap.get('id');
+
+      if(this.departementId != null) {
+          this.getAllClassesByDepartement()
+      }else {
+          this.getAllClasses()
+      }
   }
 
   getAllClasses() {
@@ -28,6 +39,19 @@ export class ListeClassesComponent {
         }
     )
   }
+
+    getAllClassesByDepartement() {
+        this.classeService.getbyDepartement(this.departementId).subscribe(
+            success => {
+                this.classes =success
+                console.log(success)
+            }
+        )
+    }
+
+    showMatieres(_id) {
+        this.router.navigate(["/sesame/classes/"+_id+"/matieres"])
+    }
 
   ajouterClasse(): void {
     // Open the dialog

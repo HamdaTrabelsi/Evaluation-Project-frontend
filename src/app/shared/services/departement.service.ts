@@ -16,6 +16,10 @@ import {Departement} from '../model/departement.model';
     getAll(): Observable<Array<Departement>> {
       return this.httpClient.get<Array<Departement>>(this.url + "/all")
     }
+
+  getById(_departementId): Observable<Departement> {
+    return this.httpClient.get<Departement>(this.url + "/getById/"+_departementId)
+  }
   
     add(_departement: Departement): Observable<any> {
       return this.httpClient.post(this.url + "/save", _departement)

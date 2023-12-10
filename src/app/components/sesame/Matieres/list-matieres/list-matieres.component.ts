@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatiereService} from '../../../../shared/services/matiere.service';
 import {AjouterClasseComponent} from '../../Classes/ajouter-classe/ajouter-classe.component';
 import {AjouterMatiereComponent} from '../ajouter-matiere/ajouter-matiere.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-list-matieres',
@@ -16,12 +17,20 @@ export class ListMatieresComponent {
 
   matieres : Array<Matiere> = [];
 
+  classeId;
   constructor(private matiereService: MatiereService,
-              private _matDialog: MatDialog) {
+              private _matDialog: MatDialog,
+              private activatedRoute: ActivatedRoute,) {
   }
 
   ngOnInit() {
-    this.getAllMatieres()
+      this.classeId = this.activatedRoute.snapshot.paramMap.get('id');
+
+      if(this.classeId != null) {
+          this.getMatieresByClasse()
+      }else {
+          this.getAllMatieres()
+      }
   }
 
   getAllMatieres() {
@@ -33,6 +42,16 @@ export class ListMatieresComponent {
         }
     )
   }
+
+    getMatieresByClasse() {
+        this.matiereService.getAllByClasse(this.classeId).subscribe(
+            success => {
+                this.matieres =success
+                console.log("success")
+                console.log(success)
+            }
+        )
+    }
 
   ajouterMatiere(): void {
     // Open the dialog

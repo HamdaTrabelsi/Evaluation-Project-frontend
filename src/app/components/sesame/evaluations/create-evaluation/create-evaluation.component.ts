@@ -82,7 +82,7 @@ export class CreateEvaluationComponent {
         section.get("matiereId").setValue(event?.id)
         section.get("classeName").setValue(classe.nom)
         section.get("classeId").setValue(classe.id)
-        section.get("enseignantName").setValue(event?.enseignant?.lastname + ' ' + event?.enseignant?.firstName)
+        section.get("enseignantName").setValue(event?.enseignant?.lastname + ' ' + event?.enseignant?.firstname)
     }
 
     addQuestion(sectionIndex: number) {

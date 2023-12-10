@@ -17,6 +17,10 @@ export class MatiereService {
         return this.httpClient.get<Array<Matiere>>(this.url + "/all")
     }
 
+    getByClasse(_classe): Observable<Array<Matiere>> {
+        return this.httpClient.get<Array<Matiere>>(this.url + "/getMatieresByClasse/"+_classe)
+    }
+
     getAllByClasse(classeId: String): Observable<Array<Matiere>> {
         return this.httpClient.get<Array<Matiere>>(this.url + "/getMatieresByClasse/"+classeId)
     }
@@ -24,4 +28,6 @@ export class MatiereService {
     add(_matiere: Matiere): Observable<any> {
         return this.httpClient.post(this.url + "/save", _matiere)
     }
+
+
 }
