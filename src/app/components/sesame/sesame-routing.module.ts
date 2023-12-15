@@ -25,6 +25,11 @@ import {
     ListeAnneeUniversitairesComponent
 } from './Questionnaires/Enseignantl/liste-annee-universitaires/liste-annee-universitaires.component';
 import {EvaluationEnseignantComponent} from './Questionnaires/Enseignantl/evaluation-enseignant/evaluation-enseignant.component';
+import {ImporterEtudiantsComponent} from './utilisateurs/importer-etudiants/importer-etudiants.component';
+import {ListAdministrateursComponent} from './utilisateurs/list-administrateurs/list-administrateurs.component';
+import {ListEnseignantsComponent} from './utilisateurs/list-enseignants/list-enseignants.component';
+import {ListEtudiantsComponent} from './utilisateurs/list-etudiants/list-etudiants.component';
+import {ListSuperAdminisrateurComponent} from './utilisateurs/list-super-adminisrateur/list-super-adminisrateur.component';
 
 const routes: Routes = [
     {
@@ -34,6 +39,10 @@ const routes: Routes = [
                 path: 'list',
                 component: ListeDepartementsComponent
             },
+            {
+                path : ':id/classes',
+                component: ListeClassesComponent
+            }
         ]
     },
     {
@@ -43,6 +52,10 @@ const routes: Routes = [
                 path: 'list',
                 component: ListeClassesComponent
             },
+            {
+                path : ':id/matieres',
+                component: ListMatieresComponent
+            }
         ]
     },
     {
@@ -75,12 +88,32 @@ const routes: Routes = [
                 component: ListeutilisateursComponent
             },
             {
+                path: 'list/superadministrateur',
+                component: ListSuperAdminisrateurComponent
+            },
+            {
+                path: 'list/administrateurs',
+                component: ListAdministrateursComponent
+            },
+            {
+                path: 'list/enseignants',
+                component: ListEnseignantsComponent
+            },
+            {
+                path: 'list/etudiants',
+                component: ListEtudiantsComponent
+            },
+            {
                 path: 'create',
                 component: AjouterUtilisateurComponent
             },
             {
                 path: 'modifier/:id',
                 component: ModifierUtilisateurComponent
+            },
+            {
+                path: 'importer/etudiants',
+                component: ImporterEtudiantsComponent
             },
         ]
     },

@@ -33,6 +33,11 @@ import {WordDocumentService} from '../../shared/services/wordDocumentService.ser
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
 import { ListeAnneeUniversitairesComponent } from './Questionnaires/Enseignantl/liste-annee-universitaires/liste-annee-universitaires.component';
 import { EvaluationEnseignantComponent } from './Questionnaires/Enseignantl/evaluation-enseignant/evaluation-enseignant.component';
+import { ImporterEtudiantsComponent } from './utilisateurs/importer-etudiants/importer-etudiants.component';
+import { ListAdministrateursComponent } from './utilisateurs/list-administrateurs/list-administrateurs.component';
+import { ListEnseignantsComponent } from './utilisateurs/list-enseignants/list-enseignants.component';
+import { ListEtudiantsComponent } from './utilisateurs/list-etudiants/list-etudiants.component';
+import { ListSuperAdminisrateurComponent } from './utilisateurs/list-super-adminisrateur/list-super-adminisrateur.component';
 
 
 @NgModule({
@@ -55,6 +60,11 @@ import { EvaluationEnseignantComponent } from './Questionnaires/Enseignantl/eval
         AjouterMatiereComponent,
         ListeAnneeUniversitairesComponent,
         EvaluationEnseignantComponent,
+        ImporterEtudiantsComponent,
+        ListAdministrateursComponent,
+        ListEnseignantsComponent,
+        ListEtudiantsComponent,
+        ListSuperAdminisrateurComponent,
     ],
     imports: [
         CommonModule,

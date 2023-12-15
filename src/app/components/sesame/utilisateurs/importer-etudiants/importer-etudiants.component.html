@@ -1,0 +1,72 @@
+<app-breadcrumb [title]="'Dropzone'" [items]="['Bonus UI', 'Advance']" [active_item]="'Dropzone'"></app-breadcrumb>
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row dropzone-custom">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Single File Upload</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="form">
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="className">Classe * :</label>
+                                    <ng-select [items]="classesList" bindLabel="nom" id="className"
+                                               placeholder="Classe" formControlName="classe"
+                                               (change)="valueChanged($event)"
+                                               (open)="valueChanged($event)"
+                                               [searchFn]="customSearchFn">
+                                        <ng-template ng-label-tmp let-item="item">
+                                            {{item.nom}} {{item.anneeUniversitaire}}
+                                        </ng-template>
+                                        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                                            {{item.nom}} {{item.anneeUniversitaire}}
+                                        </ng-template>
+                                    </ng-select>
+                                    <div *ngIf="form.controls.classe.errors?.required &&form.controls?.classe?.touched"
+                                         class="text text-danger mt-1">La classe est requise
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
+                        <ngx-dropzone-label>
+                            <div class="dz-message needsclick">
+                                <i class="icon-cloud-up"></i>
+                                <h6>Deposez votre fichier içi</h6>
+                                <!--                                <span>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>-->
+                            </div>
+                        </ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                            <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+
+                    <div class="import-success" *ngIf="importSuccess">
+                        <p>{{nbImported}} étudiant(s) importés avec succès</p>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col">
+                            <div class="text-end">
+                                <button [disabled]="form.invalid || this.files.length == 0" (click)="importUsers()"
+                                        class="btn btn-success mx-2" type="button"
+                                        placement="top" ngbTooltip="btn btn-success">
+                                    importer
+                                </button>
+                                <button class="btn btn-danger" type="button" placement="top"
+                                        ngbTooltip="btn btn-danger">Annuler
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>

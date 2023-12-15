@@ -157,11 +157,46 @@ export class NavService implements OnDestroy {
       type: "link",
     },
     {
-      path: "/sesame/utilisateurs/list",
       title: "Utilisateurs",
-      icon: "file",
-      type: "link",
+      icon: "project",
+      type: "sub",
+      badgeType: "light-secondary",
+      // badgeValue: "New",
+      active: false,
+      children: [
+        {
+          path: "/sesame/utilisateurs/list",
+          title: "Utilisateurs",
+          icon: "file",
+          type: "link",
+        },
+        {
+          path: "/sesame/utilisateurs/list/superadministrateur",
+          title: "Super Administrateurs",
+          icon: "file",
+          type: "link",
+        },
+        {
+          path: "/sesame/utilisateurs/list/administrateurs",
+          title: "Administrateurs",
+          icon: "file",
+          type: "link",
+        },
+        {
+          path: "/sesame/utilisateurs/list/enseignants",
+          title: "Enseignants",
+          icon: "file",
+          type: "link",
+        },
+        {
+          path: "/sesame/utilisateurs/list/etudiants",
+          title: "Etudiants",
+          icon: "file",
+          type: "link",
+        },
+      ],
     },
+
     // {
     //   title: "Ecommerce",
     //   type: "sub",

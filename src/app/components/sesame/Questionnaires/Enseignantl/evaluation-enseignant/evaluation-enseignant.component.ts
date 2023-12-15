@@ -40,7 +40,7 @@ export class EvaluationEnseignantComponent {
     currentuser;
     enseignantInfo;
 
-    responses: String[] = ['Non', 'Plutot Non', 'Plutot Oui', 'Oui'];
+    responses: String[] = ['Oui', 'Plutot Oui', 'Plutot Non', 'Non'];
     transformedData: any[] = [];
 
     documentTemplate = '/assets/docTemplates/enseignant_stats_template.docx';

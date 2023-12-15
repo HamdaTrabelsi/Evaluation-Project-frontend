@@ -147,7 +147,7 @@ export class ListeQuestionnairesAdminComponent {
 
     transformedData: any[] = [];
 
-    responses: String[] = ['Non', 'Plutot Non', 'Plutot Oui', 'Oui'];
+    responses: String[] = ['Oui', 'Plutot Oui', 'Plutot Non', 'Non'];
 
     moyenneEval: MoyenneEval;
 

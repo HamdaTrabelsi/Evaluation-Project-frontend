@@ -31,4 +31,18 @@ export class UtilisateurService {
     editUser(_id: any, user: Utilisateur) {
         return this.httpClient.put<Utilisateur>(this.url + "/updateUser/"+_id, user)
     }
+
+    importUser(classeId, file): Observable<any> {
+        console.log("fillle")
+        console.log(file)
+        // const params = { classeId };
+
+        var fd = new FormData();
+        fd.append('file', file);
+        fd.append('classeId', classeId);
+
+        console.log("param")
+        // console.log(params)
+        return this.httpClient.post<any>(this.url+"/importer/etudiants",fd);
+    }
 }

@@ -1,0 +1,69 @@
+<app-breadcrumb [title]="'Liste Super Administrateurs'"  ></app-breadcrumb>
+
+<div class="col-md-12 project-list">
+    <div class="card">
+        <div class="row">
+            <div class="col-sm-6">
+                <!--                        <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">-->
+                <!--                            <li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="top-home" aria-selected="true"><i data-feather="target"></i>All</a></li>-->
+                <!--                            <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="top-profile" aria-selected="false"><i data-feather="info"></i>Doing</a></li>-->
+                <!--                            <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="top-contact" aria-selected="false"><i data-feather="check-circle"></i>Done</a></li>-->
+                <!--                        </ul>-->
+            </div>
+            <div class="col-sm-6">
+                <div class="text-end">
+                    <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" (click)="ajouterUtilisateur()"> <i data-feather="plus-square"> </i>Ajouter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Individual column searching (text inputs) Starts-->
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="product-list-custom custom-datatable">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Identifiant</th>
+                                    <th scope="col">Prénom</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let user of users; index as i">
+                                    <td>
+                                        {{user.identifiant}}
+                                    </td>
+                                    <td>
+                                        <h6>{{ user.firstname }}</h6>
+                                    </td>
+                                    <td>{{ user.lastname }}</td>
+                                    <td>{{ user.roles[0]?.name }}</td>
+
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        <!--                                        <button class="btn btn-danger me-1" type="button" title="">Désactiver</button>-->
+                                        <button class="btn btn-success" type="button" title="" (click)="editUser(user.id)">Modifier</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Individual column searching (text inputs) Ends-->
+    </div>
+</div>
+<!-- Container-fluid Ends-->
