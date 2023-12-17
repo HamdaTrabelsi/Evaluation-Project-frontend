@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+ import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DepartementService} from '../../../../shared/services/departement.service';
@@ -20,7 +20,11 @@ export class AjouterDepartementComponent implements OnInit {
   ngOnInit(): void {
     this.departementForm = this._formBuilder.group({
       nom : ['', Validators.required],
-      description : ['', Validators.required]
+      description : ['', Validators.required],
+      adminName : ['', Validators.required],
+      nbEtudiants : ['', Validators.required],
+      ngEnseignants : ['', Validators.required],
+      nbClasses : ['', Validators.required]
     })
   }
 
@@ -31,7 +35,11 @@ export class AjouterDepartementComponent implements OnInit {
 
     let departement: Departement = {
       nom : this.departementForm.get("nom").value,
-      description : this.departementForm.get("description").value
+      description : this.departementForm.get("description").value,
+      adminName : this.departementForm.get("adminName").value,
+      nbEtudiants : this.departementForm.get("nbEtudiants").value,
+      ngEnseignants : this.departementForm.get("ngEnseignants").value,
+      nbClasses : this.departementForm.get("nbClasses").value,
     }
 
     console.log(departement)

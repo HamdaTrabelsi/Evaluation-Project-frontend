@@ -8,7 +8,7 @@ export interface Utilisateur{
     email?:string
     departement?:Departement
     classe?:Classe
-    firstName?:string
+    firstname?:string
     lastname?:string
     identifiant?:string
     codePostal?:string

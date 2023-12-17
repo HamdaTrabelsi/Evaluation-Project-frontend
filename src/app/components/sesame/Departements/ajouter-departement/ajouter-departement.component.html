@@ -12,6 +12,42 @@
                 </div>
             </div>
 
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Nom Administrateur</h6>
+                <input [formControlName]="'adminName'" class="form-control" type="text" required>
+
+                <div class="text text-danger mt-1" *ngIf="departementForm.get('adminName').hasError('required') && departementForm.get('adminName').touched">
+                    Le nom de l'administrateur est requis
+                </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Nombre d'étudiants</h6>
+                <input [formControlName]="'nbEtudiants'" class="form-control" type="text" required>
+
+                <div class="text text-danger mt-1" *ngIf="departementForm.get('nbEtudiants').hasError('required') && departementForm.get('nbEtudiants').touched">
+                    Le nombre d'étudiants est requis
+                </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Nombre d'enseignants</h6>
+                <input [formControlName]="'ngEnseignants'" class="form-control" type="text" required>
+
+                <div class="text text-danger mt-1" *ngIf="departementForm.get('ngEnseignants').hasError('required') && departementForm.get('ngEnseignants').touched">
+                    Le nombre d'enseignants est requis
+                </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Nombre de classes</h6>
+                <input [formControlName]="'nbClasses'" class="form-control" type="text" required>
+
+                <div class="text text-danger mt-1" *ngIf="departementForm.get('nbClasses').hasError('required') && departementForm.get('nbClasses').touched">
+                    Le nombre de classes est requis
+                </div>
+            </div>
+
             <div class="mb-3">
                 <h6 class="form-label">Description</h6>
                 <textarea class="form-control" rows="5" [formControlName]="'description'" required></textarea>

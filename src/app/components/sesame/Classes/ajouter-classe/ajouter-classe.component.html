@@ -22,6 +22,40 @@
                 </div>
             </div>
 
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Department *</h6>
+                <ng-select [items]="departements" bindLabel="departements" id="departements"
+                           placeholder="Departement" formControlName="departement" [searchFn]="customSearchFn" required>
+                    <ng-template ng-label-tmp let-item="item">
+                        {{item.nom}}
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                        {{item.nom}}
+                    </ng-template>
+                </ng-select>
+                <div class="text text-danger mt-1" *ngIf="classeForm.get('departement').hasError('required') && classeForm.get('departement').touched">
+                    Le departement est requis
+                </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Nombre d'étudiants</h6>
+                <input [formControlName]="'nbEtudiants'" class="form-control" type="text" required>
+
+                <div class="text text-danger mt-1" *ngIf="classeForm.get('nbEtudiants').hasError('required') && classeForm.get('nbEtudiants').touched">
+                    Le nombre d'étudiants est requis
+                </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <h6 class="form-label">Nombre d'enseignants</h6>
+                <input [formControlName]="'nbEnseignants'" class="form-control" type="text" required>
+
+                <div class="text text-danger mt-1" *ngIf="classeForm.get('nbEnseignants').hasError('required') && classeForm.get('nbEnseignants').touched">
+                    Le nom d'étudiants est requis
+                </div>
+            </div>
 
         </form>
     </div>

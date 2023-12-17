@@ -21,7 +21,7 @@ export class FormWizardThreeComponent implements OnInit {
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      firstName: ['', Validators.required],
+      firstname: ['', Validators.required],
       lastName: ['', Validators.required],
     });
     this.secondFormGroup = this._formBuilder.group({

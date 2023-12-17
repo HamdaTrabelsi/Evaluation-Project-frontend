@@ -105,7 +105,7 @@ export class ModifierUtilisateurComponent {
     this.profileForm.get("linkedIn").setValue(this?.user.linkedInUrl)
 
     this.editForm.get("identifiant").setValue(this?.user.identifiant)
-    this.editForm.get("prenom").setValue(this?.user.firstName)
+    this.editForm.get("prenom").setValue(this?.user.firstname)
     this.editForm.get("nom").setValue(this?.user.lastname)
     this.editForm.get("address").setValue(this?.user.adresse)
     this.editForm.get("codePostal").setValue(this?.user.codePostal)
@@ -141,7 +141,7 @@ export class ModifierUtilisateurComponent {
 
     let personalInfo : Utilisateur = {
       identifiant : this.editForm.get("identifiant").value,
-      firstName : this.editForm.get("prenom").value,
+      firstname : this.editForm.get("prenom").value,
       lastname : this.editForm.get("nom").value,
       adresse : this.editForm.get("address").value,
       codePostal : this.editForm.get("codePostal").value,

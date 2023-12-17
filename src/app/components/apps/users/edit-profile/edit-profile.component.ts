@@ -24,7 +24,7 @@ export class EditProfileComponent implements OnInit {
       company: [''],
       userName: [''],
       email: ['', Validators.email],
-      firstName: [''],
+      firstname: [''],
       lastName: [''],
       address: [''],
       city: [''],

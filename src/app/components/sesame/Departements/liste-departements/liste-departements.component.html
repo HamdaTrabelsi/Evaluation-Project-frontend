@@ -37,18 +37,17 @@
                                                                     src="assets/images/user/3.jpg" alt=""
                                                                     data-original-title="" title="">
                                                 <div class="media-body">
-                                                    <p>Admin : Amira Dridi</p>
+                                                    <p>Admin : {{departement.adminName}}</p>
                                                 </div>
                                             </div>
                                             <p>{{departement.description}}</p>
                                             <div class="row details">
                                                 <div class="col-6"><span>Etudiants </span></div>
-                                                <div class="col-6 font-primary">0</div>
+                                                <div class="col-6 font-primary">{{departement.nbEtudiants}}</div>
                                                 <div class="col-6"><span>Enseignants</span></div>
-                                                <div class="col-6"><span>Enseignants</span></div>
-                                                <div class="col-6 font-primary">0</div>
+                                                <div class="col-6 font-primary">{{departement.ngEnseignants}}</div>
                                                 <div class="col-6"><span>Classes</span></div>
-                                                <div class="col-6 font-primary">0</div>
+                                                <div class="col-6 font-primary">{{departement.nbClasses}}</div>
                                             </div>
                                             <div class="classes-button">
                                                 <a class="btn btn-primary mt-5" type="button" title="" (click)="showClasses(departement.id)"><i

@@ -1,5 +1,11 @@
+import {Departement} from './departement.model';
+
 export interface Classe{
     id?:string
     nom?:string
-    anneeUniversitaire?:String
+    anneeUniversitaire?:string
+    departement?: Departement
+    dateCreation?:string
+    nbEtudiants?:string
+    nbEnseignants?:string
 }

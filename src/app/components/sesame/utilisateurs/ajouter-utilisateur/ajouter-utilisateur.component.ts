@@ -81,7 +81,7 @@ export class AjouterUtilisateurComponent {
       username :this.creationForm.get("email").value,
       email : this.creationForm.get("email").value,
       ...this.creationForm.get("classe").value != "" ? {classe} : {},
-      firstName: this.creationForm.get("prenom").value,
+      firstname: this.creationForm.get("prenom").value,
       lastname:this.creationForm.get("nom").value,
       identifiant: this.creationForm.get("identifiant").value,
       codePostal: this.creationForm.get("codePostal").value,

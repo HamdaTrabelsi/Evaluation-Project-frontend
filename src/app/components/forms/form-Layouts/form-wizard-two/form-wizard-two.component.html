@@ -20,9 +20,9 @@
                         <div class="mb-3">
                           <label for="name">First Name</label>
                           <input class="form-control" id="name" type="text" placeholder="Johan" required="required"
-                            formControlName="firstName" onlyAlphabets>
+                            formControlName="firstname" onlyAlphabets>
                           <ng-container class="invalid"
-                            *ngIf="firstFormGroup.get('firstName').hasError('required') && firstFormGroup.get('firstName').touched">
+                            *ngIf="firstFormGroup.get('firstname').hasError('required') && firstFormGroup.get('firstname').touched">
                             First Name is required</ng-container>
                         </div>
                         <div class="mb-3">

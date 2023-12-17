@@ -39,13 +39,13 @@
                                                 <p>Crée le : 14/08/2023</p>
                                             </div>
                                         </div>
-                                            <p>Departement : Informatique</p>
-                                            <p>Année Universitaire : 2022/2023</p>
+                                            <p>Departement : {{classe?.departement?.nom}}</p>
+                                            <p>Année Universitaire : {{classe.anneeUniversitaire}}</p>
                                         <div class="row details mt-2">
                                             <div class="col-6"><span>Etudiants </span></div>
-                                            <div class="col-6 font-primary">30</div>
+                                            <div class="col-6 font-primary">{{classe.nbEtudiants}}</div>
                                             <div class="col-6"><span>Enseignants</span></div>
-                                            <div class="col-6 font-primary">6</div>
+                                            <div class="col-6 font-primary">{{classe.nbEnseignants}}</div>
                                         </div>
 
                                         <div class="matieres-button">
