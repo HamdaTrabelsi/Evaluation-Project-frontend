@@ -1,21 +1,15 @@
 <div class="card widget-1">
    <div class="card-body">
      <div class="widget-content">
-       <div class="widget-round {{data.font}}">
+       <div class="widget-round">
          <div class="bg-round">
-           <svg class="svg-fill">
-             <use attr.xlink:href="assets/svg/icon-sprite.svg#{{data.icon}}"></use>
-           </svg>
-           <svg class="half-circle svg-fill">
-             <use href="assets/svg/icon-sprite.svg#halfcircle"></use>
-           </svg>
+
          </div>
        </div>
        <div>
-         <h4>{{data.counter}}</h4>
-         <span class="f-light">{{data.name}}</span>
+         <h4 class="stat-name">{{name}}</h4>
+         <h3 class="stat-value">{{data}}</h3>
        </div>
      </div>
-     <div class="font-{{data.font}} f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>{{data.pr}}%</span></div>
    </div>
  </div>

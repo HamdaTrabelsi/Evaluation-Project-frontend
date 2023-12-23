@@ -12,7 +12,7 @@
                         <!--                            <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="top-contact" aria-selected="false"><i data-feather="check-circle"></i>Done</a></li>-->
                         <!--                        </ul>-->
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" *ngIf="currentRole=='ROLE_ADMIN'">
                         <div class="text-end">
                             <div class="form-group mb-0 me-0"></div>
                             <a class="btn btn-primary" (click)="ajouterClasse()"> <i data-feather="plus-square"> </i>Ajouter</a>

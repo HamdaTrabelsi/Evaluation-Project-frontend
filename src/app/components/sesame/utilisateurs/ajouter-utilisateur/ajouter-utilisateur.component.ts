@@ -6,6 +6,7 @@ import {Utilisateur} from '../../../../shared/model/utilisateur.model';
 import {Departement} from '../../../../shared/model/departement.model';
 import {AuthService} from '../../../../shared/auth/auth.service';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-ajouter-utilisateur',
@@ -22,7 +23,8 @@ export class AjouterUtilisateurComponent {
   constructor(private fb: UntypedFormBuilder,
               private classService: ClasseService,
               private  authService: AuthService,
-              private router: Router) {}
+              private router: Router,
+              private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.getListClasses()
@@ -98,6 +100,7 @@ export class AjouterUtilisateurComponent {
     this.authService.addUser(user).subscribe(
         success => {
           console.log("user created successfully")
+          this.toastr.success('Succès', 'utilisateur Ajouté');
           this.router.navigate(["/sesame/utilisateurs/list"])
         },
         error => {

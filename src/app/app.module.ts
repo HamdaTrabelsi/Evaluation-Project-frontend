@@ -58,7 +58,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 //     // for Router use:
     LoadingBarRouterModule,
 //     // for Core use:
-    LoadingBarModule
+    LoadingBarModule,
+    ToastrModule.forRoot(),
   ],
   providers: [ AdminGuard, CookieService],
   bootstrap: [AppComponent]

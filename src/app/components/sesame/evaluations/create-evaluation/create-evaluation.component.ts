@@ -7,6 +7,7 @@ import {Evaluation} from '../../../../shared/model/evaluation.model';
 import {EvaluationService} from '../../../../shared/services/evaluation.service';
 import {MatiereService} from '../../../../shared/services/matiere.service';
 import {Matiere} from '../../../../shared/model/matiere.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-create-evaluation',
@@ -34,7 +35,8 @@ export class CreateEvaluationComponent {
         private classService: ClasseService,
         private router: Router,
         private evaluationService: EvaluationService,
-        private matiereService: MatiereService
+        private matiereService: MatiereService,
+        private toastr: ToastrService
     ) {
         this.generateYearRanges();
     }
@@ -171,6 +173,7 @@ export class CreateEvaluationComponent {
             let evaluation: Evaluation = this.createEvaluation();
             this.evaluationService.add(evaluation).subscribe(
                 success => {
+                    this.toastr.success('Succès', 'Evaluation Crée');
                     console.log('success');
                     this.router.navigate(['/sesame/evaluations/list']);
                 },

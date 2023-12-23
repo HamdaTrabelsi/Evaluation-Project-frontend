@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {PRODUCT} from '../../../../shared/data/tables/product-list';
 import {Router} from '@angular/router';
 import {UtilisateurService} from '../../../../shared/services/user.service';
+import {AuthService} from '../../../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-list-administrateurs',
@@ -12,12 +13,16 @@ export class ListAdministrateursComponent {
 
   users: Array<any> = [];
 
+  currentRole;
+
   constructor(
       private _router: Router,
-      private _userService: UtilisateurService) {
+      private _userService: UtilisateurService,
+      private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.currentRole = this.authService.userData.roles[0]
     this.getUtilisateurs()
   }
 

@@ -7,6 +7,7 @@ import {UtilisateurService} from '../../../../shared/services/user.service';
 import {Classe} from '../../../../shared/model/classe.model';
 import {Utilisateur} from '../../../../shared/model/utilisateur.model';
 import {Matiere} from '../../../../shared/model/matiere.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'app-ajouter-matiere',
@@ -30,7 +31,8 @@ export class AjouterMatiereComponent {
         private _formBuilder: FormBuilder,
         private matiereService: MatiereService,
         private utilisateurService: UtilisateurService,
-        private classeService: ClasseService
+        private classeService: ClasseService,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -73,6 +75,7 @@ export class AjouterMatiereComponent {
 
         this.matiereService.add(matiere).subscribe(
             success => {
+                this.toastr.success('Succès', 'Matière ajouté');
                 this.matDialogRef.close('closed');
             },
             error => {

@@ -4,14 +4,9 @@
     <div class="card">
         <div class="row">
             <div class="col-sm-6">
-                <!--                        <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">-->
-                <!--                            <li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="top-home" aria-selected="true"><i data-feather="target"></i>All</a></li>-->
-                <!--                            <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="top-profile" aria-selected="false"><i data-feather="info"></i>Doing</a></li>-->
-                <!--                            <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="top-contact" aria-selected="false"><i data-feather="check-circle"></i>Done</a></li>-->
-                <!--                        </ul>-->
             </div>
             <div class="col-sm-6">
-                <div class="text-end">
+                <div class="text-end" *ngIf="currentRole=='ROLE_ADMIN'">
                     <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" (click)="ajouterUtilisateur()"> <i data-feather="plus-square"> </i>Ajouter</a>
                 </div>
             </div>
@@ -36,7 +31,7 @@
                                     <th scope="col">Nom</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col" *ngIf="currentRole=='ROLE_ADMIN'">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -51,7 +46,7 @@
                                     <td>{{ user.roles[0]?.name }}</td>
 
                                     <td>{{ user.email }}</td>
-                                    <td>
+                                    <td *ngIf="currentRole=='ROLE_ADMIN'">
 <!--                                        <button class="btn btn-danger me-1" type="button" title="">Désactiver</button>-->
                                         <button class="btn btn-success" type="button" title="" (click)="editUser(user.id)">Modifier</button>
                                     </td>

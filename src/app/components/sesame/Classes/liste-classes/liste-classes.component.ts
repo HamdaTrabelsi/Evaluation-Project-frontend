@@ -1,65 +1,72 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ClasseService} from '../../../../shared/services/classe.service';
 import {Classe} from '../../../../shared/model/classe.model';
 import {AjouterClasseComponent} from '../ajouter-classe/ajouter-classe.component';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../../../shared/auth/auth.service';
 
 @Component({
-  selector: 'app-liste-classes',
-  templateUrl: './liste-classes.component.html',
-  styleUrls: ['./liste-classes.component.scss']
+    selector: 'app-liste-classes',
+    templateUrl: './liste-classes.component.html',
+    styleUrls: ['./liste-classes.component.scss']
 })
 export class ListeClassesComponent {
-  public active = 1;
-  classes : Array<Classe> = [];
+    public active = 1;
+    classes: Array<Classe> = [];
 
-  departementId;
-  constructor(private classeService: ClasseService,
-              private _matDialog: MatDialog,
-              private activatedRoute: ActivatedRoute,
-              private router: Router,
-  ) {
-  }
-  ngOnInit() {
-      this.departementId = this.activatedRoute.snapshot.paramMap.get('id');
+    departementId;
+    currentRole;
 
-      if(this.departementId != null) {
-          this.getAllClassesByDepartement()
-      }else {
-          this.getAllClasses()
-      }
-  }
+    constructor(private classeService: ClasseService,
+                private _matDialog: MatDialog,
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private authService: AuthService
+    ) {
+    }
 
-  getAllClasses() {
-    this.classeService.getAll().subscribe(
-        success => {
-          this.classes =success
-          console.log(success)
+    ngOnInit() {
+        this.currentRole = this.authService.userData.roles[0]
+
+        this.departementId = this.activatedRoute.snapshot.paramMap.get('id');
+
+        if (this.departementId != null) {
+            this.getAllClassesByDepartement();
+        } else {
+            this.getAllClasses();
         }
-    )
-  }
+    }
+
+    getAllClasses() {
+        this.classeService.getAll().subscribe(
+            success => {
+                this.classes = success;
+                console.log(success);
+            }
+        );
+    }
 
     getAllClassesByDepartement() {
         this.classeService.getbyDepartement(this.departementId).subscribe(
             success => {
-                this.classes =success
-                console.log(success)
+                this.classes = success;
+                console.log(success);
             }
-        )
+        );
     }
 
     showMatieres(_id) {
-        this.router.navigate(["/sesame/classes/"+_id+"/matieres"])
+        this.router.navigate(['/sesame/classes/' + _id + '/matieres']);
     }
 
-  ajouterClasse(): void {
-    // Open the dialog
-    const dialogRef = this._matDialog.open(AjouterClasseComponent);
+    ajouterClasse(): void {
+        // Open the dialog
+        const dialogRef = this._matDialog.open(AjouterClasseComponent);
 
-    dialogRef.afterClosed()
-        .subscribe((result) => {
-          this.getAllClasses();
-        });
-  }
+        dialogRef.afterClosed()
+            .subscribe((result) => {
+                this.getAllClasses();
+            });
+    }
 }

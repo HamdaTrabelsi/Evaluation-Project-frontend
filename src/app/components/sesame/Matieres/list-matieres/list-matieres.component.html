@@ -13,7 +13,7 @@
                         <!--                        </ul>-->
                     </div>
                     <div class="col-sm-6">
-                        <div class="text-end">
+                        <div class="text-end" *ngIf="currentRole=='ROLE_ADMIN'">
                             <div class="form-group mb-0 me-0"></div>
                             <a class="btn btn-primary" (click)="ajouterMatiere()"> <i data-feather="plus-square"> </i>Ajouter</a>
                         </div>

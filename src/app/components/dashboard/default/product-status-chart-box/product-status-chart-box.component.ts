@@ -8,6 +8,7 @@ import { Component, Input } from "@angular/core";
 export class ProductStatusChartBoxComponent {
 
   @Input() data: any
+  @Input() name: any
 
 
   constructor() {}

@@ -3,6 +3,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DepartementService} from '../../../../shared/services/departement.service';
 import {Departement} from '../../../../shared/model/departement.model';
+ import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-ajouter-departement',
@@ -15,7 +16,8 @@ export class AjouterDepartementComponent implements OnInit {
   constructor(
       public matDialogRef: MatDialogRef<AjouterDepartementComponent>,
       private _formBuilder: FormBuilder,
-      private departementService: DepartementService) {}
+      private departementService: DepartementService,
+      private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.departementForm = this._formBuilder.group({
@@ -47,6 +49,7 @@ export class AjouterDepartementComponent implements OnInit {
   this.departementService.add(departement).subscribe(
       success => {
         console.log("created")
+        this.toastr.success('Succès!', 'Departement Ajouté');
         this.matDialogRef.close('closed');
       },
       error => {

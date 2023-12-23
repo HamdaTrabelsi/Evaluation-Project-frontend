@@ -30,6 +30,10 @@ export class SoumissionService {
         return this.httpClient.get(this.url + "/getById/"+ _id)
     }
 
+    getSoumissionByDate(): Observable<any> {
+        return this.httpClient.get(this.url + "/getSoumissionByDate")
+    }
+
     getStudentByEvaluation(_id: any): Observable<EtudiantDTO[]> {
         return this.httpClient.get<EtudiantDTO[]>(this.url + "/getStudentByEvaluation/"+ _id)
     }

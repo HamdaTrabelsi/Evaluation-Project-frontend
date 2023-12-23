@@ -6,6 +6,7 @@ import {AuthService} from '../../../../shared/auth/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UtilisateurService} from '../../../../shared/services/user.service';
 import {Utilisateur} from '../../../../shared/model/utilisateur.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modifier-utilisateur',
@@ -35,7 +36,8 @@ export class ModifierUtilisateurComponent {
               private  authService: AuthService,
               private router: Router,
               private activatedRoute:ActivatedRoute,
-              private userService: UtilisateurService) { }
+              private userService: UtilisateurService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.currentId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -151,6 +153,7 @@ export class ModifierUtilisateurComponent {
     this.userService.editUser(this.currentId, personalInfo).subscribe(
         success => {
           console.log("success")
+          this.toastr.success('Succès', 'Utilisateur modifié');
           this.router.navigate(["/sesame/utilisateurs/list"])
 
         },

@@ -28,6 +28,12 @@ export class UtilisateurService {
         return this.httpClient.get<Utilisateur>(this.url + "/getById/"+_id)
     }
 
+    getCountStats(): Observable<any> {
+        return this.httpClient.get<any>(this.url + "/getCountStats/")
+    }
+
+
+
     editUser(_id: any, user: Utilisateur) {
         return this.httpClient.put<Utilisateur>(this.url + "/updateUser/"+_id, user)
     }
